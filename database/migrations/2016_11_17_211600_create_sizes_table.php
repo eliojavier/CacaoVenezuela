@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCriteriaTable extends Migration
+class CreateSizesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class CreateCriteriaTable extends Migration
      */
     public function up()
     {
-        Schema::create('criteria', function (Blueprint $table) {
+        Schema::create('sizes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('phase');
-            $table->string('criterion');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ class CreateCriteriaTable extends Migration
      */
     public function down()
     {
-        Schema::drop('criteria');
+        Schema::dropIfExists('sizes');
     }
 }

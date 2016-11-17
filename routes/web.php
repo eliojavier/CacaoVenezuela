@@ -31,6 +31,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/', 'AdminController@index');
     Route::resource('jueces', 'JudgeController');
     Route::resource('participantes', 'ParticipantController');
+    Route::resource('criterios', 'CriterionController');
     Route::resource('recipes', 'RecipeController');
 });
 

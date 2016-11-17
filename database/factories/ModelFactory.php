@@ -63,3 +63,11 @@ $factory->define(App\Recipe::class, function (Faker\Generator $faker) {
         'user_id' => $faker->numberBetween($min = 1, $max = 51),
     ];
 });
+
+$factory->define(App\Criterion::class, function (Faker\Generator $faker) {
+
+    return [
+        'phase' => $faker->numberBetween($min = 1, $max = 3),
+        'criterion' => $faker->word,
+    ];
+});

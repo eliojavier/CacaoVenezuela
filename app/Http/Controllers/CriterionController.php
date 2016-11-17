@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Criterion;
+use App\Http\Requests\CriterionRequest;
+use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
+use PDOException;
 
 class CriterionController extends Controller
 {
@@ -15,7 +19,8 @@ class CriterionController extends Controller
      */
     public function index()
     {
-        //
+        $criteria = Criterion::orderBy('phase')->get();
+        return view ('admin.criteria.index', compact('criteria'));
     }
 
     /**
@@ -25,18 +30,30 @@ class CriterionController extends Controller
      */
     public function create()
     {
-        //
+        return view ('admin.criteria.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param CriterionRequest|Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CriterionRequest $request)
     {
-        //
+        try{
+            Criterion::create($request->all());
+            return redirect ('admin/criterios');
+        }
+        catch(QueryException $e){
+            return $e->getMessage();
+        }
+        catch(PDOException $e){
+            return $e->getMessage();
+        }
+        catch(Exception $e){
+            return $e->getMessage();
+        }
     }
 
     /**
@@ -58,19 +75,33 @@ class CriterionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $criterion = Criterion::findOrFail($id);
+        return view('admin.criteria.edit', compact('criterion'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param CriterionRequest|Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CriterionRequest $request, $id)
     {
-        //
+        try{
+            $criterion = Criterion::findOrFail($id);
+            $criterion->update($request->all());
+            return redirect ('admin/criterios');
+        }
+        catch(QueryException $e){
+            return $e->getMessage();
+        }
+        catch(PDOException $e){
+            return $e->getMessage();
+        }
+        catch(Exception $e){
+            return $e->getMessage();
+        }
     }
 
     /**
@@ -81,6 +112,18 @@ class CriterionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            Criterion::destroy($id);
+            return redirect ('admin/criterios');
+        }
+        catch(QueryException $e){
+            return $e->getMessage();
+        }
+        catch(PDOException $e){
+            return $e->getMessage();
+        }
+        catch(Exception $e){
+            return $e->getMessage();
+        }
     }
 }
