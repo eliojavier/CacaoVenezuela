@@ -20,8 +20,11 @@ class CreateRecipesTable extends Migration
             $table->longText('preparation');
             $table->integer('serves');
             $table->string('image')->nullable();
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('user_id')->index();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')
+                ->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

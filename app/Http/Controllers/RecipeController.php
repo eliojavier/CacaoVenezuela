@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Ingrediente;
-use App\Receta;
+use App\Recipe;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class RecipeController extends Controller
 {
@@ -19,7 +16,8 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        //
+        $recipes = Recipe::all();
+        return view ('admin.recipes.index', compact('recipes'));
     }
 
     /**

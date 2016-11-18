@@ -71,3 +71,5 @@ $factory->define(App\Criterion::class, function (Faker\Generator $faker) {
         'criterion' => $faker->word,
     ];
 });
+
+
