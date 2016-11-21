@@ -7,4 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Criterion extends Model
 {
     protected $fillable=['phase', 'criterion'];
+
+    public function votes()
+    {
+        return $this->hasMany(Vote::class);
+    }
 }

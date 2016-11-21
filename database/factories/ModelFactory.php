@@ -72,4 +72,15 @@ $factory->define(App\Criterion::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Vote::class, function (Faker\Generator $faker) {
+
+    return [
+        'criterion_id' => $faker->numberBetween($min = 1, $max = 12),
+        'judge_id' => $faker->numberBetween($min = 1, $max = 5),
+        'recipe_id' => $faker->numberBetween($min = 1, $max = 102),
+    ];
+});
+
+
+
 

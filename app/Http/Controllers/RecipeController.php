@@ -78,7 +78,8 @@ class RecipeController extends Controller
      */
     public function show($id)
     {
-        //
+        $recipe = Recipe::findOrFail($id);
+        return view ('admin.recipes.show', compact('recipe'));
     }
 
     /**
