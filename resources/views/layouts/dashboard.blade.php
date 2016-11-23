@@ -171,7 +171,10 @@
                         <a href="{{url('admin/recetas')}}"> Recetas</a>
                     </li>
                     <li>
-                        <a href="{{url('admin/votaciones')}}"> Votaciones</a>
+                        <a href="{{url('admin/votaciones/realizadas')}}"> Votaciones realizadas</a>
+                    </li>
+                    <li>
+                        <a href="{{url('admin/votaciones/pendientes')}}"> Votaciones pendientes</a>
                     </li>
                     <li>
                         <a href="{{url('admin/participantes')}}"> Participantes</a>

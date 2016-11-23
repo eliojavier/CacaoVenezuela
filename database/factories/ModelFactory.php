@@ -72,14 +72,15 @@ $factory->define(App\Criterion::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Vote::class, function (Faker\Generator $faker) {
-
-    return [
-        'criterion_id' => $faker->numberBetween($min = 1, $max = 12),
-        'judge_id' => $faker->numberBetween($min = 1, $max = 5),
-        'recipe_id' => $faker->numberBetween($min = 1, $max = 102),
-    ];
-});
+//$factory->define(App\Vote::class, function (Faker\Generator $faker) {
+//
+//    return [
+//        'puntuacion' => $faker->numberBetween($min = 0, $max = 10),
+//        'criterion_id' => $faker->numberBetween($min = 1, $max = 12),
+//        'judge_id' => $faker->numberBetween($min = 1, $max = 5),
+//        'recipe_id' => $faker->numberBetween($min = 1, $max = 102),
+//    ];
+//});
 
 
 

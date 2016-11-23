@@ -2,12 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\VoteRequest;
+use App\Judge;
+use App\Recipe;
+use App\Vote;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 
 class VoteController extends Controller
 {
+    public function recipesPendingToVote()
+    {
+        $recipes = Recipe::doesntHave('votes')->get();
+    }
+
+    public function recipesVoted()
+    {
+        $recipes = Recipe::has('votes')->get();
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +30,7 @@ class VoteController extends Controller
      */
     public function index()
     {
-        //
+        return view ('admin.votes.index');
     }
 
     /**
@@ -31,12 +46,25 @@ class VoteController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param VoteRequest|Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(VoteRequest $request)
     {
-        //
+        //usuario logueado actualmente
+        $user = Auth::user();
+
+        //juez
+        $judge = Judge::findOrFail($user->id);
+
+        Vote::create($request->all());
+
+
+//        $comment = new App\Comment(['message' => 'A new comment.']);
+//
+//        $post = App\Post::find(1);
+//
+//        $post->comments()->save($comment);
     }
 
     /**

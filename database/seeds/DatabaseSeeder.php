@@ -1,6 +1,7 @@
 <?php
 
 use App\Recipe;
+use App\Vote;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,6 +17,7 @@ class DatabaseSeeder extends Seeder
         'ingredient_recipe',
         'sizes',
         'categories',
+        'votes',
     ];
     /**
      * Run the database seeds.
@@ -35,18 +37,37 @@ class DatabaseSeeder extends Seeder
         factory('App\User', 50)->create();
         factory('App\Recipe', 102)->create();
         factory('App\Criterion', 12)->create();
-        factory('App\Vote', 12)->create();
+        //factory('App\Vote', 12)->create();
 
+        $this->IngredientRecipeTableSeeder();
+        $this->VotesTableSeeder();
+    }
+
+    public function IngredientRecipeTableSeeder()
+    {
         $faker = Faker\Factory::create();
         $recipes = Recipe::all();
         foreach ($recipes as $recipe){
             $recipe->ingredients()->attach([
-                                            $faker->numberBetween($min = 1, $max = 161),
-                                            $faker->numberBetween($min = 1, $max = 161),
-                                            $faker->numberBetween($min = 1, $max = 161),
-                                            $faker->numberBetween($min = 1, $max = 161),
-                                            $faker->numberBetween($min = 1, $max = 161),
-                                        ]);
+                $faker->numberBetween($min = 1, $max = 161),
+                $faker->numberBetween($min = 1, $max = 161),
+                $faker->numberBetween($min = 1, $max = 161),
+                $faker->numberBetween($min = 1, $max = 161),
+                $faker->numberBetween($min = 1, $max = 161),
+            ]);
+        }
+    }
+
+    public function VotesTableSeeder()
+    {
+        $faker = Faker\Factory::create();
+        for ($i=0; $i<=100; $i++){
+            $vote = new Vote(['score' => $faker->numberBetween($min = 0, $max = 10),
+                'criterion_id' => $faker->numberBetween($min = 1, $max = 12),
+                'judge_id' => $faker->numberBetween($min = 1, $max = 5),
+                'recipe_id' => $faker->numberBetween($min = 1, $max = 102),
+            ]);
+            $vote->save();
         }
     }
 

@@ -33,7 +33,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('participantes', 'ParticipantController');
     Route::resource('criterios', 'CriterionController');
     Route::resource('recetas', 'RecipeController');
-    Route::resource('votaciones', 'VoteController');
+    Route::get('votaciones/pendientes', 'VoteController@recipesPendingToVote');
+    Route::resource('votaciones', 'VoteController@recipesVoted');
+
 });
 
 //Route::resource('admin/criterios', 'CriteriosController');
