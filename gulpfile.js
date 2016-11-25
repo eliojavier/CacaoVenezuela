@@ -16,5 +16,6 @@ require('laravel-elixir-vue-2');
 elixir(mix => {
     mix.sass('app.scss')
         .sass('sb-admin.scss', 'public/css/sb-admin.css')
-        .webpack('app.js');
+        .webpack('app.js')
+        .webpack('datepicker.js')     
 });

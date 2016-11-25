@@ -48,18 +48,17 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'nombre' => 'required|max:255',
-            'apellido' => 'required|max:255',
+            'name' => 'required|max:255',
+            'last_name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
-            'cedula' => 'required|max:15',
+            'doc_id' => 'required|max:15',
             'password' => 'required|min:6|confirmed',
-            'fecha_nacimiento' => 'required',
-            'telefono' => 'required',
-            'estado' => 'required',
-            'talla' => 'required',
-            'categoria' => 'required',
-            'academia' => 'required',
-            'tipo' => 'required',
+            'birthday' => 'required',
+            'phone' => 'required',
+            'city_id' => 'required',
+            'size' => 'required',
+            'category' => 'required',
+//            'academy_id' => 'sometimes|required',
         ]);
     }
 
@@ -71,22 +70,29 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['nombre'],
-            'apellido' => $data['apellido'],
+        if($data['type']==''){
+            dd("x");
+        }
+        $user = User::create([
+            'name' => $data['name'],
+            'last_name' => $data['last_name'],
             'email' => $data['email'],
-            'cedula' => $data['cedula'],
+            'doc_id' => $data['doc_id'],
             'password' => bcrypt($data['password']),
-            'fecha_nacimiento' => DateTime::createFromFormat('d/m/Y', $data['fecha_nacimiento'])->format('Y-m-d'),
-            'telefono' => $data['telefono'],
-            'direccion' => $data['direccion'],
+            'birthday' => DateTime::createFromFormat('d/m/Y', $data['birthday'])->format('Y-m-d'),
+            'phone' => $data['phone'],
+            'city_id' => $data['city_id'],
+            'address' => $data['address'],
             'twitter' => $data['twitter'],
             'instagram' => $data['instagram'],
-            'talla' => $data['talla'],
-            'categoria' => $data['categoria'],
-            'tipo' => $data['tipo'],
-            'lugar_id' => $data['estado'],
-            'academia_id' => $data['academia'],
+            'size' => $data['size'],
+            'category' => $data['category'],
+            'type' => $data['type'],
+            'academy_id' => $data['academy_id']
         ]);
+        
+        $user->assignRole('participante');
+
+        return $user;
     }
 }

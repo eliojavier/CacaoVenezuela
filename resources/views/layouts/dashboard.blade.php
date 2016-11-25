@@ -180,6 +180,9 @@
                         <a href="{{url('admin/participantes')}}"> Participantes</a>
                     </li>
                     <li>
+                        <a href="{{url('admin/roles')}}"> Roles </a>
+                    </li>
+                    <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
                             <li>
@@ -225,7 +228,8 @@
     </div>
     <!-- /#wrapper -->
 
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/app.min.js') }}"></script>
+    <script src="{{ asset('js/datepicker.js') }}"></script>
     <script src="{{ asset('js/jquery.barrating.min.js') }}"></script>
     <script type="text/javascript">
         $(function() {

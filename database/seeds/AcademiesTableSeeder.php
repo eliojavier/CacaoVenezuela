@@ -11,7 +11,7 @@ class AcademiesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('academies')->insert(['name' => 'N/A']);
+//        DB::table('academies')->insert(['name' => 'N/A']);
         DB::table('academies')->insert(['name' => 'Otro']);
         DB::table('academies')->insert(['name' => 'La Academia del Café']);
         DB::table('academies')->insert(['name' => 'Academia de Sommeliers de Venezuela']);

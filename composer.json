@@ -15,7 +15,7 @@
         "symfony/css-selector": "3.1.*",
         "symfony/dom-crawler": "3.1.*",
         "laravelcollective/html": "5.3.x-dev",
-        "zizaco/entrust": "dev-laravel-5"
+        "santigarcor/laratrust": "3.0.*"
     },
     "autoload": {
         "classmap": [
