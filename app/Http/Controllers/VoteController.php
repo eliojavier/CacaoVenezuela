@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Criterion;
 use App\Http\Requests\VoteRequest;
 use App\Judge;
 use App\Recipe;
@@ -13,14 +14,19 @@ use Illuminate\Support\Facades\Auth;
 
 class VoteController extends Controller
 {
+
     public function recipesPendingToVote()
     {
-        $recipes = Recipe::doesntHave('votes')->get();
+        $recipes = Recipe::doesntHave('votes')->simplePaginate(1);
+        $criteria = Criterion::where('phase', 1)->get();
+        return view ('admin.votes.index', compact('recipes', 'criteria'));
+        
     }
 
     public function recipesVoted()
     {
-        $recipes = Recipe::has('votes')->get();
+        $recipes = Recipe::has('votes')->simplePaginate(1);
+        return view ('admin.votes.index', compact('recipes'));
 
     }
     /**
