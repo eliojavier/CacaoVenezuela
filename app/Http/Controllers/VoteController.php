@@ -19,7 +19,9 @@ class VoteController extends Controller
     {
         $recipes = Recipe::doesntHave('votes')->simplePaginate(1);
         $criteria = Criterion::where('phase', 1)->get();
-        return view ('admin.votes.index', compact('recipes', 'criteria'));
+
+        $score = [1=>1, 2=>2, 3=>3, 4=>4, 5=>5, 6=>6, 7=>7, 8=>8, 9=>9, 10=>10];
+        return view ('admin.votes.index', compact('recipes', 'criteria', 'score'));
         
     }
 

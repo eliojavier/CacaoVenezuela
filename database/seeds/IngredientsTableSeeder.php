@@ -11,7 +11,7 @@ class IngredientsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('ingredients')->insert(['name' => 'Aceite de soja',]);
+        DB::table('ingredients')->insert(['name' => 'Aceite de soja']);
         DB::table('ingredients')->insert(['name' => 'Aceite de maíz',]);
         DB::table('ingredients')->insert(['name' => 'Aceite de oliva',]);
         DB::table('ingredients')->insert(['name' => 'Nata o crema de leche',]);

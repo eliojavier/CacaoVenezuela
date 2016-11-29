@@ -38,6 +38,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('roles', 'RoleController');
 
     Route::get('votaciones/pendientes', 'VoteController@recipesPendingToVote');
+    Route::get('votaciones/realizadas', 'VoteController@recipesVoted');
     Route::resource('votaciones', 'VoteController@recipesVoted');
 
     Route::get('reportes/ranking-ingredientes', 'ReportController@ingredientsMostUsed');

@@ -48,7 +48,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'category' => $faker->randomElement($array = array ('Aficionado/Público General','Estudiante/Profesional')),
         'type' => $faker->randomElement($array = array ('N/A', 'Oficiante', 'Estudiante en curso', 'Egresado')),
         'city_id' => $faker->numberBetween($min = 1, $max = 24),
-        'academy_id' => $faker->numberBetween($min = 1, $max = 72),
+        'academy_id' => $faker->numberBetween($min = 1, $max = 71),
     ];
 });
 
@@ -64,13 +64,13 @@ $factory->define(App\Recipe::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Criterion::class, function (Faker\Generator $faker) {
-
-    return [
-        'phase' => $faker->numberBetween($min = 1, $max = 3),
-        'criterion' => $faker->word,
-    ];
-});
+//$factory->define(App\Criterion::class, function (Faker\Generator $faker) {
+//
+//    return [
+//        'phase' => $faker->numberBetween($min = 1, $max = 3),
+//        'criterion' => $faker->word,
+//    ];
+//});
 
 //$factory->define(App\Vote::class, function (Faker\Generator $faker) {
 //

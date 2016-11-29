@@ -65,7 +65,8 @@
         @foreach($criteria as $criterion)
             <div class="info">
                 {{$criterion->criterion}}
-                1,2,3,4,5,6,7,8,9,10
+                {!!Form::select('score', $score)!!}
+
             </div>
 
         @endforeach
