@@ -40,6 +40,12 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('votaciones/pendientes', 'VoteController@recipesPendingToVote');
     Route::resource('votaciones', 'VoteController@recipesVoted');
 
+    Route::get('reportes/ranking-ingredientes', 'ReportController@ingredientsMostUsed');
+    Route::get('reportes/numero-participantes-por-ciudad', 'ReportController@numberOfParticipantsByCity');
+    Route::get('reportes/total-participantes', 'ReportController@numberOfParticipants');
+    Route::get('reportes/total-recetas', 'ReportController@numberOfRecipes');
+    Route::get('reportes/total-recetas/{modality}', 'ReportController@numberOfRecipesByModality');
+
 });
 
 //Route::resource('admin/criterios', 'CriteriosController');
