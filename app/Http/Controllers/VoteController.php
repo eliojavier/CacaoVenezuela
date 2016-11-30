@@ -20,8 +20,14 @@ class VoteController extends Controller
         $recipes = Recipe::doesntHave('votes')->simplePaginate(1);
         $criteria = Criterion::where('phase', 1)->get();
 
-        $score = [1=>1, 2=>2, 3=>3, 4=>4, 5=>5, 6=>6, 7=>7, 8=>8, 9=>9, 10=>10];
-        return view ('admin.votes.index', compact('recipes', 'criteria', 'score'));
+        $scores = [''=>'Puntuación', 1=>1, 2=>2, 3=>3, 4=>4, 5=>5, 6=>6, 7=>7, 8=>8, 9=>9, 10=>10];
+
+        foreach ($recipes as $recipe){
+            foreach ($recipe->ingredients as $ingredient){
+                
+            }
+        }
+        return view ('admin.votes.index', compact('recipes', 'criteria', 'scores'));
         
     }
 
@@ -55,15 +61,18 @@ class VoteController extends Controller
      * Store a newly created resource in storage.
      *
      * @param VoteRequest|Request $request
+     * @param Recipe $recipe
      * @return \Illuminate\Http\Response
+     * @internal param $recipe_id
+     * @internal param Recipe $recipe
      */
-    public function store(VoteRequest $request)
+    public function store(VoteRequest $request, Recipe $recipe)
     {
-        //usuario logueado actualmente
+        dd($request->all());
         $user = Auth::user();
-
-        //juez
-        $judge = Judge::findOrFail($user->id);
+        if($user->hasRole('judge')){
+            
+        }
 
         Vote::create($request->all());
 

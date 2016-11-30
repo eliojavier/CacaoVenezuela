@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
         $this->call(CitiesTableSeeder::class);
         $this->call(AcademiesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
         $this->call(IngredientsTableSeeder::class);
         $this->call(IngredientRecipeTableSeeder::class);
         $this->call(CriteriaTableSeeder::class);

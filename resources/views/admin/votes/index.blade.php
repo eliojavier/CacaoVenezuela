@@ -4,6 +4,9 @@
     <div class="container">
         <div class="row margin-top-15">
             @foreach($recipes as $recipe)
+                {{--(array('action' => array('Controller@method', $user->id)))--}}
+            {{--{!!Form::open(['url'=>['admin/votaciones', $recipe]])!!}--}}
+            {!!Form::open(['url'=>['admin/votaciones', $recipe]])!!}
             <div class="col-md-8 col-md-offset-1">
                 <div class="table-responsive">
                     <table id="table" class="table table-bordered table-striped table-hover">
@@ -14,8 +17,8 @@
                             <th>Modalidad </th>
                             <th>Ingredientes</th>
                             <th>Preparación</th>
-                            <th>Editar</th>
-                            <th>Borrar</th>
+                            {{--<th>Editar</th>--}}
+                            {{--<th>Borrar</th>--}}
                         </tr>
                         </thead>
                         <tbody>
@@ -26,24 +29,24 @@
                                 <td>{{$recipe->modality}}</td>
                                 <td>
                                     @foreach($recipe->ingredients as $ingredient)
-                                        {{$ingredient->name . " - "}}
+                                        {{$ingredient->quantity . " " . $ingredient->name . '-'}}
                                     @endforeach
                                 </td>
                                 <td>{{$recipe->preparation}}</td>
-                                <td>
-                                    <a href="{{ url('admin/recetas/' . $recipe->id . '/edit') }}">
-                                        <button type="button" class="btn btn-primary">
-                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                        </button>
-                                    </a>
+                                {{--<td>--}}
+                                    {{--<a href="{{ url('admin/recetas/' . $recipe->id . '/edit') }}">--}}
+                                        {{--<button type="button" class="btn btn-primary">--}}
+                                            {{--<i class="fa fa-pencil-square-o" aria-hidden="true"></i>--}}
+                                        {{--</button>--}}
+                                    {{--</a>--}}
                                     {{--<button type="button" id="edit" data-toggle="modal" data-target="#editar-juez" class="btn btn-warning">--}}
                                     {{--<span class="glyphicon glyphicon-edit"></span>--}}
                                     {{--</button>--}}
                                     {{--<button type="button" data-toggle="modal" data-target="#eliminar-juez" class="btn btn-danger">--}}
                                     {{--<span class="glyphicon glyphicon-trash"></span>--}}
                                     {{--</button>--}}
-                                </td>
-                                <td>
+                                {{--</td>--}}
+                                {{--<td>--}}
                                     {{--<a href="{{ url('admin/jueces/' . $judge->id . '/edit') }}">--}}
                                     {{--<button type="button" class="btn btn-danger">--}}
                                     {{--<span class="glyphicon glyphicon-edit"></span>Eliminar--}}
@@ -51,10 +54,10 @@
                                     {{--<i class="fa fa-trash-o" aria-hidden="true"></i>--}}
                                     {{--</button>--}}
                                     {{--</a>--}}
-                                    {!! Form::open(['method' => 'DELETE', 'url' => 'admin/recetas/' . $recipe->id, 'class'=>'form-horizontal', 'role'=>'form']) !!}
-                                        {!!Form::button('Eliminar', ['type'=>'button', 'class'=>'btn btn-primary'])!!}
-                                    {!!Form::close()!!}
-                                </td>
+                                    {{--{!! Form::open(['method' => 'DELETE', 'url' => 'admin/recetas/' . $recipe->id, 'class'=>'form-horizontal', 'role'=>'form']) !!}--}}
+                                        {{--{!!Form::button('Eliminar', ['type'=>'button', 'class'=>'btn btn-primary'])!!}--}}
+                                    {{--{!!Form::close()!!}--}}
+                                {{--</td>--}}
                             </tr>
                         </tbody>
                     </table>
@@ -62,15 +65,22 @@
             </div>
             @endforeach
         </div>
-        @foreach($criteria as $criterion)
-            <div class="info">
-                {{$criterion->criterion}}
-                {!!Form::select('score', $score)!!}
-
+        <div class="row">
+            <div class="col-md-4">
+                @foreach($criteria as $criterion)
+                    <div class="form-group">
+                        {!!Form::label('criterion',$criterion->criterion)!!}
+                        {!!Form::select('score' . $criterion->id, $scores, null, ['class' => 'form-control'])!!}
+                    </div>
+                @endforeach
+                <div class="form-group">
+                    {!!Form::submit('Votar', ['class' => 'btn btn-primary'])!!}
+                </div>
+                {{ $recipes->links() }}
             </div>
+        </div>
 
-        @endforeach
-        {{ $recipes->links() }}
+        {!!Form::close()!!}
     </div>
 @endsection
 {{--@section('scripts')--}}

@@ -27,7 +27,7 @@ Auth::routes();
 
 
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::get('/', 'AdminController@index');
     Route::resource('jueces', 'JudgeController');
     Route::resource('participantes', 'ParticipantController');
@@ -39,7 +39,7 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::get('votaciones/pendientes', 'VoteController@recipesPendingToVote');
     Route::get('votaciones/realizadas', 'VoteController@recipesVoted');
-    Route::resource('votaciones', 'VoteController@recipesVoted');
+    Route::post('votaciones/{recipe}', 'VoteController@store');
 
     Route::get('reportes/ranking-ingredientes', 'ReportController@ingredientsMostUsed');
     Route::get('reportes/numero-participantes-por-ciudad', 'ReportController@numberOfParticipantsByCity');
