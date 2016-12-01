@@ -69,6 +69,7 @@ class VoteController extends Controller
     public function store(VoteRequest $request, Recipe $recipe)
     {
         dd($request->all());
+        
         $user = Auth::user();
         if($user->hasRole('judge')){
             

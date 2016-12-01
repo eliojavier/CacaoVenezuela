@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <link href="{{ asset('css/fontawesome-stars.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/glyphicons-halflings.css') }}" rel="stylesheet">
 
 
 {{--<!-- Morris Charts CSS -->--}}

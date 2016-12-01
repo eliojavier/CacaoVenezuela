@@ -107,23 +107,14 @@ class CriterionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param $id
      * @return \Illuminate\Http\Response
+     * @internal param Criterion $criterion
+     * @internal param int $id
      */
     public function destroy($id)
     {
-        try{
-            Criterion::destroy($id);
-            return redirect ('admin/criterios');
-        }
-        catch(QueryException $e){
-            return $e->getMessage();
-        }
-        catch(PDOException $e){
-            return $e->getMessage();
-        }
-        catch(Exception $e){
-            return $e->getMessage();
-        }
+        Criterion::destroy($id);
+        return redirect('admin/criterios');
     }
 }

@@ -30,8 +30,8 @@
                                 <td>{{$criterion->criterion}}</td>
                                 <td>
                                     <a href="{{ url('admin/criterios/' . $criterion->id . '/edit') }}">
-                                        <button type="button" class="btn btn-warning">
-                                            <span class="glyphicon glyphicon-edit"></span>Editar
+                                        <button type="button" class="btn btn-default">
+                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                         </button>
                                     </a>
                                     {{--<button type="button" id="edit" data-toggle="modal" data-target="#editar-juez" class="btn btn-warning">--}}
@@ -47,9 +47,14 @@
                                             {{--<span class="glyphicon glyphicon-edit"></span>Eliminar--}}
                                         {{--</button>--}}
                                     {{--</a>--}}
-                                    {!! Form::open(['method' => 'DELETE', 'url' => 'admin/criterios/' . $criterion->id, 'class'=>'form-horizontal', 'role'=>'form']) !!}
-                                        {!!Form::submit('Eliminar', ['class'=>'btn btn-danger'])!!}
+                                    {!! Form::open(['method' => 'DELETE', 'url' => ['admin/criterios', $criterion], 'class'=>'form-horizontal', 'role'=>'form']) !!}
+                                        {!!Form::submit('Eliminar', ['class'=>'btn btn-default'])!!}
                                     {!!Form::close()!!}
+                                    {{--<a href="{{ $url = action('CriterionController@destroy', ['criterion'=>$criterion]) }}">--}}
+                                        {{--<button type="button" class="btn btn-default">--}}
+                                            {{--<i class="fa fa-trash-o" aria-hidden="true"></i>--}}
+                                        {{--</button>--}}
+                                    {{--</a>--}}
                                 </td>
                             </tr>
                         @endforeach
