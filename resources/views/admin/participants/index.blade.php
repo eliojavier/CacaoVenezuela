@@ -21,6 +21,7 @@
                             <th>Apellido</th>
                             <th>Email</th>
                             <th>Cédula</th>
+                            <th>Ver</th>
                             <th>Editar</th>
                             <th>Borrar</th>
                         </tr>
@@ -33,26 +34,24 @@
                                 <td>{{$participant->email}}</td>
                                 <td>{{$participant->doc_id}}</td>
                                 <td>
-                                    <a href="{{ url('admin/participantes/' . $participant->id . '/edit') }}">
-                                        <button type="button" class="btn btn-warning">
-                                            <span class="glyphicon glyphicon-edit"></span>Editar
+                                    <a href="{{ url('admin/participantes/' . $participant->id) }}">
+                                        <button type="button" class="btn btn-default">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
                                         </button>
                                     </a>
-                                    {{--<button type="button" id="edit" data-toggle="modal" data-target="#editar-juez" class="btn btn-warning">--}}
-                                        {{--<span class="glyphicon glyphicon-edit"></span>--}}
-                                    {{--</button>--}}
-                                    {{--<button type="button" data-toggle="modal" data-target="#eliminar-juez" class="btn btn-danger">--}}
-                                        {{--<span class="glyphicon glyphicon-trash"></span>--}}
-                                    {{--</button>--}}
                                 </td>
                                 <td>
-                                    {{--<a href="{{ url('admin/jueces/' . $judge->id . '/edit') }}">--}}
-                                        {{--<button type="button" class="btn btn-danger">--}}
-                                            {{--<span class="glyphicon glyphicon-edit"></span>Eliminar--}}
-                                        {{--</button>--}}
-                                    {{--</a>--}}
+                                    <a href="{{ url('admin/participantes/' . $participant->id . '/edit') }}">
+                                        <button type="button" class="btn btn-default">
+                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                        </button>
+                                    </a>
+                                </td>
+                                <td>
                                     {!! Form::open(['method' => 'DELETE', 'url' => 'admin/participantes/' . $participant->id, 'class'=>'form-horizontal', 'role'=>'form']) !!}
-                                        {!!Form::submit('Eliminar', ['class'=>'btn btn-danger'])!!}
+                                        <button type="submit" class="btn btn-default">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </button>
                                     {!!Form::close()!!}
                                 </td>
                             </tr>

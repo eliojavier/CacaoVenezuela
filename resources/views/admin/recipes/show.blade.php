@@ -31,22 +31,18 @@
                     {!!Form::label('serves','Raciones: ')!!}
                     {!!Form::label('serves', $recipe->serves)!!}
                 </div>
-                <select id="example">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-
-
+                <a href="{{ url('admin/votaciones/' . $recipe->id) }}">
+                    <button type="button" class="btn btn-default">
+                        Votar
+                    </button>
+                </a>
             </div>
         </div>
     </div>
 @endsection
 
-@section('after-scripts-end')
-<script>
-    $('example').barrating('show');
-</script>
-@endsection
+{{--@section('after-scripts-end')--}}
+{{--<script>--}}
+    {{--$('example').barrating('show');--}}
+{{--</script>--}}
+{{--@endsection--}}

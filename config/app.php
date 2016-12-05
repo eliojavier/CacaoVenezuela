@@ -164,6 +164,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Laratrust\LaratrustServiceProvider::class,
+        Laracasts\Flash\FlashServiceProvider::class,
 
         /*
          * Package Service Providers...

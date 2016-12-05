@@ -18,3 +18,9 @@
     {!!Form::text('phone', old('phone'), ['class'=>'form-control'])!!}
 </div>
 
+<div class="form-group">
+    <div class="col-md-12 text-center">
+        {!! Form::submit($submitButtonText, ['class' => 'btn btn-default']) !!}
+    </div>
+</div>
+

@@ -19,8 +19,22 @@ class CriterionController extends Controller
      */
     public function index()
     {
-        $criteria = Criterion::orderBy('phase')->get();
-        return view ('admin.criteria.index', compact('criteria'));
+        try{
+            $criteria = Criterion::orderBy('phase')->get();
+            return view ('admin.criteria.index', compact('criteria'));
+        }
+        catch (QueryException $e) {
+            flash('No pudo ser procesada la solicitud', 'danger');
+            return redirect('admin/criterios');
+        }
+        catch (PDOException $e) {
+            flash('Error de conexión a la base de datos', 'danger');
+            return redirect('admin/criterios');
+        }
+        catch (Exception $e) {
+            flash('No pudo ser procesada la solicitud', 'danger');
+            return redirect('admin/criterios');
+        }
     }
 
     /**
@@ -43,16 +57,20 @@ class CriterionController extends Controller
     {
         try{
             Criterion::create($request->all());
+            flash('Criterio agregado exitosamente', 'success');
             return redirect ('admin/criterios');
         }
-        catch(QueryException $e){
-            return $e->getMessage();
+        catch (QueryException $e) {
+            flash('Criterio no puede ser agregado', 'danger');
+            return redirect('admin/criterios');
         }
-        catch(PDOException $e){
-            return $e->getMessage();
+        catch (PDOException $e) {
+            flash('Error de conexión a la base de datos', 'danger');
+            return redirect('admin/criterios');
         }
-        catch(Exception $e){
-            return $e->getMessage();
+        catch (Exception $e) {
+            flash('No pudo ser procesada la solicitud', 'danger');
+            return redirect('admin/criterios');
         }
     }
 
@@ -91,16 +109,20 @@ class CriterionController extends Controller
         try{
             $criterion = Criterion::findOrFail($id);
             $criterion->update($request->all());
-            return redirect ('admin/criterios');
+            flash('Criterio actualizado exitosamente', 'success');
+            return redirect('admin/criterios');
         }
-        catch(QueryException $e){
-            return $e->getMessage();
+        catch (QueryException $e) {
+            flash('Criterio no puede ser actualizado', 'danger');
+            return redirect('admin/criterios');
         }
-        catch(PDOException $e){
-            return $e->getMessage();
+        catch (PDOException $e) {
+            flash('Error de conexión a la base de datos', 'danger');
+            return redirect('admin/criterios');
         }
-        catch(Exception $e){
-            return $e->getMessage();
+        catch (Exception $e) {
+            flash('No pudo ser procesada la solicitud', 'danger');
+            return redirect('admin/criterios');
         }
     }
 
@@ -114,7 +136,22 @@ class CriterionController extends Controller
      */
     public function destroy($id)
     {
-        Criterion::destroy($id);
-        return redirect('admin/criterios');
+        try {
+            Criterion::destroy($id);
+            flash('Criterio eliminado exitosamente', 'success');
+            return redirect('admin/criterios');
+        }
+        catch (QueryException $e) {
+            flash('Criterio no puede ser eliminado debido a que está siendo usado', 'danger');
+            return redirect('admin/criterios');
+        }
+        catch (PDOException $e) {
+            flash('Error de conexión a la base de datos', 'danger');
+            return redirect('admin/criterios');
+        }
+        catch (Exception $e) {
+            flash('No pudo ser procesada la solicitud', 'danger');
+            return redirect('admin/criterios');
+        }
     }
 }

@@ -44,6 +44,7 @@ class JudgeController extends Controller
     {
         try{
             Judge::create($request->all());
+            flash('Juez agregado exitosamente', 'success');
             return redirect ('admin/jueces');
         }
         catch(QueryException $e){
@@ -92,6 +93,7 @@ class JudgeController extends Controller
         try{
             $judge = Judge::findOrFail($id);
             $judge->update($request->all());
+            flash('Juez actualizado exitosamente', 'success');
             return redirect ('admin/jueces');
         }
         catch(QueryException $e){
@@ -115,6 +117,7 @@ class JudgeController extends Controller
     {
         try{
             Judge::destroy($id);
+            flash('Juez eliminado exitosamente', 'success');
             return redirect ('admin/jueces');
         }
         catch(QueryException $e){

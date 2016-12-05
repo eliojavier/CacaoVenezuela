@@ -229,7 +229,8 @@
     </div>
     <!-- /#wrapper -->
 
-    <script src="{{ asset('js/app.min.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('js/datepicker.js') }}"></script>
     <script src="{{ asset('js/jquery.barrating.min.js') }}"></script>
     <script type="text/javascript">

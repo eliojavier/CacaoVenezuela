@@ -1,10 +1,12 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    {!! Form::model($criterion,['method' => 'PATCH', 'url' => 'admin/criterios/' . $criterion->id, 'class'=>'form-horizontal', 'role'=>'form']) !!}
-        @include('admin.criteria._form')
-        <div class="form-group">
-            {!!Form::submit('Editar', ['class'=>'btn btn-success'])!!}
-        </div>
-    {!!Form::close()!!}
+    <div class="col-lg-12">
+        <h1 class="page-header">Editar línea</h1>
+    </div>
+    <div class="col-md-4">
+        {!! Form::model($criterion,['method' => 'PATCH', 'url' => 'admin/criterios/' . $criterion->id, 'class'=>'form-horizontal', 'role'=>'form']) !!}
+            @include('admin.criteria._form',['submitButtonText' => 'Editar'])
+        {!!Form::close()!!}
+    </div>
 @endsection

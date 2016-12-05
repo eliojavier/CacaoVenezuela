@@ -39,6 +39,7 @@ class RoleController extends Controller
     public function store(RoleRequest $request)
     {
         Role::create($request->all());
+        flash('Rol agregado exitosamente', 'success');
         return redirect ('admin/roles');
     }
 
@@ -61,7 +62,8 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        //
+        $role = Role::findOrFail($id);
+        return view('admin.criteria.edit', compact('role'));
     }
 
     /**
@@ -73,7 +75,10 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $role = Role::findOrFail($id);
+        $role->update($request->all());
+        flash('Rol actualizado exitosamente', 'success');
+        return redirect ('admin/criterios');
     }
 
     /**
@@ -84,7 +89,9 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Role::destroy($id);
+        flash('Rol eliminado exitosamente', 'success');
+        return redirect('admin/roles');
     }
 
     public function roleAssign(User $user, Role $role)

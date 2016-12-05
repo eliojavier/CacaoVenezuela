@@ -40,6 +40,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::get('votaciones/pendientes', 'VoteController@recipesPendingToVote');
     Route::get('votaciones/realizadas', 'VoteController@recipesVoted');
     Route::post('votaciones/{recipe}', 'VoteController@store');
+    Route::get('votaciones/{recipe}', 'VoteController@show');
 
     Route::get('reportes/ranking-ingredientes', 'ReportController@ingredientsMostUsed');
     Route::get('reportes/numero-participantes-por-ciudad', 'ReportController@numberOfParticipantsByCity');
