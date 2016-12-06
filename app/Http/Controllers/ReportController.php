@@ -44,9 +44,27 @@ class ReportController extends Controller
         dd($number_of_recipes);
     }
 
-    public function numberOfRecipesByModality($modality)
+    public function numberOfRecipesPerModality($modality)
     {
-        $number_of_recipes_in_salado_modality = Recipe::where('modality', $modality)->count();
-        dd($number_of_recipes_in_salado_modality);
+        $number_of_recipes_per_modality = Recipe::where('modality', $modality)->count();
+        dd($number_of_recipes_per_modality);
+    }
+
+    public function winnersByPhase($phase)
+    {
+        $limit = 20;
+        if ($phase==2){
+            $limit = 3;
+        }
+
+        $winners_by_phase = DB::select(DB::raw('SELECT r.name, sum(v.score)
+                                                FROM votes v, criteria c, recipes r 
+                                                WHERE v.criterion_id =c.id
+                                                AND v.recipe_id = r.id
+                                                AND c.phase=' . $phase . '
+                                                GROUP BY v.criterion_id, r.name
+                                                ORDER BY v.score DESC
+                                                LIMIT ' .$limit));
+        dd($winners_by_phase);
     }
 }

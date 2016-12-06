@@ -55,7 +55,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->define(App\Recipe::class, function (Faker\Generator $faker) {
 
     return [
-        'name' => $faker->word,
+        'name' => $faker->unique()->firstName,
         'modality' => $faker->randomElement($array = array ('Dulce','Salado')),
         'preparation' => $faker->paragraph,
         'serves' => $faker->numberBetween($min = 1, $max = 20),
@@ -64,23 +64,23 @@ $factory->define(App\Recipe::class, function (Faker\Generator $faker) {
     ];
 });
 
-//$factory->define(App\Criterion::class, function (Faker\Generator $faker) {
-//
-//    return [
-//        'phase' => $faker->numberBetween($min = 1, $max = 3),
-//        'criterion' => $faker->word,
-//    ];
-//});
+$factory->define(App\Criterion::class, function (Faker\Generator $faker) {
 
-//$factory->define(App\Vote::class, function (Faker\Generator $faker) {
-//
-//    return [
-//        'puntuacion' => $faker->numberBetween($min = 0, $max = 10),
-//        'criterion_id' => $faker->numberBetween($min = 1, $max = 12),
-//        'judge_id' => $faker->numberBetween($min = 1, $max = 5),
-//        'recipe_id' => $faker->numberBetween($min = 1, $max = 102),
-//    ];
-//});
+    return [
+        'phase' => $faker->numberBetween($min = 1, $max = 3),
+        'criterion' => $faker->word,
+    ];
+});
+
+$factory->define(App\Vote::class, function (Faker\Generator $faker) {
+
+    return [
+        'puntuacion' => $faker->numberBetween($min = 0, $max = 10),
+        'criterion_id' => $faker->numberBetween($min = 1, $max = 12),
+        'judge_id' => $faker->numberBetween($min = 1, $max = 5),
+        'recipe_id' => $faker->numberBetween($min = 1, $max = 102),
+    ];
+});
 
 
 

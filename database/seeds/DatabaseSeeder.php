@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         'sizes',
         'categories',
         'votes',
+        'roles',
     ];
     /**
      * Run the database seeds.
@@ -32,15 +33,12 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class);
         $this->call(RolesTableSeeder::class);
         $this->call(IngredientsTableSeeder::class);
-        $this->call(IngredientRecipeTableSeeder::class);
         $this->call(CriteriaTableSeeder::class);
 
         factory('App\Judge', 5)->create();
         factory('App\User', 50)->create();
         factory('App\Recipe', 102)->create();
-        //factory('App\Criterion', 12)->create();
-        //factory('App\Vote', 12)->create();
-
+   
         $this->IngredientRecipeTableSeeder();
         $this->VotesTableSeeder();
     }
@@ -56,16 +54,6 @@ class DatabaseSeeder extends Seeder
             $recipe->ingredients()->attach($faker->numberBetween($min = 1, $max = 161), ['quantity' => $faker->numberBetween($min = 1, $max = 10) . ' ' . $faker->randomElement($array = array ('gramos', 'gr','kilos','cucharadas', 'pizca', 'gotas', 'un chorrito'))]);
             $recipe->ingredients()->attach($faker->numberBetween($min = 1, $max = 161), ['quantity' => $faker->numberBetween($min = 1, $max = 10) . ' ' . $faker->randomElement($array = array ('gramos', 'gr','kilos','cucharadas', 'pizca', 'gotas', 'un chorrito'))]);
         }
-
-//        foreach ($recipes as $recipe){
-//            $recipe->ingredients()->attach([
-//                $faker->numberBetween($min = 1, $max = 161),
-//                $faker->numberBetween($min = 1, $max = 161),
-//                $faker->numberBetween($min = 1, $max = 161),
-//                $faker->numberBetween($min = 1, $max = 161),
-//                $faker->numberBetween($min = 1, $max = 161),
-//            ], ['quantity' => $faker->numberBetween($min = 1, $max = 10)]);
-//        }
     }
 
     public function VotesTableSeeder()

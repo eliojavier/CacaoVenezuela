@@ -17,16 +17,6 @@ Route::get('/', function () {
 
 Auth::routes();
 
-//Route::get('/home', 'HomeController@index');
-//
-//
-//Route::resource('usuarios', 'UsuariosController');
-//
-//Route::resource('recetas', 'RecetasController');
-//Route::resource('ingredientes', 'IngredientesController');
-
-
-
 Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::get('/', 'AdminController@index');
     Route::resource('jueces', 'JudgeController');
@@ -46,12 +36,6 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::get('reportes/numero-participantes-por-ciudad', 'ReportController@numberOfParticipantsByCity');
     Route::get('reportes/total-participantes', 'ReportController@numberOfParticipants');
     Route::get('reportes/total-recetas', 'ReportController@numberOfRecipes');
-    Route::get('reportes/total-recetas/{modality}', 'ReportController@numberOfRecipesByModality');
-
+    Route::get('reportes/total-recetas/{modality}', 'ReportController@numberOfRecipesPerModality');
+    Route::get('reportes/ganadores/{phase}', 'ReportController@winnersByPhase');
 });
-
-//Route::resource('admin/criterios', 'CriteriosController');
-//Route::resource('admin/votaciones', 'VotacionesController');
-//Route::get('admin/usuarios/participantes', 'AdminController@participantes');
-//Route::get('admin/recetas/recetas', 'AdminController@recetas');
-//Route::get('admin/reportes/participantesporestado', 'AdminController@participantesPorEstado');
