@@ -11,19 +11,23 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 Route::get('logout', 'Auth\LoginController@logout');
+
+Route::get('/', 'PagesController@index');
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('recetas', 'ParticipantRecipeController');
+//    Route::get('inscribir_receta', 'PagesController@registerRecipe');
+//    Route::post('guardar_receta', 'ParticipantRecipeController@storeRecipe');
+});
 
 Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::get('/', 'AdminController@index');
     Route::resource('jueces', 'JudgeController');
     Route::resource('participantes', 'ParticipantController');
     Route::resource('criterios', 'CriterionController');
-    Route::resource('recetas', 'RecipeController');
+    Route::resource('recetas', 'AdminRecipeController');
     
     Route::get('roles/asignar/{user}', 'RoleController@roleAssign');
     Route::resource('roles', 'RoleController');
@@ -39,8 +43,4 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::get('reportes/total-recetas', 'ReportController@numberOfRecipes');
     Route::get('reportes/total-recetas/{modality}', 'ReportController@numberOfRecipesPerModality');
     Route::get('reportes/ganadores/{phase}', 'ReportController@winnersByPhase');
-
-    Route::resource('pruebas', 'PruebaController');
-
-    Route::get('pruebas', 'UserController@prueba');
 });

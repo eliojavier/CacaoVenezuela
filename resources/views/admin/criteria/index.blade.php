@@ -14,13 +14,15 @@
         <h1 class="page-header">Criterios</h1>
     </div>
 
-    <div class="col-md-4 col-sm-12">
+    <div class="col-md-3 col-sm-12">
+        <h3 class="page-header">Agregar criterio</h3>
         {!!Form::open(['url'=>'admin/criterios'])!!}
-            @include('admin.criteria._form',['submitButtonText' => 'Agregar'])
+            @include('admin.criteria.form',['submitButtonText' => 'Agregar'])
         {!!Form::close()!!}
     </div>
 
     <div class="col-md-8 col-sm-12">
+        <h3 class="page-header text-center">Listado de criterios</h3>
         <div class="table-responsive">
             <table id="table" class="table table-bordered table-striped table-hover">
                 <thead>

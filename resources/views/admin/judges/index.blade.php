@@ -14,13 +14,15 @@
         <h1 class="page-header">Jueces</h1>
     </div>
 
-    <div class="col-md-4 col-sm-12">
+    <div class="col-md-3 col-sm-12">
+        <h3 class="page-header">Agregar juez</h3>
         {!!Form::open(['url'=>'admin/jueces'])!!}
-            @include('admin.judges._form',['submitButtonText' => 'Agregar'])
+            @include('admin.judges.form',['submitButtonText' => 'Agregar'])
         {!!Form::close()!!}
     </div>
 
     <div class="col-md-8 col-sm-12">
+        <h3 class="page-header text-center">Listado de jueces</h3>
         <div class="table-responsive">
             <table id="table" class="table table-bordered table-striped table-hover">
                 <thead>

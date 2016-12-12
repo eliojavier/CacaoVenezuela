@@ -18,6 +18,7 @@ class CreateCriteriaTable extends Migration
             $table->integer('phase');
             $table->string('criterion');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -1,0 +1,9 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="col-md-4 col-md-offset-4">
+        {!! Form::open(['url' => 'recetas', 'files'=>true]) !!}
+            @include('app.recipes.form', ['submitButtonText' => 'Inscribir'])
+        {!! Form::close() !!}
+    </div>
+@endsection

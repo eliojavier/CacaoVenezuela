@@ -5,10 +5,9 @@ namespace App\Http\Controllers;
 use App\Ingredient;
 use App\Recipe;
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 
-class RecipeController extends Controller
+class ParticipantRecipeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,8 +27,8 @@ class RecipeController extends Controller
      */
     public function create()
     {
-        $ingredients = Ingredient::pluck('id', 'name');
-        return view('admin.recipes.create', compact('ingredients'));
+        $ingredients = Ingredient::pluck('name', 'id');
+        return view('app.recipes.create', compact('ingredients'));
     }
 
     /**
@@ -40,36 +39,33 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'nombre' => 'required',
-            'modalidad' => 'required',
-        ]);
-
         //se guarda la receta
-        $receta = new Receta();
-        $receta->nombre = $request->nombre;
-        $receta->preparacion = $request->preparacion;
-        $receta->raciones = $request->raciones;
-        $receta->modalidad = $request->modalidad;
-        $receta->user_id = Auth::user()->id;
-        $receta->save();
+        $recipe = new Recipe();
+        $recipe->name = $request->name;
+        $recipe->preparation = $request->preparation;
+        $recipe->serves = $request->serves;
+        $recipe->modality = $request->modality;
+        $recipe->user_id = Auth::user()->id;
+        $recipe->save();
 
-        $lista_ingredientes = explode(".", $request->ingredientes);
-        for ($i = 0; $i < count($lista_ingredientes) - 1; $i++) {
-            $busqueda = Ingrediente:: where('nombre', $lista_ingredientes[$i])->first(['id']);
-
-            if(!$busqueda){
-                $ingrediente = new Ingrediente();
-                $ingrediente->nombre = $lista_ingredientes[$i];
-                $ingrediente->save();
-
-                $receta->ingredientes()->attach($ingrediente->id);
-            }
-            else{
-                $receta->ingredientes()->attach($busqueda->id);
-            }
-        }
+        return redirect ('/');
     }
+//        $lista_ingredientes = explode(".", $request->ingredientes);
+//        for ($i = 0; $i < count($lista_ingredientes) - 1; $i++) {
+//            $busqueda = Ingredient:: where('nombre', $lista_ingredientes[$i])->first(['id']);
+//
+//            if(!$busqueda){
+//                $ingrediente = new Ingrediente();
+//                $ingrediente->nombre = $lista_ingredientes[$i];
+//                $ingrediente->save();
+//
+//                $recipe->ingredientes()->attach($ingrediente->id);
+//            }
+//            else{
+//                $recipe->ingredientes()->attach($busqueda->id);
+//            }
+//        }
+
 
     /**
      * Display the specified resource.
@@ -91,8 +87,8 @@ class RecipeController extends Controller
      */
     public function edit($id)
     {
-        $receta = Recipe::findOrFail($id);
-        $lista_ingredientes = $receta->ingredientes;
+        $recipe = Recipe::findOrFail($id);
+        $lista_ingredientes = $recipe->ingredientes;
 
         foreach ($lista_ingredientes as $ingrediente){
             
@@ -112,8 +108,8 @@ class RecipeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $receta = Recipe::findOrFail($id);
-        $receta->update($request->all());
+        $recipe = Recipe::findOrFail($id);
+        $recipe->update($request->all());
         return redirect ('/');
     }
 

@@ -19,6 +19,7 @@ class CreateJudgesTable extends Migration
             $table->string('email');
             $table->string('phone');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
