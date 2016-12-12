@@ -8,11 +8,15 @@
     "bootstrap-sass": "^3.3.7",
     "font-awesome": "^4.7.0",
     "gulp": "^3.9.1",
+    "gulp-install": "^0.6.0",
+    "gulp-watch": "^4.3.11",
     "jquery": "^3.1.0",
     "laravel-elixir": "^6.0.0-9",
-    "laravel-elixir-vue-2": "^0.2.0",
     "laravel-elixir-webpack-official": "^1.0.2",
     "lodash": "^4.16.2",
     "metismenu": "^2.5.2"
+  },
+  "dependencies": {
+    "gulp-install": "^0.6.0"
   }
 }

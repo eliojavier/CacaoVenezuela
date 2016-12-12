@@ -16,6 +16,7 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::get('logout', 'Auth\LoginController@logout');
 
 Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::get('/', 'AdminController@index');
@@ -38,4 +39,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::get('reportes/total-recetas', 'ReportController@numberOfRecipes');
     Route::get('reportes/total-recetas/{modality}', 'ReportController@numberOfRecipesPerModality');
     Route::get('reportes/ganadores/{phase}', 'ReportController@winnersByPhase');
+
+    Route::resource('pruebas', 'PruebaController');
+
+    Route::get('pruebas', 'UserController@prueba');
 });

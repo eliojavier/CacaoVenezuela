@@ -1,6 +1,7 @@
-const elixir = require('laravel-elixir');
-
-require('laravel-elixir-vue-2');
+const   elixir = require('laravel-elixir');
+const   gulp = require('gulp'),
+        watch = require('gulp-watch');
+// require('laravel-elixir-vue-2');
 
 /*
  |--------------------------------------------------------------------------
@@ -18,4 +19,18 @@ elixir(mix => {
         .sass('sb-admin.scss', 'public/css/sb-admin.css')
         .webpack('app.js')
         .webpack('datepicker.js')     
+});
+
+gulp.task('stream', function () {
+    // Endless stream mode
+    return watch('css/*.css', { ignoreInitial: false })
+        .pipe(gulp.dest('build'));
+});
+
+gulp.task('callback', function () {
+    // Callback mode, useful if any plugin in the pipeline depends on the `end`/`flush` event
+    return watch('css/*.css', function () {
+        gulp.src('css/*.css')
+            .pipe(gulp.dest('build'));
+    });
 });
