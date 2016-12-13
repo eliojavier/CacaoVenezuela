@@ -6,6 +6,7 @@ use App\Ingredient;
 use App\Recipe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ParticipantRecipeController extends Controller
 {
@@ -39,14 +40,27 @@ class ParticipantRecipeController extends Controller
      */
     public function store(Request $request)
     {
-        //se guarda la receta
-        $recipe = new Recipe();
-        $recipe->name = $request->name;
-        $recipe->preparation = $request->preparation;
-        $recipe->serves = $request->serves;
-        $recipe->modality = $request->modality;
-        $recipe->user_id = Auth::user()->id;
-        $recipe->save();
+
+        if($request->hasFile('image')) {
+            /*image upload*/
+            $file = $request->file('image');
+            $path = 'images/recipes';
+            $filename = date('Y-m-d-h-i-s') . "."
+                        . sha1($file->getClientOriginalName()) . "."
+                        . $file->getClientOriginalExtension();
+            $file->move($path, $filename);
+
+            //se guarda la receta
+            $recipe = new Recipe();
+            $recipe->name = $request->name;
+            $recipe->modality = $request->modality;
+            $recipe->directions = $request->directions;
+            $recipe->serves = $request->serves;
+            $recipe->user_id = Auth::user()->id;
+            $recipe->image = $path . "/" . $filename;
+
+            $recipe->save();
+        }
 
         return redirect ('/');
     }

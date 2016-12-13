@@ -17,7 +17,7 @@ class CreateRecipesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('modality');
-            $table->longText('preparation');
+            $table->longText('directions');
             $table->integer('serves');
             $table->string('image')->nullable();
             $table->unsignedInteger('user_id')->index();

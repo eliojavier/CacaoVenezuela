@@ -19,8 +19,8 @@
 </div>
 
 <div class="form-group">
-    {!!Form::label('preparation','Preparación')!!}
-    {!!Form::textarea('preparation', old('preparation'), ['class'=>'form-control', 'placeholder'=>'Preparación'])!!}
+    {!!Form::label('directions','Preparación')!!}
+    {!!Form::textarea('directions', old('preparation'), ['class'=>'form-control', 'placeholder'=>'Preparación'])!!}
 </div>
 
 <div class="form-group">

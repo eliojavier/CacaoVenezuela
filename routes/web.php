@@ -17,7 +17,7 @@ Route::get('logout', 'Auth\LoginController@logout');
 Route::get('/', 'PagesController@index');
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::resource('recetas', 'ParticipantRecipeController');
+    Route::resource('misrecetas', 'ParticipantRecipeController');
 //    Route::get('inscribir_receta', 'PagesController@registerRecipe');
 //    Route::post('guardar_receta', 'ParticipantRecipeController@storeRecipe');
 });
@@ -27,6 +27,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::resource('jueces', 'JudgeController');
     Route::resource('participantes', 'ParticipantController');
     Route::resource('criterios', 'CriterionController');
+
     Route::resource('recetas', 'AdminRecipeController');
     
     Route::get('roles/asignar/{user}', 'RoleController@roleAssign');

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="col-md-4 col-md-offset-4">
-        {!! Form::open(['url' => 'recetas', 'files'=>true]) !!}
+        {!! Form::open(['url' => 'misrecetas', 'files'=>true]) !!}
             @include('app.recipes.form', ['submitButtonText' => 'Inscribir'])
         {!! Form::close() !!}
     </div>

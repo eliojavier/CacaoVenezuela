@@ -90,5 +90,7 @@
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('js/datepicker.js') }}"></script>
+    <script src="{{asset('js/jquery.cropit.js')}}"></script>
+@yield('after-script-end')
 </body>
 </html>

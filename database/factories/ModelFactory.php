@@ -57,7 +57,7 @@ $factory->define(App\Recipe::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->unique()->firstName,
         'modality' => $faker->randomElement($array = array ('Dulce','Salado')),
-        'preparation' => $faker->paragraph,
+        'directions' => $faker->paragraph,
         'serves' => $faker->numberBetween($min = 1, $max = 20),
         'image' => $faker->imageUrl($width = 640, $height = 480),
         'user_id' => $faker->numberBetween($min = 1, $max = 51),
