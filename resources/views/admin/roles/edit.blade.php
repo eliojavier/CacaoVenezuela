@@ -6,7 +6,7 @@
     </div>
     <div class="col-md-4">
         {!! Form::model($role,['method' => 'PATCH', 'url' => 'admin/jueces/' . $role->id, 'class'=>'form-horizontal', 'role'=>'form']) !!}
-            @include('admin.roles._form',['submitButtonText' => 'Editar'])
+            @include('admin.roles.form',['submitButtonText' => 'Editar'])
         {!!Form::close()!!}
     </div>
 @endsection

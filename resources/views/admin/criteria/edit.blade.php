@@ -6,7 +6,7 @@
     </div>
     <div class="col-md-4">
         {!! Form::model($criterion,['method' => 'PATCH', 'url' => 'admin/criterios/' . $criterion->id, 'class'=>'form-horizontal', 'role'=>'form']) !!}
-            @include('admin.criteria._form',['submitButtonText' => 'Editar'])
+            @include('admin.criteria.form',['submitButtonText' => 'Editar'])
         {!!Form::close()!!}
     </div>
 @endsection

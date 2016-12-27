@@ -27,7 +27,6 @@ class VoteController extends Controller
             }
         }
         return view ('admin.votes.index', compact('recipes', 'criteria', 'scores'));
-        
     }
 
     public function recipesVoted()
@@ -70,16 +69,39 @@ class VoteController extends Controller
     public function store(VoteRequest $request)
     {
         $user = Auth::user();
-        if($user->hasRole('judge')){
-            dd($request->Costo_de_los_ingredientes);
-                $criterion = Criterion::where('criterion', $request->Costo_de_los_ingredientes)->get();
-            dd($criterion);
 
-//            dd($request->all());
+        $criteria = Criterion::where('phase', 1)->select('id')->get();
+
+        foreach ($criteria as $criterion)
+        {
+            if (!$request->has($criterion->id))
+            {
+                return redirect ('admin/votaciones/pendientes');
+            }
         }
 
-        //Vote::create($request->all());
+        if($user->hasRole('judge'))
+        {
+            $user_id = $user->id;
+            $recipe_id = $request->recipe;
+            foreach ($criteria as $criterion)
+            {
+                if ($request->has($criterion->id))
+                {
+                    $criterion_id = $criterion->id;
 
+                    $vote = new Vote();
+
+                    $vote->judge()->associate($user_id);
+                    $vote->criterion()->associate($criterion_id);
+                    $vote->recipe()->associate($recipe_id);
+                    $vote->score = $request->$criterion_id;
+                    $vote->save();
+                }
+            }
+        }
+
+        return redirect ('admin/votaciones/pendientes');
 
 //        $comment = new App\Comment(['message' => 'A new comment.']);
 //

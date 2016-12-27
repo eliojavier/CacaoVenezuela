@@ -1,6 +1,7 @@
 <?php
 
 use App\Recipe;
+use App\User;
 use App\Vote;
 use Illuminate\Database\Seeder;
 
@@ -41,6 +42,7 @@ class DatabaseSeeder extends Seeder
    
         $this->IngredientRecipeTableSeeder();
         $this->VotesTableSeeder();
+        $this->RoleUserTableSeeder();
     }
 
     public function IngredientRecipeTableSeeder()
@@ -67,6 +69,12 @@ class DatabaseSeeder extends Seeder
             ]);
             $vote->save();
         }
+    }
+
+    public function RoleUserTableSeeder()
+    {
+        $user = User::findOrFail(1);
+        $user->attachRole(4);
     }
 
     public function cleanDatabase()
