@@ -15,7 +15,7 @@
 
 <div class="form-group">
     {!! Form::label('ingredients', 'Ingredientes')!!}
-    {!! Form::select('ingredients', $ingredients, null, ['class'=>'form-control'])!!}
+    {!! Form::text('ingredients', old('ingredients'), ['class'=>'form-control'])!!}
 </div>
 
 <div class="form-group">
@@ -38,3 +38,30 @@
         {!! Form::submit($submitButtonText, ['class' => 'btn btn-default']) !!}
     </div>
 </div>
+
+@section('after-script-end')
+    <script>
+        $(document).ready(function () {
+            var availableTags = [];
+            $('#ingredients').keydown(function () {
+                $.ajax({
+                    url: '../misrecetas/ingredients',
+                    type: 'GET',
+                    data: {val: $('#ingredients').val()},
+                    success: function (result) {
+                        availableTags = [];
+                        $.each(result.ingredients, function (key, value) {
+                            availableTags.push(value.name);
+                        });
+                        $("#ingredients").autocomplete({
+                            source: availableTags
+                        });
+                    },
+                    error: function () {
+                        availableTags = [];
+                    }
+                })
+            })
+        });
+    </script>
+@endsection

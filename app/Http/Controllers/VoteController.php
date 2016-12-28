@@ -32,8 +32,7 @@ class VoteController extends Controller
     public function recipesVoted()
     {
         $recipes = Recipe::has('votes')->simplePaginate(1);
-        return view ('admin.votes.index', compact('recipes'));
-
+        return view ('admin.votes.recipes_voted', compact('recipes'));
     }
     /**
      * Display a listing of the resource.

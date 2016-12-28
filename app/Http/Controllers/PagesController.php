@@ -13,7 +13,7 @@ class PagesController extends Controller
 
     public function registerRecipe()
     {
-        return view('app.register_recipe');
+        return view('app.recipes.create');
     }
 
     public function storeRecipe(Request $request)

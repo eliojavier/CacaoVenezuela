@@ -34,7 +34,6 @@
                 </div>
             @endforeach
         </div>
-        @include('admin.votes._pending')
         <div class="col-md-12 text-center">
             {{ $recipes->links() }}
         </div>

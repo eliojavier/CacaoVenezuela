@@ -6,7 +6,6 @@ use App\Ingredient;
 use App\Recipe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class ParticipantRecipeController extends Controller
 {
@@ -136,5 +135,15 @@ class ParticipantRecipeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getIngredients(Request $request)
+    {
+        if($request->ajax()){
+            $keyword = $request->val;
+            $ingredients = Ingredient::where('name', 'Like', '%' . $keyword . '%')->select('name')->get();
+            
+            return response()->json(["ingredients"=>$ingredients]);
+        }
     }
 }

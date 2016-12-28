@@ -16,9 +16,13 @@ Route::get('logout', 'Auth\LoginController@logout');
 
 Route::get('/', 'PagesController@index');
 
+Route::get('misrecetas/ingredients', 'ParticipantRecipeController@getIngredients');
+
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('misrecetas', 'ParticipantRecipeController');
-//    Route::get('inscribir_receta', 'PagesController@registerRecipe');
+    Route::get('inscribir_receta', 'PagesController@registerRecipe');
+    
+
 //    Route::post('guardar_receta', 'ParticipantRecipeController@storeRecipe');
 });
 
