@@ -40,7 +40,7 @@ class DatabaseSeeder extends Seeder
         factory('App\User', 50)->create();
         factory('App\Recipe', 102)->create();
    
-        $this->IngredientRecipeTableSeeder();
+//        $this->IngredientRecipeTableSeeder();
         $this->VotesTableSeeder();
         $this->RoleUserTableSeeder();
     }

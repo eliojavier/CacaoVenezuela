@@ -14,7 +14,9 @@
     {{--<link href="/css/app.css" rel="stylesheet">--}}
     {{--<link href="/css/app.css" rel="stylesheet">--}}
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/jquery-ui.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/jquery-ui.min.css') }}" rel="stylesheet">.
+    <link href="{{ asset('css/tagit.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/jquery-ui-zendesk.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -91,6 +93,7 @@
     <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('js/datepicker.js') }}"></script>
     <script src="{{asset('js/jquery.cropit.js')}}"></script>
-@yield('after-script-end')
+    <script src="{{ asset('js/tagit.js') }}"></script>
+    @yield('after-script-end')
 </body>
 </html>

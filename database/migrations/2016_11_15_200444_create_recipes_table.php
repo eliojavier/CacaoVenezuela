@@ -17,6 +17,7 @@ class CreateRecipesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('modality');
+            $table->longText('ingredients');
             $table->longText('directions');
             $table->integer('serves');
             $table->string('image')->nullable();

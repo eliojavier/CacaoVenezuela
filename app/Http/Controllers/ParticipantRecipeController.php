@@ -6,6 +6,7 @@ use App\Ingredient;
 use App\Recipe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules\In;
 
 class ParticipantRecipeController extends Controller
 {
@@ -39,46 +40,26 @@ class ParticipantRecipeController extends Controller
      */
     public function store(Request $request)
     {
-
-        if($request->hasFile('image')) {
-            /*image upload*/
-            $file = $request->file('image');
-            $path = 'images/recipes';
-            $filename = date('Y-m-d-h-i-s') . "."
-                        . sha1($file->getClientOriginalName()) . "."
-                        . $file->getClientOriginalExtension();
-            $file->move($path, $filename);
-
-            //se guarda la receta
-            $recipe = new Recipe();
-            $recipe->name = $request->name;
-            $recipe->modality = $request->modality;
-            $recipe->directions = $request->directions;
-            $recipe->serves = $request->serves;
-            $recipe->user_id = Auth::user()->id;
-            $recipe->image = $path . "/" . $filename;
-
-            $recipe->save();
+        $recipe = new Recipe();
+        
+        if($request->hasFile('image'))
+        {
+            $recipe->image = $this->uploadImage($request);
         }
 
+        $recipe->name = $request->name;
+        $recipe->modality = $request->modality;
+        $recipe->ingredients = $request->ingredients;
+        $recipe->directions = $request->directions;
+        $recipe->serves = $request->serves;
+        $recipe->user_id = Auth::user()->id;
+        
+        $recipe->save();
+
+        $this->syncIngredients($request, $recipe);
+        
         return redirect ('/');
     }
-//        $lista_ingredientes = explode(".", $request->ingredientes);
-//        for ($i = 0; $i < count($lista_ingredientes) - 1; $i++) {
-//            $busqueda = Ingredient:: where('nombre', $lista_ingredientes[$i])->first(['id']);
-//
-//            if(!$busqueda){
-//                $ingrediente = new Ingrediente();
-//                $ingrediente->nombre = $lista_ingredientes[$i];
-//                $ingrediente->save();
-//
-//                $recipe->ingredientes()->attach($ingrediente->id);
-//            }
-//            else{
-//                $recipe->ingredientes()->attach($busqueda->id);
-//            }
-//        }
-
 
     /**
      * Display the specified resource.
@@ -100,16 +81,7 @@ class ParticipantRecipeController extends Controller
      */
     public function edit($id)
     {
-        $recipe = Recipe::findOrFail($id);
-        $lista_ingredientes = $recipe->ingredientes;
-
-        foreach ($lista_ingredientes as $ingrediente){
-            
-        }
-
-        $ingredientes = $lista_ingredientes->nombre;
-        echo $ingredientes;
-        //return view ('recetas/edit', compact('receta'));
+       
     }
 
     /**
@@ -137,12 +109,51 @@ class ParticipantRecipeController extends Controller
         //
     }
 
-    public function getIngredients(Request $request)
+    public function uploadImage(Request $request)
     {
-        if($request->ajax()){
+        $file = $request->file('image');
+        $path = 'images/recipes';
+        $filename = date('Y-m-d-h-i-s') . "."
+            . sha1($file->getClientOriginalName()) . "."
+            . $file->getClientOriginalExtension();
+        $file->move($path, $filename);
+        
+        return ($path . "/" . $filename);
+    }
+
+    public function syncIngredients(Request $request, Recipe $recipe)
+    {
+        $tags = $request->tags;
+        foreach ($tags as $k => $v) {
+            $ingredient = Ingredient::where('name', 'Like', $v)->first(['id']);
+            if ($ingredient != null) {
+                $recipe->ingredients()->attach($ingredient->id);
+            } else {
+                $ingredient = new Ingredient();
+                $ingredient->name = $v;
+                $ingredient->save();
+                $recipe->ingredients()->attach($ingredient->id);
+            }
+        }
+    }
+
+    public function getIngredientsByKeyword(Request $request)
+    {
+        if($request->ajax())
+        {
             $keyword = $request->val;
             $ingredients = Ingredient::where('name', 'Like', '%' . $keyword . '%')->select('name')->get();
             
+            return response()->json(["ingredients"=>$ingredients]);
+        }
+    }
+
+    public function getAllIngredients(Request $request)
+    {
+        if($request->ajax())
+        {
+            $ingredients = Ingredient::select('name')->get();
+
             return response()->json(["ingredients"=>$ingredients]);
         }
     }

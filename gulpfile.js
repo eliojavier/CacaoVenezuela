@@ -18,7 +18,7 @@ elixir(mix => {
     mix.sass('app.scss')
         .sass('sb-admin.scss', 'public/css/sb-admin.css')
         .webpack('app.js')
-        .webpack('datepicker.js')     
+        .webpack('datepicker.js')
 });
 
 gulp.task('stream', function () {
