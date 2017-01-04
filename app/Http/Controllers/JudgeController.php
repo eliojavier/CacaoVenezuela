@@ -90,21 +90,11 @@ class JudgeController extends Controller
      */
     public function update(JudgeRequest $request, $id)
     {
-        try{
-            $judge = Judge::findOrFail($id);
-            $judge->update($request->all());
-            flash('Juez actualizado exitosamente', 'success');
-            return redirect ('admin/jueces');
-        }
-        catch(QueryException $e){
-            return $e->getMessage();
-        }
-        catch(PDOException $e){
-            return $e->getMessage();
-        }
-        catch(Exception $e){
-            return $e->getMessage();
-        }
+
+        $judge = Judge::findOrFail($id);
+        $judge->update($request->all());
+        flash('Juez actualizado exitosamente', 'success');
+        return redirect('admin/jueces');
     }
 
     /**
@@ -115,19 +105,8 @@ class JudgeController extends Controller
      */
     public function destroy($id)
     {
-        try{
-            Judge::destroy($id);
-            flash('Juez eliminado exitosamente', 'success');
-            return redirect ('admin/jueces');
-        }
-        catch(QueryException $e){
-            return $e->getMessage();
-        }
-        catch(PDOException $e){
-            return $e->getMessage();
-        }
-        catch(Exception $e){
-            return $e->getMessage();
-        }
+        Judge::destroy($id);
+        flash('Juez eliminado exitosamente', 'success');
+        return redirect('admin/jueces');
     }
 }

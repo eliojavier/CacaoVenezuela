@@ -23,19 +23,26 @@ class ReportController extends Controller
 
     public function numberOfParticipantsByCity()
     {
-        $number_of_participants_by_city = DB::select(DB::raw('SELECT c.name, COUNT(c.id) AS participantes
+        $number_of_participants_by_city = DB::select(DB::raw('SELECT c.name AS ciudad, COUNT(c.id) AS participantes
                                                 FROM cities c, users u 
                                                 WHERE u.city_id = c.id
                                                 GROUP BY c.name, c.id
                                                 ORDER BY participantes DESC'));
-
-        dd($number_of_participants_by_city);
+        
+        return view('admin.reports.participants_by_city', compact('number_of_participants_by_city'));
     }
 
-    public function numberOfParticipants()
+    public function totals()
     {
         $number_of_participants = User::has('recipes')->count();
-        dd($number_of_participants);
+        $number_of_recipes = Recipe::all()->count();
+        $number_of_recipes_per_dulce_modality = Recipe::where('modality', 'Dulce')->count();
+        $number_of_recipes_per_salado_modality = Recipe::where('modality', 'Salado')->count();
+
+        return view('admin.reports.totals', compact('number_of_participants',
+                                                    'number_of_recipes', 
+                                                    'number_of_recipes_per_dulce_modality',
+                                                    'number_of_recipes_per_salado_modality'));
     }
 
     public function numberOfRecipes()

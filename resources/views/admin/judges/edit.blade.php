@@ -1,12 +1,24 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <div class="col-lg-12">
-        <h1 class="page-header">Editar juez</h1>
-    </div>
-    <div class="col-md-4">
-        {!! Form::model($judge,['method' => 'PATCH', 'url' => 'admin/jueces/' . $judge->id, 'class'=>'form-horizontal', 'role'=>'form']) !!}
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="page-header">Editar juez</h2>
+        </div>
+        <div class="col-md-4">
+            {!! Form::model($judge,['method' => 'PATCH', 'url' => 'admin/jueces/' . $judge->id, 'class'=>'form-horizontal', 'role'=>'form']) !!}
             @include('admin.judges.form',['submitButtonText' => 'Editar'])
-        {!!Form::close()!!}
+            {!!Form::close()!!}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <a href="{{ url('admin/jueces') }}">
+                <button type="button" class="btn btn-default">
+                    <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Volver
+                </button>
+            </a>
+        </div>
     </div>
 @endsection

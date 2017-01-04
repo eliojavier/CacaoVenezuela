@@ -10,7 +10,7 @@
 
 <div class="form-group">
     <div class="col-md-12 text-center">
-        {!! Form::submit($submitButtonText, ['class' => 'btn btn-default']) !!}
+        {!! Form::submit($submitButtonText, ['class' => 'btn btn-success']) !!}
     </div>
 </div>
 

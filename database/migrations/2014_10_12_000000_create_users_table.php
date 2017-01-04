@@ -32,6 +32,7 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('academy_id');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
             $table->foreign('academy_id')->references('id')->on('academies')->onDelete('cascade');

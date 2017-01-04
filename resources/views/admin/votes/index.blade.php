@@ -22,11 +22,9 @@
                                 <td>{{$recipe->name}}</td>
                                 <td>{{$recipe->modality}}</td>
                                 <td>
-                                    @foreach($recipe->ingredients as $ingredient)
-                                        {{$ingredient->quantity . " " . $ingredient->name . '-'}}
-                                    @endforeach
+                                    {{$recipe->ingredients}}
                                 </td>
-                                <td>{{$recipe->preparation}}</td>
+                                <td>{{$recipe->directions}}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -35,7 +33,7 @@
             @endforeach
         </div>
         @include('admin.votes._pending')
-        <div class="col-md-12 text-center">
+        <div class="col-md-6 col-md-offset-4">
             {{ $recipes->links() }}
         </div>
     </div>

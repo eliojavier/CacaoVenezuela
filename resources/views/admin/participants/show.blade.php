@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <h1 class="page-header tex-center">Detalle participante</h1>
+    <h2 class="page-header tex-center">Ficha participante</h2>
     <div class="col-md-6 col-md-offset-3">
         <div class="table-responsive">
 
@@ -70,11 +70,12 @@
                 </tbody>
             </table>
         </div>
+    </div>
+    <div class="col-md-3 col-md-offset-5">
         <a href="{{ url('admin/participantes') }}">
             <button type="button" class="btn btn-default">
                 <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Volver
             </button>
         </a>
     </div>
-
 @endsection

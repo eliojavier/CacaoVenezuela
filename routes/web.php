@@ -41,6 +41,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
 
     Route::get('reportes/ranking-ingredientes', 'ReportController@ingredientsMostUsed');
     Route::get('reportes/numero-participantes-por-ciudad', 'ReportController@numberOfParticipantsByCity');
+    Route::get('reportes/totals', 'ReportController@totals');
     Route::get('reportes/total-participantes', 'ReportController@numberOfParticipants');
     Route::get('reportes/total-recetas', 'ReportController@numberOfRecipes');
     Route::get('reportes/total-recetas/{modality}', 'ReportController@numberOfRecipesPerModality');

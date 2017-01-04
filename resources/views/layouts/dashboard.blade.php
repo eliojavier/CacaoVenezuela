@@ -9,26 +9,16 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Bootstrap Admin Template</title>
+    <title>Cacao Venezuela Admin</title>
 
     {{--<!-- Bootstrap Core CSS -->--}}
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    {{--<link href="css/bootstrap.min.css" rel="stylesheet">--}}
 
     <!-- Admin CSS -->
     <link href="{{ asset('css/sb-admin.css') }}" rel="stylesheet">
-    {{--<link href="css/sb-admin.css" rel="stylesheet">--}}
 
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <link href="{{ asset('css/fontawesome-stars.css') }}" rel="stylesheet">
     <link href="{{ asset('css/glyphicons-halflings.css') }}" rel="stylesheet">
-
-
-{{--<!-- Morris Charts CSS -->--}}
-    {{--<link href="css/plugins/morris.css" rel="stylesheet">--}}
-
-    {{--<!-- Custom Fonts -->--}}
-    {{--<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">--}}
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -40,9 +30,7 @@
 </head>
 
 <body>
-
     <div id="wrapper">
-
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -53,105 +41,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">SB Admin</a>
+                <a class="navbar-brand" href="index.html">Cacao Venezuela Admin</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
-                    <ul class="dropdown-menu message-dropdown">
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-preview">
-                            <a href="#">
-                                <div class="media">
-                                    <span class="pull-left">
-                                        <img class="media-object" src="http://placehold.it/50x50" alt="">
-                                    </span>
-                                    <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
-                                        </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="message-footer">
-                            <a href="#">Read All New Messages</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
-                    <ul class="dropdown-menu alert-dropdown">
-                        <li>
-                            <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">View All</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> John Smith <b class="caret"></b></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{Auth::user()->name}} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-envelope"></i> Inbox</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                            <a href="#"><i class="fa fa-fw fa-user"></i> Perfil</a>
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                            <a href="{{url('logout')}}"><i class="fa fa-fw fa-power-off"></i> Cerrar sesión</a>
                         </li>
                     </ul>
                 </li>
@@ -159,17 +61,17 @@
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li class="active">
-                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                    <li>
+                        <a href="{{url('admin/participantes')}}"> Participantes</a>
                     </li>
                     <li>
-                        <a href="{{url('admin/criterios')}}"> Criterios</a>
+                        <a href="{{url('admin/recetas')}}"> Recetas</a>
                     </li>
                     <li>
                         <a href="{{url('admin/jueces')}}"> Jueces</a>
                     </li>
                     <li>
-                        <a href="{{url('admin/recetas')}}"> Recetas</a>
+                        <a href="{{url('admin/criterios')}}"> Criterios</a>
                     </li>
                     <li>
                         <a href="{{url('admin/votaciones/realizadas')}}"> Votaciones realizadas</a>
@@ -178,19 +80,25 @@
                         <a href="{{url('admin/votaciones/pendientes')}}"> Votaciones pendientes</a>
                     </li>
                     <li>
-                        <a href="{{url('admin/participantes')}}"> Participantes</a>
-                    </li>
-                    <li>
                         <a href="{{url('admin/roles')}}"> Roles </a>
                     </li>
                     <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"> Reportes <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo" class="collapse">
                             <li>
-                                <a href="#">Dropdown Item</a>
+                                <a href="{{url('admin/reportes/totals')}}">Totales</a>
                             </li>
                             <li>
-                                <a href="#">Dropdown Item</a>
+                                <a href="{{url('admin/reportes/ranking-ingredientes')}}">Ranking ingredientes</a>
+                            </li>
+                            <li>
+                                <a href="{{url('admin/reportes/numero-participantes-por-ciudad')}}">Participantes por ciudad</a>
+                            </li>
+                            <li>
+                                <a href="{{url('admin/reportes/ganadores/1')}}">Clasificados fase 1</a>
+                            </li>
+                            <li>
+                                <a href="{{url('admin/reportes/ganadores/1')}}">Ganadores fase 2</a>
                             </li>
                         </ul>
                     </li>
@@ -200,14 +108,10 @@
         </nav>
 
         <div id="page-wrapper">
-
             <div class="container">
-
                 @yield('content')
-
             </div>
             <!-- /.container-fluid -->
-
         </div>
         <!-- /#page-wrapper -->
 

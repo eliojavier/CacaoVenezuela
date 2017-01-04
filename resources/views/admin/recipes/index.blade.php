@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="col-md-11">
-        <h1 class="page-header">Recetas</h1>
+        <h2 class="page-header">Recetas</h2>
     </div>
 
     <div class="row margin-top-15">
@@ -22,7 +22,8 @@
                     <tbody>
                     @foreach($recipes as $recipe)
                         <tr>
-                            <td>{{$recipe->user->name . " " . $recipe->user->last_name}}</td>
+                            {{--<td>{{$recipe->user->name . " " . $recipe->user->last_name}}</td>--}}
+                            <td>{{$recipe->user->name}}</td>
                             <td>{{$recipe->name}}</td>
                             <td>{{$recipe->modality}}</td>
                             <td>

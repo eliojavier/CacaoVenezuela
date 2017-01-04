@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="col-md-11">
-        <h1 class="page-header">Participantes</h1>
+        <h2 class="page-header">Participantes</h2>
     </div>
 
     <div class="row margin-top-15">
@@ -43,7 +43,7 @@
                                 </a>
                             </td>
                             <td>
-                                {!! Form::open(['method' => 'DELETE', 'url' => 'admin/participantes/' . $participant->id, 'class'=>'form-horizontal', 'role'=>'form']) !!}
+                                {!! Form::open(['method' => 'DELETE', 'url' => ['admin/participantes', $participant], 'class'=>'form-horizontal', 'role'=>'form']) !!}
                                 <button type="submit" class="btn btn-default">
                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                 </button>

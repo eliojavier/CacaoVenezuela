@@ -13,7 +13,7 @@ class AdminRecipeController extends Controller
      */
     public function index()
     {
-        $recipes = Recipe::all();
+        $recipes = Recipe::has('user')->get();
         return view ('admin.recipes.index', compact('recipes'));
     }
 
