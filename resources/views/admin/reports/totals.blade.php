@@ -1,6 +1,9 @@
 @extends('layouts.dashboard')
 
 @section('content')
+    <div class="col-md-11">
+        <h2 class="page-header">Reportes - Totales</h2>
+    </div>
     <div class="margin-top-15">
         <div class="col-md-8 col-md-offset-1">
             <div class="table-responsive">

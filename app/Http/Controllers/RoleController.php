@@ -63,7 +63,7 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = Role::findOrFail($id);
-        return view('admin.criteria.edit', compact('role'));
+        return view('admin.roles.edit', compact('role'));
     }
 
     /**
@@ -78,7 +78,7 @@ class RoleController extends Controller
         $role = Role::findOrFail($id);
         $role->update($request->all());
         flash('Rol actualizado exitosamente', 'success');
-        return redirect ('admin/criterios');
+        return redirect ('admin/roles');
     }
 
     /**

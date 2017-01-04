@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="col-md-11">
-        <h2 class="page-header">Reportes - Participantes por ciudad</h2>
+        <h2 class="page-header">Reportes - Ranking ingredientes</h2>
     </div>
     <div class="margin-top-15">
         <div class="col-md-8 col-md-offset-1">
@@ -10,15 +10,15 @@
                 <table id="table" class="table table-bordered table-striped table-hover">
                     <thead>
                     <tr>
-                        <th class="text-center">Estado</th>
-                        <th class="text-center"># Participantes</th>
+                        <th class="text-center">Ingrediente</th>
+                        <th class="text-center"># Tags</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($number_of_participants_by_city as $v)
+                    @foreach($ingredients_most_used as $v)
                         <tr>
-                            <td class="text-center">{{$v->ciudad}}</td>
-                            <td class="text-center">{{$v->participantes}}</td>
+                            <td class="text-center">{{$v->ingrediente}}</td>
+                            <td class="text-center">{{$v->usos}}</td>
                         </tr>
                     @endforeach
                     </tbody>

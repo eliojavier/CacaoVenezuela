@@ -13,7 +13,7 @@
     </div>
 
     {!! Form::model($participant,['method' => 'PATCH', 'url' => 'admin/participantes/' . $participant->id, 'class'=>'form-horizontal', 'role'=>'form']) !!}
-        @include('admin.participants._form')
+        @include('admin.participants.form')
         <div class="row">
             <div class="col-md-4 col-md-offset-5">
                 {!!Form::submit('Editar', ['class'=>'btn btn-success'])!!}

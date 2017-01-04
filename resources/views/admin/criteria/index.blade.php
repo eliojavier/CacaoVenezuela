@@ -43,14 +43,14 @@
                             <td>{{$criterion->criterion}}</td>
                             <td>
                                 <a href="{{ url('admin/criterios/' . $criterion->id . '/edit') }}">
-                                    <button type="button" class="btn btn-default">
+                                    <button type="button" class="btn btn-success">
                                         <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                     </button>
                                 </a>
                             </td>
                             <td>
                                 {!! Form::open(['method' => 'DELETE', 'url' => 'admin/criterios/' . $criterion->id, 'class'=>'form-horizontal', 'role'=>'form']) !!}
-                                <button type="submit" class="btn btn-default">
+                                <button type="submit" class="btn btn-success">
                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                 </button>
                                 {!!Form::close()!!}

@@ -6,7 +6,6 @@ use App\Ingredient;
 use App\Recipe;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rules\In;
 
 class ParticipantRecipeController extends Controller
 {
@@ -124,11 +123,15 @@ class ParticipantRecipeController extends Controller
     public function syncIngredients(Request $request, Recipe $recipe)
     {
         $tags = $request->tags;
-        foreach ($tags as $k => $v) {
+        foreach ($tags as $k => $v)
+        {
             $ingredient = Ingredient::where('name', 'Like', $v)->first(['id']);
-            if ($ingredient != null) {
+            if ($ingredient != null)
+            {
                 $recipe->ingredients()->attach($ingredient->id);
-            } else {
+            }
+            else
+            {
                 $ingredient = new Ingredient();
                 $ingredient->name = $v;
                 $ingredient->save();

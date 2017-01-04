@@ -12,3 +12,9 @@
     {!!Form::label('description','Descripción')!!}
     {!!Form::textarea('description', old('description'), ['class'=>'form-control'])!!}
 </div>
+
+<div class="form-group">
+    <div class="col-md-12 text-center">
+        {!! Form::submit($submitButtonText, ['class' => 'btn btn-success']) !!}
+    </div>
+</div>

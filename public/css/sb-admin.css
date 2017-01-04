@@ -24,7 +24,10 @@ body {
 .font {
   font-size: 14px !important;
   font-family: 'Lato', sans-serif !important;
-  color: #fff !important; }
+  color: #fff9e5 !important; }
+
+.page-header {
+  font-family: 'Lato', sans-serif !important; }
 
 /*!
  * Start Bootstrap - SB Admin (http://startbootstrap.com/)

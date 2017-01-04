@@ -3,10 +3,15 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Recipe extends Model
 {
+    use SoftDeletes;
+
     protected $fillable = ['name', 'modality', 'directions', 'serves', 'image', 'user_id'];
+
+    protected $dates = ['deleted_at'];
 
     public function ingredients()
     {

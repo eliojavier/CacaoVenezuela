@@ -10,15 +10,15 @@ use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
-    public function ingredientsMostUsed()
+    public function mostUsedIngredients()
     {
-        $ingredients_most_used = DB::select(DB::raw('SELECT i.name, COUNT(i.id) AS usos
+        $ingredients_most_used = DB::select(DB::raw('SELECT i.name as ingrediente, COUNT(i.id) AS usos
                                                     FROM ingredients i, ingredient_recipe ir
                                                     WHERE ir.ingredient_id = i.id
                                                     GROUP BY i.name, i.id
                                                     ORDER BY usos DESC '));
-        
-        dd($ingredients_most_used);
+
+        return view('admin.reports.most_used_ingredients', compact('ingredients_most_used'));
     }
 
     public function numberOfParticipantsByCity()

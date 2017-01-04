@@ -18,6 +18,7 @@ class LaratrustSetupTables extends Migration
             $table->string('display_name')->nullable();
             $table->string('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         // Create table for associating roles to users (Many-to-Many)

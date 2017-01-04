@@ -45,14 +45,14 @@
                             <td>{{$judge->phone}}</td>
                             <td>
                                 <a href="{{ url('admin/jueces/' . $judge->id . '/edit') }}">
-                                    <button type="button" class="btn btn-default">
+                                    <button type="button" class="btn btn-success">
                                         <span class="glyphicon glyphicon-edit"></span>
                                     </button>
                                 </a>
                             </td>
                             <td>
                                 {!! Form::open(['method' => 'DELETE', 'url' => ['admin/jueces', $judge], 'class'=>'form-horizontal', 'role'=>'form']) !!}
-                                <button type="submit" class="btn btn-default">
+                                <button type="submit" class="btn btn-success">
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </button>
                                 {!!Form::close()!!}

@@ -11,18 +11,18 @@
     </div>
 
     <div class="col-lg-12">
-        <h1 class="page-header">Roles</h1>
+        <h2 class="page-header">Roles</h2>
     </div>
 
     <div class="col-md-4 col-sm-12">
         {!!Form::open(['url'=>'admin/criterios'])!!}
-            @include('admin.roles._form',['submitButtonText' => 'Agregar'])
+            @include('admin.roles.form',['submitButtonText' => 'Agregar'])
         {!!Form::close()!!}
     </div>
 
     <div class="col-md-8 col-sm-12">
         <div class="table-responsive">
-            <table id="table" class="table table-bordered table-striped table-hover">
+            <table id="table" class="table table-bordered table-striped table-hover top-margin-25">
                 <thead>
                     <tr>
                         <th>Rol</th>
@@ -39,15 +39,15 @@
                             <td>{{$role->display_name}}</td>
                             <td>{{$role->description}}</td>
                             <td>
-                                <a href="{{ url('admin/criterios/' . $role->id . '/edit') }}">
-                                    <button type="button" class="btn btn-default">
+                                <a href="{{ url('admin/roles/' . $role->id . '/edit') }}">
+                                    <button type="button" class="btn btn-success">
                                         <span class="glyphicon glyphicon-edit"></span>
                                     </button>
                                 </a>
                             </td>
                             <td>
                                 {!! Form::open(['method' => 'DELETE', 'url' => ['admin/roles', $role], 'class'=>'form-horizontal', 'role'=>'form']) !!}
-                                <button type="submit" class="btn btn-default">
+                                <button type="submit" class="btn btn-success">
                                     <span class="glyphicon glyphicon-trash"></span>
                                 </button>
                                 {!!Form::close()!!}

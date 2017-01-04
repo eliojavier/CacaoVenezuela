@@ -11,32 +11,32 @@ use App\Http\Requests;
 
 class AdminController extends Controller
 {
-    public function index()
-    {
-        return view ('admin/index');
-    }
-
-    public function participantes()
-    {
-        $participantes = User::all();
-
-        return view ('admin/usuarios/participantes', compact('participantes'));
-    }
-
-    public function recetas()
-    {
-        $recetas = Receta::all();
-
-        return view ('admin/recetas/recetas', compact('recetas'));
-    }
-
-    public function participantesPorEstado()
-    {
-        $usuarios = Lugar::with('usersCountRelation')->get();
-        $usuarios->first()->usersCountRelation->count;
-
-        echo($usuarios);
-    }
+//    public function index()
+//    {
+//        return view ('admin/index');
+//    }
+//
+//    public function participantes()
+//    {
+//        $participantes = User::all();
+//
+//        return view ('admin/usuarios/participantes', compact('participantes'));
+//    }
+//
+//    public function recetas()
+//    {
+//        $recetas = Receta::all();
+//
+//        return view ('admin/recetas/recetas', compact('recetas'));
+//    }
+//
+//    public function participantesPorEstado()
+//    {
+//        $usuarios = Lugar::with('usersCountRelation')->get();
+//        $usuarios->first()->usersCountRelation->count;
+//
+//        echo($usuarios);
+//    }
 }
 
 // then you can access it like this:
