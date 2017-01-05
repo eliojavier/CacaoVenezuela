@@ -1,6 +1,15 @@
 @extends('layouts.dashboard')
 
 @section('content')
+    <div class="col-md-8 col-md-offset-2">
+        @if (session()->has('flash_notification.message'))
+            <div id="success-alert" class="alert alert-{{ session('flash_notification.level') }} alert-dismissible fade in text-center">
+                <strong> {!! session('flash_notification.message') !!} </strong>
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            </div>
+        @endif
+    </div>
+
     <div class="col-md-11">
         <h2 class="page-header">Participantes</h2>
     </div>
@@ -18,7 +27,7 @@
                         <th>Cédula</th>
                         <th>Ver</th>
                         <th>Editar</th>
-                        <th>Borrar</th>
+                        {{--<th>Borrar</th>--}}
                     </tr>
                     </thead>
                     <tbody>
@@ -42,13 +51,13 @@
                                     </button>
                                 </a>
                             </td>
-                            <td>
-                                {!! Form::open(['method' => 'DELETE', 'url' => ['admin/participantes', $participant], 'class'=>'form-horizontal', 'role'=>'form']) !!}
-                                <button type="submit" class="btn btn-success">
-                                    <i class="fa fa-trash" aria-hidden="true"></i>
-                                </button>
-                                {!!Form::close()!!}
-                            </td>
+                            {{--<td>--}}
+                                {{--{!! Form::open(['method' => 'DELETE', 'url' => ['admin/participantes', $participant], 'class'=>'form-horizontal', 'role'=>'form']) !!}--}}
+                                {{--<button type="submit" class="btn btn-success">--}}
+                                    {{--<i class="fa fa-trash" aria-hidden="true"></i>--}}
+                                {{--</button>--}}
+                                {{--{!!Form::close()!!}--}}
+                            {{--</td>--}}
                         </tr>
                     @endforeach
                     </tbody>
@@ -56,4 +65,12 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('after-scripts-end')
+    <script>
+        $("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+            $("#success-alert").slideUp(500);
+        });
+    </script>
 @endsection

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\JudgeRequest;
 use App\Judge;
+use App\Recipe;
+use App\Vote;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -105,6 +107,16 @@ class JudgeController extends Controller
      */
     public function destroy($id)
     {
+        $votes = Vote::all();
+        foreach ($votes as $vote)
+        {
+            if ($vote->judge->id == $id)
+            {
+                flash('Juez no puede eliminarse', 'danger');
+                return redirect('admin/jueces');
+            }
+        }
+        
         Judge::destroy($id);
         flash('Juez eliminado exitosamente', 'success');
         return redirect('admin/jueces');

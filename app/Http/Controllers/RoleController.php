@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RoleRequest;
 use App\Role;
 use App\User;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Mockery\CountValidator\Exception;
 
 class RoleController extends Controller
 {
@@ -94,8 +97,47 @@ class RoleController extends Controller
         return redirect('admin/roles');
     }
 
-    public function roleAssign(User $user, Role $role)
+    public function roleAssignment()
     {
-        $user->attachRole($role);
+        $select_users = User::pluck('doc_id', 'id');
+        $select_roles = Role::pluck('name', 'id');
+
+        $users = User::all();
+
+        return view ('admin.roles.assignment', compact('select_users', 'select_roles', 'users'));
+    }
+
+    public function roleAttachment(Request $request)
+    {
+        $user_id = $request->user;
+        $role_id = $request->role;
+
+        $user = User::findOrFail($user_id);
+        $role = Role::findOrFail($role_id);
+
+        try
+        {
+            $user->attachRole($role);
+            flash('Rol asignado exitosamente', 'success');
+        }
+        catch(QueryException $e)
+        {
+            flash('Rol ya asignado', 'danger');
+        }
+        return redirect ('admin/roles/role-assignment');
+    }
+
+    public function roleDetachment(User $user, Role $role)
+    {
+        try
+        {
+            $user->detachRole($role);
+            flash('Rol eliminado exitosamente', 'success');
+        }
+        catch(Exception $e)
+        {
+            flash('No se pudo realizar la acción', 'danger');
+        }
+        return redirect('admin/roles/role-assignment');
     }
 }

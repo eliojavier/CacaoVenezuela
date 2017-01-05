@@ -23,14 +23,17 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('misrecetas', 'ParticipantRecipeController');
 });
 
-Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
+Route::group(['middleware' => ['auth', 'role:admin|super_admin|judge'], 'prefix' => 'admin'], function () {
     Route::get('/', 'ParticipantController@index');
     Route::resource('jueces', 'JudgeController');
     Route::resource('participantes', 'ParticipantController');
     Route::resource('criterios', 'CriterionController');
     Route::resource('recetas', 'AdminRecipeController');
-    
-    Route::get('roles/asignar/{user}', 'RoleController@roleAssign');
+
+    Route::get('roles/role-assignment/', 'RoleController@roleAssignment');
+    Route::post('roles/role-attachment/', 'RoleController@roleAttachment');
+    Route::delete('roles/role-detachment/{user}/{role}', 'RoleController@roleDetachment');
+
     Route::resource('roles', 'RoleController');
 
     Route::get('votaciones/pendientes', 'VoteController@recipesPendingToVote');

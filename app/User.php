@@ -50,7 +50,7 @@ class User extends Authenticatable
         return $this->hasMany(Recipe::class);
     }
 
-    public function assignRole($name)
+    public function RoleAssignment($name)
     {
         $role = Role::where('name', $name)->get();
         $this->roles()->attach($role);

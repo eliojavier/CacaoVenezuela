@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Criterion extends Model
 {
     use SoftDeletes;
-    
+
     protected $fillable=['phase', 'criterion'];
-    
+
     protected $dates = ['deleted_at'];
 
     public function votes()

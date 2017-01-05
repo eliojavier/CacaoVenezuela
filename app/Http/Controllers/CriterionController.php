@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Criterion;
 use App\Http\Requests\CriterionRequest;
+use App\Vote;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
@@ -136,22 +137,17 @@ class CriterionController extends Controller
      */
     public function destroy($id)
     {
-        try {
-            Criterion::destroy($id);
-            flash('Criterio eliminado exitosamente', 'success');
-            return redirect('admin/criterios');
+        $votes = Vote::all();
+        foreach ($votes as $vote)
+        {
+            if ($vote->criterion->id == $id)
+            {
+                flash('Criterio no puede eliminarse', 'danger');
+                return redirect('admin/jueces');
+            }
         }
-        catch (QueryException $e) {
-            flash('Criterio no puede ser eliminado debido a que está siendo usado', 'danger');
-            return redirect('admin/criterios');
-        }
-        catch (PDOException $e) {
-            flash('Error de conexión a la base de datos', 'danger');
-            return redirect('admin/criterios');
-        }
-        catch (Exception $e) {
-            flash('No pudo ser procesada la solicitud', 'danger');
-            return redirect('admin/criterios');
-        }
+        Criterion::destroy($id);
+        flash('Criterio eliminado exitosamente', 'success');
+        return redirect('admin/criterios');
     }
 }

@@ -21,9 +21,9 @@ class CreateVotesTable extends Migration
             $table->unsignedInteger('recipe_id');
             $table->timestamps();
 
-            $table->foreign('criterion_id')->references('id')->on('criteria');
-            $table->foreign('judge_id')->references('id')->on('judges');
-            $table->foreign('recipe_id')->references('id')->on('recipes');
+            $table->foreign('criterion_id')->references('id')->on('criteria')->onDelete('cascade');
+            $table->foreign('judge_id')->references('id')->on('judges')->onDelete('cascade');
+            $table->foreign('recipe_id')->references('id')->on('recipes')->onDelete('cascade');
         });
     }
 

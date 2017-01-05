@@ -91,7 +91,7 @@ class RegisterController extends Controller
             'academy_id' => $data['academy_id']
         ]);
         
-        $user->assignRole('participante');
+        $user->RoleAssignment('participant');
 
         return $user;
     }

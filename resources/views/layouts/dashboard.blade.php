@@ -79,12 +79,21 @@
                     <li>
                         <a href="{{url('admin/votaciones/pendientes')}}"> Votaciones pendientes</a>
                     </li>
+
                     <li>
-                        <a href="{{url('admin/roles')}}"> Roles </a>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#roles"> Roles <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="roles" class="collapse">
+                            <li>
+                                <a href="{{url('admin/roles')}}"> Gestionar roles </a>
+                            </li>
+                            <li>
+                                <a href="{{url('admin/roles/role-assignment')}}">Asignar roles</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"> Reportes <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo" class="collapse">
+                        <a href="javascript:;" data-toggle="collapse" data-target="#reportes"> Reportes <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="reportes" class="collapse">
                             <li>
                                 <a href="{{url('admin/reportes/totals')}}">Totales</a>
                             </li>

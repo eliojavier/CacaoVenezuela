@@ -74,7 +74,17 @@ class DatabaseSeeder extends Seeder
     public function RoleUserTableSeeder()
     {
         $user = User::findOrFail(1);
-        $user->attachRole(4);
+        $user->attachRole(1);
+
+        for ($i=2; $i<=40; $i++){
+            $user = User::findOrFail($i);
+            $user->attachRole(3);
+        }
+
+        for ($i=41; $i<=51; $i++){
+            $user = User::findOrFail($i);
+            $user->attachRole(4);
+        }
     }
 
     public function cleanDatabase()

@@ -26,6 +26,8 @@ class VoteController extends Controller
     public function recipesVoted()
     {
         $recipes = Recipe::has('votes')->simplePaginate(1);
+//        $recipes = Recipe::with('votes')->simplePaginate(1);
+
         return view ('admin.votes.recipes_voted', compact('recipes'));
     }
     /**
@@ -62,45 +64,40 @@ class VoteController extends Controller
     public function store(VoteRequest $request)
     {
         $user = Auth::user();
-
-        $criteria = Criterion::where('phase', 1)->select('id')->get();
-
-        foreach ($criteria as $criterion)
-        {
-            if (!$request->has($criterion->id))
-            {
-                return redirect ('admin/votaciones/pendientes');
-            }
-        }
-
         if($user->hasRole('judge'))
         {
+            $criteria = Criterion::where('phase', 1)->select('id')->get();
+
+            foreach ($criteria as $criterion)
+            {
+                if (!$request->has($criterion->id))
+                {
+                    flash('Debe votar en cada uno de los criterios', 'danger');
+                    return redirect ('admin/votaciones/pendientes');
+                }
+            }
+
             $user_id = $user->id;
             $recipe_id = $request->recipe;
             foreach ($criteria as $criterion)
             {
-                if ($request->has($criterion->id))
-                {
-                    $criterion_id = $criterion->id;
+                $criterion_id = $criterion->id;
 
-                    $vote = new Vote();
+                $vote = new Vote();
 
-                    $vote->judge()->associate($user_id);
-                    $vote->criterion()->associate($criterion_id);
-                    $vote->recipe()->associate($recipe_id);
-                    $vote->score = $request->$criterion_id;
-                    $vote->save();
-                }
+                $vote->judge()->associate($user_id);
+                $vote->criterion()->associate($criterion_id);
+                $vote->recipe()->associate($recipe_id);
+                $vote->score = $request->$criterion_id;
+                $vote->save();
+                flash('Votación realizada exitosamente', 'success');
+                return redirect ('admin/votaciones/pendientes');
+
             }
         }
 
+        flash('Debe tener rol de juez para realizar votación', 'danger');
         return redirect ('admin/votaciones/pendientes');
-
-//        $comment = new App\Comment(['message' => 'A new comment.']);
-//
-//        $post = App\Post::find(1);
-//
-//        $post->comments()->save($comment);
     }
 
     /**
