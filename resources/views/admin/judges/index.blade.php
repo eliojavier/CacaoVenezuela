@@ -17,14 +17,14 @@
             <h2 class="page-header">Jueces</h2>
         </div>
 
-        <div class="col-md-3 col-sm-12">
-            <h3 class="page-header">Agregar juez</h3>
-            {!!Form::open(['url'=>'admin/jueces'])!!}
-            @include('admin.judges.form',['submitButtonText' => 'Agregar'])
-            {!!Form::close()!!}
-        </div>
+        {{--<div class="col-md-3 col-sm-12">--}}
+            {{--<h3 class="page-header">Agregar juez</h3>--}}
+            {{--{!!Form::open(['url'=>'admin/jueces'])!!}--}}
+            {{--@include('admin.judges.form',['submitButtonText' => 'Agregar'])--}}
+            {{--{!!Form::close()!!}--}}
+        {{--</div>--}}
 
-        <div class="col-md-8 col-sm-12">
+        <div class="col-md-8 col-md-offset-2 col-sm-12">
             <h3 class="page-header text-center">Listado de jueces</h3>
             <div class="table-responsive">
                 <table id="table" class="table table-bordered table-striped table-hover top-margin-25">
@@ -34,7 +34,7 @@
                         <th>Email</th>
                         <th>Teléfono</th>
                         <th>Editar</th>
-                        <th>Borrar</th>
+                        {{--<th>Borrar</th>--}}
                     </tr>
                     </thead>
                     <tbody>
@@ -44,19 +44,19 @@
                             <td>{{$judge->email}}</td>
                             <td>{{$judge->phone}}</td>
                             <td>
-                                <a href="{{ url('admin/jueces/' . $judge->id . '/edit') }}">
+                                <a href="{{ url('admin/participantes/' . $judge->id . '/edit') }}">
                                     <button type="button" class="btn btn-success">
                                         <span class="glyphicon glyphicon-edit"></span>
                                     </button>
                                 </a>
                             </td>
-                            <td>
-                                {!! Form::open(['method' => 'DELETE', 'url' => ['admin/jueces', $judge], 'class'=>'form-horizontal', 'role'=>'form']) !!}
-                                <button type="submit" class="btn btn-success">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </button>
-                                {!!Form::close()!!}
-                            </td>
+                            {{--<td>--}}
+                                {{--{!! Form::open(['method' => 'DELETE', 'url' => ['admin/jueces', $judge], 'class'=>'form-horizontal', 'role'=>'form']) !!}--}}
+                                {{--<button type="submit" class="btn btn-success">--}}
+                                    {{--<span class="glyphicon glyphicon-trash"></span>--}}
+                                {{--</button>--}}
+                                {{--{!!Form::close()!!}--}}
+                            {{--</td>--}}
                         </tr>
                     @endforeach
                     </tbody>

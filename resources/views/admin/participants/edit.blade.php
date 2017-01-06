@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    <h2 class="page-header tex-center">Editar participante</h2>
+    <h2 class="page-header tex-center">Editar perfil</h2>
     <div class="row">
         <div class="col-md-3">
             <a href="{{ url('admin/participantes/') }}">

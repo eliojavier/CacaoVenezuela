@@ -85,7 +85,7 @@ class VoteController extends Controller
 
                 $vote = new Vote();
 
-                $vote->judge()->associate($user_id);
+                $vote->user()->associate($user_id);
                 $vote->criterion()->associate($criterion_id);
                 $vote->recipe()->associate($recipe_id);
                 $vote->score = $request->$criterion_id;

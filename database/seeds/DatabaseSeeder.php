@@ -64,7 +64,7 @@ class DatabaseSeeder extends Seeder
         for ($i=0; $i<=100; $i++){
             $vote = new Vote(['score' => $faker->numberBetween($min = 0, $max = 10),
                 'criterion_id' => $faker->numberBetween($min = 1, $max = 10),
-                'judge_id' => $faker->numberBetween($min = 1, $max = 5),
+                'user_id' => $faker->numberBetween($min = 4, $max = 8),
                 'recipe_id' => $faker->numberBetween($min = 1, $max = 102),
             ]);
             $vote->save();
@@ -73,17 +73,27 @@ class DatabaseSeeder extends Seeder
 
     public function RoleUserTableSeeder()
     {
+        //attach super admin role
         $user = User::findOrFail(1);
         $user->attachRole(1);
 
-        for ($i=2; $i<=40; $i++){
-            $user = User::findOrFail($i);
-            $user->attachRole(3);
-        }
+        //attach admin role
+        $user = User::findOrFail(2);
+        $user->attachRole(2);
 
-        for ($i=41; $i<=51; $i++){
+        $user = User::findOrFail(3);
+        $user->attachRole(2);
+
+        //attach judge role
+        for ($i=4; $i<=8; $i++){
             $user = User::findOrFail($i);
             $user->attachRole(4);
+        }
+
+        //attach participant role
+        for ($i=9; $i<=51; $i++){
+            $user = User::findOrFail($i);
+            $user->attachRole(3);
         }
     }
 

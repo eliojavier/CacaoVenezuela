@@ -70,26 +70,46 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        if($data['type']==''){
-            dd("x");
+        if($data['type']=='')
+        {
+            $user = User::create([
+                'name' => $data['name'],
+                'last_name' => $data['last_name'],
+                'email' => $data['email'],
+                'doc_id' => $data['doc_id'],
+                'password' => bcrypt($data['password']),
+                'birthday' => DateTime::createFromFormat('d/m/Y', $data['birthday'])->format('Y-m-d'),
+                'phone' => $data['phone'],
+                'city_id' => $data['city_id'],
+                'address' => $data['address'],
+                'twitter' => $data['twitter'],
+                'instagram' => $data['instagram'],
+                'size' => $data['size'],
+                'category' => $data['category'],
+                'type' => $data['type'],
+                'academy_id' => null
+            ]);
         }
-        $user = User::create([
-            'name' => $data['name'],
-            'last_name' => $data['last_name'],
-            'email' => $data['email'],
-            'doc_id' => $data['doc_id'],
-            'password' => bcrypt($data['password']),
-            'birthday' => DateTime::createFromFormat('d/m/Y', $data['birthday'])->format('Y-m-d'),
-            'phone' => $data['phone'],
-            'city_id' => $data['city_id'],
-            'address' => $data['address'],
-            'twitter' => $data['twitter'],
-            'instagram' => $data['instagram'],
-            'size' => $data['size'],
-            'category' => $data['category'],
-            'type' => $data['type'],
-            'academy_id' => $data['academy_id']
-        ]);
+        else
+        {
+            $user = User::create([
+                'name' => $data['name'],
+                'last_name' => $data['last_name'],
+                'email' => $data['email'],
+                'doc_id' => $data['doc_id'],
+                'password' => bcrypt($data['password']),
+                'birthday' => DateTime::createFromFormat('d/m/Y', $data['birthday'])->format('Y-m-d'),
+                'phone' => $data['phone'],
+                'city_id' => $data['city_id'],
+                'address' => $data['address'],
+                'twitter' => $data['twitter'],
+                'instagram' => $data['instagram'],
+                'size' => $data['size'],
+                'category' => $data['category'],
+                'type' => $data['type'],
+                'academy_id' => $data['academy_id']
+            ]);
+        }
         
         $user->RoleAssignment('participant');
 

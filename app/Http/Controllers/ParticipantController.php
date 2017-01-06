@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Academy;
 use App\City;
+use App\Role;
 use App\User;
 use Exception;
 use Illuminate\Database\QueryException;
@@ -22,6 +23,7 @@ class ParticipantController extends Controller
     public function index()
     {
         $participants = User::all();
+        $participants = Role::where('name', 'participant')->first()->users()->get();
         return view ('admin.participants.index', compact('participants'));
     }
 

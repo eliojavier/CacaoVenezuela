@@ -40,7 +40,7 @@
             @foreach($recipe->votes as $vote)
                <p> Criterio: {{$vote->criterion->criterion}}</p>
                <p> Puntuación: {{$vote->score}}</p>
-               <p> Juez: {{$vote->judge->name . ' ' . $vote->judge->last_name}}</p>
+               <p> Juez: {{$vote->user->name . ' ' . $vote->user->last_name}}</p>
                 <div class="page-header"></div>
             @endforeach
         </div>

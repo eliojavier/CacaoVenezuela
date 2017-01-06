@@ -29,7 +29,7 @@ class CreateUsersTable extends Migration
             $table->string('category');
             $table->string('type');
             $table->unsignedInteger('city_id');
-            $table->unsignedInteger('academy_id');
+            $table->unsignedInteger('academy_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

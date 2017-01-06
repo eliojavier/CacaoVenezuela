@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -49,10 +48,6 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{Auth::user()->name}} <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-user"></i> Perfil</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
                             <a href="{{url('logout')}}"><i class="fa fa-fw fa-power-off"></i> Cerrar sesión</a>
                         </li>
                     </ul>
@@ -76,10 +71,11 @@
                     <li>
                         <a href="{{url('admin/votaciones/realizadas')}}"> Votaciones realizadas</a>
                     </li>
-                    <li>
-                        <a href="{{url('admin/votaciones/pendientes')}}"> Votaciones pendientes</a>
-                    </li>
-
+                    @if (Auth::user()->hasRole('judge') or Auth::user()->hasRole('super_admin'))
+                        <li>
+                            <a href="{{url('admin/votaciones/pendientes')}}"> Votaciones pendientes</a>
+                        </li>
+                    @endif
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#roles"> Roles <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="roles" class="collapse">
@@ -87,7 +83,7 @@
                                 <a href="{{url('admin/roles')}}"> Gestionar roles </a>
                             </li>
                             <li>
-                                <a href="{{url('admin/roles/role-assignment')}}">Asignar roles</a>
+                                <a href="{{url('admin/roles/role-assignment')}}">Asignar/Quitar roles</a>
                             </li>
                         </ul>
                     </li>

@@ -16,7 +16,7 @@
 
     <div class="row margin-top-15">
         @foreach($recipes as $recipe)
-            <div class="col-md-12">
+            <div class="col-md-8 col-md-offset-2">
                 <div class="table-responsive">
                     <table id="table" class="table table-bordered table-striped table-hover">
                         <thead>
@@ -43,10 +43,14 @@
                 </div>
             </div>
         @endforeach
+    </div>
 
-        @include('admin.votes._pending')
-        <div class="col-md-12 text-center">
-            {{ $recipes->links() }}
+    <div class="row">
+        <div class="col-lg-4 col-lg-offset-4 col-sm-10">
+            @include('admin.votes._pending')
+            <div class="col-md-12 text-center">
+                {{ $recipes->links() }}
+            </div>
         </div>
     </div>
 @endsection

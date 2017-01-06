@@ -50,6 +50,11 @@ class User extends Authenticatable
         return $this->hasMany(Recipe::class);
     }
 
+    public function votes()
+    {
+        return $this->hasMany(Vote::class);
+    }
+
     public function RoleAssignment($name)
     {
         $role = Role::where('name', $name)->get();

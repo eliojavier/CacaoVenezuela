@@ -40,6 +40,7 @@
                     <th>Nombre</th>
                     <th>Cédula</th>
                     <th>Rol asignado</th>
+                    <th>Editar</th>
                     <th>Eliminar</th>
                 </tr>
                 </thead>
@@ -52,6 +53,13 @@
                             <td>{{$user->doc_id}}</td>
                             <td>
                                 {{$role->display_name}}
+                            </td>
+                            <td>
+                                <a href="{{ url('admin/participantes/' . $user->id . '/edit') }}">
+                                    <button type="button" class="btn btn-success">
+                                        <span class="glyphicon glyphicon-edit"></span>
+                                    </button>
+                                </a>
                             </td>
                             <td>
                                 {!! Form::open(['method' => 'DELETE', 'url' => ['admin/roles/role-detachment', $user, $role]])!!}

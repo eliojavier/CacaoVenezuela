@@ -13,9 +13,9 @@ class Vote extends Model
         return $this->belongsTo(Criterion::class);
     }
     
-    public function judge()
+    public function user()
     {
-        return $this->belongsTo(Judge::class);
+        return $this->belongsTo(User::class);
     }
 
     public function recipe()
