@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\JudgeRequest;
 use App\Judge;
 use App\Recipe;
+use App\Role;
 use App\Vote;
 use Exception;
 use Illuminate\Database\QueryException;
@@ -21,7 +22,8 @@ class JudgeController extends Controller
      */
     public function index()
     {
-        $judges = Judge::all();
+//        $judges = Judge::all();
+        $judges = Role::where('name', 'judge')->first()->users()->get();
         return view ('admin.judges.index', compact('judges'));
     }
 
@@ -120,5 +122,10 @@ class JudgeController extends Controller
         Judge::destroy($id);
         flash('Juez eliminado exitosamente', 'success');
         return redirect('admin/jueces');
+    }
+
+    public function roleAssigment()
+    {
+        
     }
 }
