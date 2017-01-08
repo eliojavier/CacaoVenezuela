@@ -5,7 +5,6 @@ namespace App;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Zizaco\Entrust\Traits\EntrustUserTrait;
 use Laratrust\Traits\LaratrustUserTrait;
 
 class User extends Authenticatable
@@ -59,5 +58,10 @@ class User extends Authenticatable
     {
         $role = Role::where('name', $name)->get();
         $this->roles()->attach($role);
+    }
+
+    public function recipesVoted()
+    {
+        return $this->belongsToMany(Recipe::class, 'votes');
     }
 }

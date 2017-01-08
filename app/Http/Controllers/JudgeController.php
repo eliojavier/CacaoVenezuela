@@ -6,11 +6,13 @@ use App\Http\Requests\JudgeRequest;
 use App\Judge;
 use App\Recipe;
 use App\Role;
+use App\User;
 use App\Vote;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 use PDOException;
 
 class JudgeController extends Controller
@@ -22,7 +24,6 @@ class JudgeController extends Controller
      */
     public function index()
     {
-//        $judges = Judge::all();
         $judges = Role::where('name', 'judge')->first()->users()->get();
         return view ('admin.judges.index', compact('judges'));
     }
@@ -46,20 +47,27 @@ class JudgeController extends Controller
      */
     public function store(JudgeRequest $request)
     {
-        try{
-            Judge::create($request->all());
-            flash('Juez agregado exitosamente', 'success');
-            return redirect ('admin/jueces');
+        if (Auth::user()->hasRole('super_admin')){
+            try{
+                $judge = User::create($request->all());
+                $judge->RoleAssignment('judge');
+                flash('Juez agregado exitosamente', 'success');
+                return redirect ('admin/jueces');
+            }
+            catch(QueryException $e){
+                flash('Juez no pudo ser agregado', 'danger');
+                return redirect('admin/jueces');
+            }
+            catch(PDOException $e){
+                flash('Juez no pudo ser agregado', 'danger');
+                return redirect('admin/jueces');
+            }
+            catch(Exception $e){
+                flash('Juez no pudo ser agregado', 'danger');
+                return redirect('admin/jueces');
+            }
         }
-        catch(QueryException $e){
-            return $e->getMessage();
-        }
-        catch(PDOException $e){
-            return $e->getMessage();
-        }
-        catch(Exception $e){
-            return $e->getMessage();
-        }
+        return redirect('admin');
     }
 
     /**
@@ -81,7 +89,7 @@ class JudgeController extends Controller
      */
     public function edit($id)
     {
-        $judge = Judge::findOrFail($id);
+        $judge = User::findOrFail($id);
         return view('admin.judges.edit', compact('judge'));
     }
 
@@ -89,16 +97,39 @@ class JudgeController extends Controller
      * Update the specified resource in storage.
      *
      * @param JudgeRequest|Request $request
-     * @param  int $id
+     * @param $id
      * @return \Illuminate\Http\Response
+     * @internal param User $judge
+     * @internal param User $user
+     * @internal param int $id
      */
     public function update(JudgeRequest $request, $id)
     {
+        if (Auth::user()->hasRole('super_admin')) {
+            try{
+                $judge = User::findOrFail($id);
+                $judge->update($request->all());
+                flash('Juez actualizado exitosamente', 'success');
+                return redirect('admin/jueces');
+            }
+            catch(QueryException $e){
+                $errorCode = $e->errorInfo[1];
+                if($errorCode == 1062){
+                    flash('Correo ya registrado en la base de datos', 'danger');
+                    return redirect('admin/jueces');
+                }
+            }
+            catch(PDOException $e){
+                flash('Juez no pudo ser agregado', 'danger');
+                return redirect('admin/jueces');
+            }
+            catch(Exception $e){
+                flash('Juez no pudo ser agregado', 'danger');
+                return redirect('admin/jueces');
+            }
+        }
 
-        $judge = Judge::findOrFail($id);
-        $judge->update($request->all());
-        flash('Juez actualizado exitosamente', 'success');
-        return redirect('admin/jueces');
+        return redirect('admin');
     }
 
     /**
@@ -124,7 +155,7 @@ class JudgeController extends Controller
         return redirect('admin/jueces');
     }
 
-    public function roleAssigment()
+    public function roleAssignment()
     {
         
     }

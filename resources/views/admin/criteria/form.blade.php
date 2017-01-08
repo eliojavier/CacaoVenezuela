@@ -1,10 +1,10 @@
 <div class="form-group">
-    {!!Form::label('phase','Fase')!!}
-    {!!Form::number('phase', old('phase'), ['class'=>'form-control', 'required'])!!}
+    {!!Form::label('phase','Fase *')!!}
+    {!!Form::select('phase', ['1'=>'1', '2'=>'2'], null, ['class'=>'form-control', 'required'])!!}
 </div>
 
 <div class="form-group">
-    {!!Form::label('criterion','Criterio de evaluación')!!}
+    {!!Form::label('criterion','Criterio de evaluación *')!!}
     {!!Form::text('criterion', old('criterion'), ['class'=>'form-control', 'required'])!!}
 </div>
 
@@ -13,4 +13,5 @@
         {!! Form::submit($submitButtonText, ['class' => 'btn btn-success']) !!}
     </div>
 </div>
+
 

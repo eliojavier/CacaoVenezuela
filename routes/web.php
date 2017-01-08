@@ -38,11 +38,12 @@ Route::group(['middleware' => ['auth', 'role:admin|super_admin|judge'], 'prefix'
 
     Route::get('votaciones/pendientes', 'VoteController@recipesPendingToVote');
     Route::get('votaciones/realizadas', 'VoteController@recipesVoted');
-    Route::post('votaciones/{recipe}', 'VoteController@store');
-    Route::get('votaciones/{recipe}', 'VoteController@show');
+    Route::get('votaciones/realizadas/{recipe}', 'VoteController@showRecipeScore');
+    Route::get('votaciones/create/{id}', 'VoteController@create');
+    Route::resource('votaciones', 'VoteController');
 
     Route::get('reportes/numero-participantes-por-ciudad', 'ReportController@numberOfParticipantsByCity');
     Route::get('reportes/totals', 'ReportController@totals');
     Route::get('reportes/ranking-ingredientes', 'ReportController@mostUsedIngredients');
-    Route::get('reportes/ganadores/{phase}', 'ReportController@winnersByPhase');
+    Route::get('reportes/ranking/fase/{phase}', 'ReportController@rankingByPhase');
 });

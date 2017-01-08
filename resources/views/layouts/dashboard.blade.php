@@ -62,9 +62,11 @@
                     <li>
                         <a href="{{url('admin/recetas')}}"> Recetas</a>
                     </li>
+                    @if (Auth::user()->hasRole('super_admin'))
                     <li>
                         <a href="{{url('admin/jueces')}}"> Jueces</a>
                     </li>
+                    @endif
                     <li>
                         <a href="{{url('admin/criterios')}}"> Criterios</a>
                     </li>
@@ -100,10 +102,10 @@
                                 <a href="{{url('admin/reportes/numero-participantes-por-ciudad')}}">Participantes por ciudad</a>
                             </li>
                             <li>
-                                <a href="{{url('admin/reportes/ganadores/1')}}">Clasificados fase 1</a>
+                                <a href="{{url('admin/reportes/ranking/fase/1')}}">Ranking fase 1</a>
                             </li>
                             <li>
-                                <a href="{{url('admin/reportes/ganadores/1')}}">Ganadores fase 2</a>
+                                <a href="{{url('admin/reportes/ranking/fase/2')}}">Ranking fase 2</a>
                             </li>
                         </ul>
                     </li>

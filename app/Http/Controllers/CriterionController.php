@@ -143,7 +143,7 @@ class CriterionController extends Controller
             if ($vote->criterion->id == $id)
             {
                 flash('Criterio no puede eliminarse', 'danger');
-                return redirect('admin/jueces');
+                return redirect('admin/criterios');
             }
         }
         Criterion::destroy($id);

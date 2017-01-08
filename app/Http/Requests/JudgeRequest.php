@@ -24,8 +24,10 @@ class JudgeRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'email',
-
+            'name' => 'required',
+            'last_name' => 'required',
+            'email' => 'email|required',
+            'phone' => 'required',
         ];
     }
 

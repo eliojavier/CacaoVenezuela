@@ -5,31 +5,58 @@ namespace App\Http\Controllers;
 use App\Criterion;
 use App\Http\Requests\VoteRequest;
 use App\Recipe;
+use App\User;
 use App\Vote;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class VoteController extends Controller
 {
 
     public function recipesPendingToVote()
     {
-        $recipes = Recipe::doesntHave('votes')->simplePaginate(1);
-        $criteria = Criterion::where('phase', 1)->get();
-        $scores = [''=>'Puntuación', 1=>1, 2=>2, 3=>3, 4=>4, 5=>5, 6=>6, 7=>7, 8=>8, 9=>9, 10=>10];
+        $user = Auth::user();
 
-        return view ('admin.votes.index', compact('recipes', 'criteria', 'scores'));
+        if($user->hasRole('judge')){
+            $recipes =  DB::select(DB::raw('SELECT recipes.* 
+                                        FROM recipes
+                                        WHERE recipes.id NOT IN (SELECT DISTINCT votes.recipe_id
+						                                        FROM votes
+						                                        WHERE votes.user_id =' . $user->id . ')'));
+            if(sizeof($recipes)>0)
+            {
+                $criteria = Criterion::where('phase', 1)->get();
+                $scores = [''=>'Puntuación', 1=>1, 2=>2, 3=>3, 4=>4, 5=>5, 6=>6, 7=>7, 8=>8, 9=>9, 10=>10];
+
+                return view ('admin.votes.pending.index', compact('recipes', 'criteria', 'scores'));
+            }
+        }
+        flash('No tienes votaciones pendientes', 'success');
+        return redirect ('admin');
     }
 
     public function recipesVoted()
     {
-        $recipes = Recipe::has('votes')->simplePaginate(1);
-//        $recipes = Recipe::with('votes')->simplePaginate(1);
+        $judge = Auth::user();
+        $user = User::findOrFail($judge->id);
 
-        return view ('admin.votes.recipes_voted', compact('recipes'));
+        $recipes = $user->recipesVoted()->get();
+
+        if($recipes->count()>0){
+            return view ('admin.votes.voted.index', compact('recipes'));
+        }
+        flash('No has realizado ninguna votación', 'success');
+        return redirect ('admin');
     }
+
+    public function showRecipeScore(Recipe $recipe)
+    {
+        return view ('admin.votes.voted.show', compact('recipe'));
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -45,15 +72,19 @@ class VoteController extends Controller
      *
      * @return Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        $recipe = Recipe::findOrFail($id);
+        $criteria = Criterion::where('phase', 1)->get();
+        $scores = [''=>'Puntuación', 1=>1, 2=>2, 3=>3, 4=>4, 5=>5, 6=>6, 7=>7, 8=>8, 9=>9, 10=>10];
+
+        return view ('admin.votes.create', compact('recipe', 'criteria', 'scores'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param VoteRequest|Request $request
+     * @param Request $request
      * @return Response
      * @internal param Recipe $recipe
      * @internal param $user_id
@@ -61,24 +92,24 @@ class VoteController extends Controller
      * @internal param $recipe_id
      * @internal param Recipe $recipe
      */
-    public function store(VoteRequest $request)
+    public function store(Request $request)
     {
         $user = Auth::user();
         if($user->hasRole('judge'))
         {
             $criteria = Criterion::where('phase', 1)->select('id')->get();
-
             foreach ($criteria as $criterion)
             {
                 if (!$request->has($criterion->id))
                 {
                     flash('Debe votar en cada uno de los criterios', 'danger');
-                    return redirect ('admin/votaciones/pendientes');
+                    return back();
                 }
             }
 
             $user_id = $user->id;
             $recipe_id = $request->recipe;
+
             foreach ($criteria as $criterion)
             {
                 $criterion_id = $criterion->id;
@@ -92,7 +123,6 @@ class VoteController extends Controller
                 $vote->save();
                 flash('Votación realizada exitosamente', 'success');
                 return redirect ('admin/votaciones/pendientes');
-
             }
         }
 
@@ -110,11 +140,7 @@ class VoteController extends Controller
      */
     public function show($id)
     {
-        $recipe = Recipe::findOrFail($id);
-        $criteria = Criterion::where('phase', 1)->get();
-        $scores = [''=>'Puntuación', 1=>1, 2=>2, 3=>3, 4=>4, 5=>5, 6=>6, 7=>7, 8=>8, 9=>9, 10=>10];
-
-        return view ('admin.votes.show', compact('recipe', 'criteria', 'scores'));
+        //
     }
 
     /**

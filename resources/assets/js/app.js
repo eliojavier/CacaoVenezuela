@@ -11,5 +11,15 @@ require('./bootstrap');
  Third party plugins
  */
 
+require('./jquery-mask');
+
+/**
+ Custom plugins
+ */
+
+require('./flash-message');
+
+
+
 
 
