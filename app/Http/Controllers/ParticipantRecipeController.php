@@ -43,29 +43,30 @@ class ParticipantRecipeController extends Controller
     public function store(ParticipantRecipeRequest $request)
     {
         $user = Auth::user();
-        if ($this->canSubmitRecipe($user, $request->modality))
+        if ($user->hasRole('participant'))
         {
-            
-        }
-        $recipe = new Recipe();
-        
-        if($request->hasFile('image'))
-        {
-            $recipe->image = $this->uploadImage($request);
-        }
+            if ($this->canSubmitRecipe($user, $request->modality))
+            {
+                $recipe = new Recipe();
 
-        $recipe->name = $request->name;
-        $recipe->modality = $request->modality;
-        $recipe->ingredients = $request->ingredients;
-        $recipe->directions = $request->directions;
-        $recipe->serves = $request->serves;
-        $recipe->user_id = $user->id;
-        
-        $recipe->save();
+                if($request->hasFile('image'))
+                {
+                    $recipe->image = $this->uploadImage($request);
+                }
 
-        $this->syncIngredients($request, $recipe);
-        
-        return redirect ('/');
+                $recipe->name = $request->name;
+                $recipe->modality = $request->modality;
+                $recipe->ingredients = $request->ingredients;
+                $recipe->directions = $request->directions;
+                $recipe->serves = $request->serves;
+                $recipe->user_id = $user->id;
+
+                $recipe->save();
+              
+                return redirect ('misrecetas');
+            }
+        }
+        return redirect('/');
     }
 
     /**
