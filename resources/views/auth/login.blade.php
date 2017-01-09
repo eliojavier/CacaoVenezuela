@@ -53,8 +53,6 @@
                                 <button type="submit" class="btn btn-primary">
                                     Aceptar
                                 </button>
-
-
                             </div>
                         </div>
                     </form>

@@ -22,7 +22,6 @@ class ParticipantController extends Controller
      */
     public function index()
     {
-        $participants = User::all();
         $participants = Role::where('name', 'participant')->first()->users()->get();
         return view ('admin.participants.index', compact('participants'));
     }

@@ -21,6 +21,7 @@ Route::get('misrecetas/all-ingredients', 'ParticipantRecipeController@getAllIngr
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('misrecetas', 'ParticipantRecipeController');
+    Route::resource('perfiles', 'UserController');
 });
 
 Route::group(['middleware' => ['auth', 'role:admin|super_admin|judge'], 'prefix' => 'admin'], function () {

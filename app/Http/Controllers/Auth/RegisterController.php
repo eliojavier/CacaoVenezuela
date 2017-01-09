@@ -47,6 +47,20 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
+        if($data['category']=='Aficionado/Público General') {
+            return Validator::make($data, [
+                'name' => 'required|max:255',
+                'last_name' => 'required|max:255',
+                'email' => 'required|email|max:255|unique:users',
+                'doc_id' => 'required|max:15',
+                'password' => 'required|min:6|confirmed',
+                'birthday' => 'required',
+                'phone' => 'required',
+                'city_id' => 'required',
+                'size' => 'required',
+                'category' => 'required',
+            ]);
+        }
         return Validator::make($data, [
             'name' => 'required|max:255',
             'last_name' => 'required|max:255',
@@ -58,7 +72,8 @@ class RegisterController extends Controller
             'city_id' => 'required',
             'size' => 'required',
             'category' => 'required',
-//            'academy_id' => 'sometimes|required',
+            'type' => 'required',
+            'academy_id' => 'required',
         ]);
     }
 
@@ -81,7 +96,6 @@ class RegisterController extends Controller
                 'birthday' => DateTime::createFromFormat('d/m/Y', $data['birthday'])->format('Y-m-d'),
                 'phone' => $data['phone'],
                 'city_id' => $data['city_id'],
-                'address' => $data['address'],
                 'twitter' => $data['twitter'],
                 'instagram' => $data['instagram'],
                 'size' => $data['size'],
@@ -101,7 +115,6 @@ class RegisterController extends Controller
                 'birthday' => DateTime::createFromFormat('d/m/Y', $data['birthday'])->format('Y-m-d'),
                 'phone' => $data['phone'],
                 'city_id' => $data['city_id'],
-                'address' => $data['address'],
                 'twitter' => $data['twitter'],
                 'instagram' => $data['instagram'],
                 'size' => $data['size'],

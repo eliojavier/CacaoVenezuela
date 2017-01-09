@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Academia;
-use App\Lugar;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -50,7 +48,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $participant = User::findOrFail($id);
+        return view ('auth/show', compact('participant'));
     }
 
     /**
@@ -62,29 +61,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        $estado = $user->lugar_id;
-
-        $estados = Lugar::pluck('nombre', 'id');
-        $academias = Academia::pluck('nombre', 'id');
-        $tallas = array
-        ('SS' => 'SS',
-            'S' => 'S',
-            'M' => 'M',
-            'L' => 'L',
-            'XL' => 'XL',
-            'XXL' => 'XXL',
-            'Otro' => 'Otro');
-        $categorias = array
-        ('Aficionado/Público General' => 'Aficionado/Público General',
-            'Estudiante/Profesional' => 'Estudiante/Profesional');
-
-        $tipos = array
-        ('N/A'=>'N/A',
-            'Oficiante' => 'Oficiante',
-            'Estudiante en curso' => 'Estudiante en curso',
-            'Egresado' => 'Egresado');
-
-        return view ('auth/edit', compact('user', 'estado', 'estados', 'academias', 'tallas', 'categorias', 'tipos'));
+        return view ('auth/edit', compact('user'));
     }
 
     /**
@@ -98,7 +75,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->update($request->all());
-        //return redirect();
+        return redirect ('misrecetas');
     }
 
     /**

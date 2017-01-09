@@ -31,13 +31,12 @@
 <div class="form-group">
     {!!Form::label('phone','Teléfono *')!!}
     {!!Form::text('phone', old('phone'), ['class'=>'form-control', 'placeholder'=>'xxxx-xxx-xx-xx'])!!}
-</div>
     @if ($errors->has('phone'))
         <span class="help-block">
             <strong>{{ $errors->first('phone') }}</strong>
         </span>
     @endif
-
+</div>
 <div class="form-group">
     <div class="col-md-12 text-center">
         {!! Form::submit($submitButtonText, ['class' => 'btn btn-success']) !!}

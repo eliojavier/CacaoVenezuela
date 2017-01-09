@@ -65,15 +65,22 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
-                                        <a href="{{ url('/logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
+                                        <a href="{{url('misrecetas/create')}}">
+                                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                            Inscribir receta
                                         </a>
-
-                                        <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
+                                    </li>
+                                    <li>
+                                        <a href="{{url('perfiles/' . Auth::id())}}">
+                                            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                            Mi perfil
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('/logout')}}">
+                                            <i class="fa fa-power-off"></i>
+                                            Cerrar sesión
+                                        </a>
                                     </li>
                                 </ul>
                             </li>
@@ -94,6 +101,6 @@
     <script src="{{ asset('js/datepicker.js') }}"></script>
     <script src="{{asset('js/jquery.cropit.js')}}"></script>
     <script src="{{ asset('js/tagit.js') }}"></script>
-    @yield('after-script-end')
+    @yield('after-scripts-end')
 </body>
 </html>

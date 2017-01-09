@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ParticipantRecipeRequest;
 use App\Ingredient;
 use App\Recipe;
 use Illuminate\Http\Request;
@@ -16,8 +17,9 @@ class ParticipantRecipeController extends Controller
      */
     public function index()
     {
-        $recipes = Recipe::all();
-        return view ('admin.recipes.index', compact('recipes'));
+        $user = Auth::user();
+        $recipes = $user->recipes;
+        return view ('app.recipes.index', compact('recipes'));
     }
 
     /**
@@ -34,10 +36,10 @@ class ParticipantRecipeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param ParticipantRecipeRequest|Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ParticipantRecipeRequest $request)
     {
         $recipe = new Recipe();
         
@@ -69,7 +71,7 @@ class ParticipantRecipeController extends Controller
     public function show($id)
     {
         $recipe = Recipe::findOrFail($id);
-        return view ('admin.recipes.show', compact('recipe'));
+        return view ('app.recipes.show', compact('recipe'));
     }
 
     /**

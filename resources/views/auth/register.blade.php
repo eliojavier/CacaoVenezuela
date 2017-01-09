@@ -9,10 +9,10 @@
                     <div class="panel-body">
                         {!!Form::open(['url'=>'register', 'role'=>'form', 'class'=>'form-horizontal'])!!}
 
-                        @include('auth._form')
+                            @include('auth._form')
 
                         <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
+                            <div class="col-md-12 text-center">
                                 {!!Form::submit('Registrar', ['class' => 'btn btn-primary'])!!}
                             </div>
                         </div>
@@ -23,3 +23,5 @@
         </div>
     </div>
 @endsection
+
+
