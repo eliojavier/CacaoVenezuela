@@ -37,7 +37,7 @@
                 </tr>
                 <tr>
                     <th>Academia</th>
-                    <td>{{$participant->academy->name}}</td>
+                    <td>{{@$participant->academy->name ?: '-'}}</td>
                 </tr>
                 <tr>
                     <th>Estado</th>
