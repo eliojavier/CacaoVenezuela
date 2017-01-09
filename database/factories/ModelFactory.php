@@ -41,7 +41,6 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'password' => bcrypt('123456'),
         'birthday' => $faker->date,
         'phone' => $faker->e164PhoneNumber,
-        'address' => $faker->address,
         'twitter' => $faker->firstName,
         'instagram' => $faker->firstName,
         'size' => $faker->randomElement($array = array ('XS', 'S','M','L', 'XL', 'XXL')),

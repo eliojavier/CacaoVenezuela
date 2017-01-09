@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\JudgeRequest;
 use App\Judge;
-use App\Recipe;
 use App\Role;
 use App\User;
 use App\Vote;
@@ -24,8 +23,26 @@ class JudgeController extends Controller
      */
     public function index()
     {
-        $judges = Role::where('name', 'judge')->first()->users()->get();
-        return view ('admin.judges.index', compact('judges'));
+        try
+        {
+            $judges = Role::where('name', 'judge')->first()->users()->get();
+            return view ('admin.judges.index', compact('judges'));
+        }
+        catch(QueryException $e)
+        {
+            flash('No pudo completarse la operación', 'danger');
+            return redirect('admin/jueces');
+        }
+        catch(PDOException $e)
+        {
+            flash('No pudo completarse la operación', 'danger');
+            return redirect('admin/jueces');
+        }
+        catch(Exception $e)
+        {
+            flash('No pudo completarse la operación', 'danger');
+            return redirect('admin/jueces');
+        }
     }
 
     /**
@@ -35,7 +52,7 @@ class JudgeController extends Controller
      */
     public function create()
     {
-        return view ('admin.judges.create');
+        //
     }
 
     /**
@@ -47,27 +64,33 @@ class JudgeController extends Controller
      */
     public function store(JudgeRequest $request)
     {
-        if (Auth::user()->hasRole('super_admin')){
-            try{
+        if (Auth::user()->hasRole('super_admin'))
+        {
+            try
+            {
                 $judge = User::create($request->all());
                 $judge->RoleAssignment('judge');
                 flash('Juez agregado exitosamente', 'success');
                 return redirect ('admin/jueces');
             }
-            catch(QueryException $e){
+            catch(QueryException $e)
+            {
                 flash('Juez no pudo ser agregado', 'danger');
                 return redirect('admin/jueces');
             }
-            catch(PDOException $e){
+            catch(PDOException $e)
+            {
                 flash('Juez no pudo ser agregado', 'danger');
                 return redirect('admin/jueces');
             }
-            catch(Exception $e){
+            catch(Exception $e)
+            {
                 flash('Juez no pudo ser agregado', 'danger');
                 return redirect('admin/jueces');
             }
         }
-        return redirect('admin');
+        flash('No tiene permiso para realizar la operación', 'danger');
+        return redirect('admin/jueces');
     }
 
     /**
@@ -89,8 +112,31 @@ class JudgeController extends Controller
      */
     public function edit($id)
     {
-        $judge = User::findOrFail($id);
-        return view('admin.judges.edit', compact('judge'));
+        if (Auth::user()->hasRole('super_admin'))
+        {
+            try
+            {
+                $judge = User::findOrFail($id);
+                return view('admin.judges.edit', compact('judge'));
+            }
+            catch (QueryException $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/jueces');
+            }
+            catch (PDOException $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/jueces');
+            }
+            catch (Exception $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/jueces');
+            }
+        }
+        flash('No tiene permiso para realizar la operación', 'danger');
+        return redirect('admin/jueces');
     }
 
     /**
@@ -105,31 +151,38 @@ class JudgeController extends Controller
      */
     public function update(JudgeRequest $request, $id)
     {
-        if (Auth::user()->hasRole('super_admin')) {
-            try{
+        if (Auth::user()->hasRole('super_admin'))
+        {
+            try
+            {
                 $judge = User::findOrFail($id);
                 $judge->update($request->all());
                 flash('Juez actualizado exitosamente', 'success');
                 return redirect('admin/jueces');
             }
-            catch(QueryException $e){
+            catch(QueryException $e)
+            {
+                flash('Juez no pudo ser actualizado', 'danger');
                 $errorCode = $e->errorInfo[1];
-                if($errorCode == 1062){
+                if($errorCode == 1062)
+                {
                     flash('Correo ya registrado en la base de datos', 'danger');
-                    return redirect('admin/jueces');
                 }
-            }
-            catch(PDOException $e){
-                flash('Juez no pudo ser agregado', 'danger');
                 return redirect('admin/jueces');
             }
-            catch(Exception $e){
-                flash('Juez no pudo ser agregado', 'danger');
+            catch(PDOException $e)
+            {
+                flash('Juez no pudo ser actualizado', 'danger');
+                return redirect('admin/jueces');
+            }
+            catch(Exception $e)
+            {
+                flash('Juez no pudo ser actualizado', 'danger');
                 return redirect('admin/jueces');
             }
         }
-
-        return redirect('admin');
+        flash('No tiene permiso para realizar la operación', 'danger');
+        return redirect('admin/jueces');
     }
 
     /**
@@ -140,23 +193,40 @@ class JudgeController extends Controller
      */
     public function destroy($id)
     {
-        $votes = Vote::all();
-        foreach ($votes as $vote)
+        if (Auth::user()->hasRole('super_admin'))
         {
-            if ($vote->judge->id == $id)
+            try
             {
-                flash('Juez no puede eliminarse', 'danger');
+                $votes = Vote::all();
+                foreach ($votes as $vote)
+                {
+                    if ($vote->judge->id == $id)
+                    {
+                        flash('Juez no puede eliminarse debido a que ya ha realizado votaciones', 'danger');
+                        return redirect('admin/jueces');
+                    }
+                }
+                Judge::destroy($id);
+                flash('Juez eliminado exitosamente', 'success');
+                return redirect('admin/jueces');
+            }
+            catch (QueryException $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/jueces');
+            }
+            catch (PDOException $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/jueces');
+            }
+            catch (Exception $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
                 return redirect('admin/jueces');
             }
         }
-        
-        Judge::destroy($id);
-        flash('Juez eliminado exitosamente', 'success');
+        flash('No tiene permiso para realizar la operación', 'danger');
         return redirect('admin/jueces');
-    }
-
-    public function roleAssignment()
-    {
-        
     }
 }

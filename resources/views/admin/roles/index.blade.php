@@ -21,8 +21,10 @@
                         <th>Rol</th>
                         <th>Nombre</th>
                         <th>Descripción</th>
-                        <th>Editar</th>
-                        <th>Borrar</th>
+                        @if(Auth::user()->hasRole('super_admin'))
+                            <th>Editar</th>
+                            <th>Borrar</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -31,20 +33,22 @@
                             <td>{{$role->name}}</td>
                             <td>{{$role->display_name}}</td>
                             <td>{{$role->description}}</td>
-                            <td>
-                                <a href="{{ url('admin/roles/' . $role->id . '/edit') }}">
-                                    <button type="button" class="btn btn-success">
-                                        <span class="glyphicon glyphicon-edit"></span>
+                            @if(Auth::user()->hasRole('super_admin'))
+                                <td>
+                                    <a href="{{ url('admin/roles/' . $role->id . '/edit') }}">
+                                        <button type="button" class="btn btn-success">
+                                            <span class="glyphicon glyphicon-edit"></span>
+                                        </button>
+                                    </a>
+                                </td>
+                                <td>
+                                    {!! Form::open(['method' => 'DELETE', 'url' => ['admin/roles', $role], 'class'=>'form-horizontal', 'role'=>'form']) !!}
+                                    <button type="submit" class="btn btn-success">
+                                        <span class="glyphicon glyphicon-trash"></span>
                                     </button>
-                                </a>
-                            </td>
-                            <td>
-                                {!! Form::open(['method' => 'DELETE', 'url' => ['admin/roles', $role], 'class'=>'form-horizontal', 'role'=>'form']) !!}
-                                <button type="submit" class="btn btn-success">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </button>
-                                {!!Form::close()!!}
-                            </td>
+                                    {!!Form::close()!!}
+                                </td>
+                            @endif
                         </tr>
                     @endforeach
                 </tbody>

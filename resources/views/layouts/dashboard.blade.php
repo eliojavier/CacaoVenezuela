@@ -78,6 +78,7 @@
                             <a href="{{url('admin/votaciones/pendientes')}}"> Votaciones pendientes</a>
                         </li>
                     @endif
+                    @if (Auth::user()->hasRole('super_admin'))
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#roles"> Roles <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="roles" class="collapse">
@@ -89,6 +90,7 @@
                             </li>
                         </ul>
                     </li>
+                    @endif
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#reportes"> Reportes <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="reportes" class="collapse">

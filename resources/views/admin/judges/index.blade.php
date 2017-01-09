@@ -24,8 +24,10 @@
                         <th>Nombre</th>
                         <th>Email</th>
                         <th>Teléfono</th>
-                        <th>Editar</th>
-                        {{--<th>Borrar</th>--}}
+                        @if(Auth::user()->hasRole('super_admin'))
+                            <th>Editar</th>
+                            <th>Borrar</th>
+                        @endif
                     </tr>
                     </thead>
                     <tbody>
@@ -34,6 +36,7 @@
                             <td>{{$judge->name}}</td>
                             <td>{{$judge->email}}</td>
                             <td>{{$judge->phone}}</td>
+                            @if(Auth::user()->hasRole('super_admin'))
                             <td>
                                 <a href="{{ url('admin/jueces/' . $judge->id . '/edit') }}">
                                     <button type="button" class="btn btn-success">
@@ -41,13 +44,14 @@
                                     </button>
                                 </a>
                             </td>
-                            {{--<td>--}}
-                                {{--{!! Form::open(['method' => 'DELETE', 'url' => ['admin/jueces', $judge], 'class'=>'form-horizontal', 'role'=>'form']) !!}--}}
-                                {{--<button type="submit" class="btn btn-success">--}}
-                                    {{--<span class="glyphicon glyphicon-trash"></span>--}}
-                                {{--</button>--}}
-                                {{--{!!Form::close()!!}--}}
-                            {{--</td>--}}
+                            <td>
+                                {!! Form::open(['method' => 'DELETE', 'url' => ['admin/jueces', $judge], 'class'=>'form-horizontal', 'role'=>'form']) !!}
+                                <button type="submit" class="btn btn-success">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                                {!!Form::close()!!}
+                            </td>
+                            @endif
                         </tr>
                     @endforeach
                     </tbody>

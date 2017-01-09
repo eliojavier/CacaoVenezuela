@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ParticipantRecipeRequest;
 use App\Ingredient;
 use App\Recipe;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,6 +42,11 @@ class ParticipantRecipeController extends Controller
      */
     public function store(ParticipantRecipeRequest $request)
     {
+        $user = Auth::user();
+        if ($this->canSubmitRecipe($user, $request->modality))
+        {
+            
+        }
         $recipe = new Recipe();
         
         if($request->hasFile('image'))
@@ -53,7 +59,7 @@ class ParticipantRecipeController extends Controller
         $recipe->ingredients = $request->ingredients;
         $recipe->directions = $request->directions;
         $recipe->serves = $request->serves;
-        $recipe->user_id = Auth::user()->id;
+        $recipe->user_id = $user->id;
         
         $recipe->save();
 
@@ -161,5 +167,18 @@ class ParticipantRecipeController extends Controller
 
             return response()->json(["ingredients"=>$ingredients]);
         }
+    }
+
+    public function canSubmitRecipe(User $user, $modality)
+    {
+        $recipes = $user->recipes;
+        foreach ($recipes as $recipe)
+        {
+            if ($recipe->modality == $modality)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 }

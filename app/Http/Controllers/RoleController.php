@@ -7,8 +7,9 @@ use App\Role;
 use App\User;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Mockery\CountValidator\Exception;
+use PDOException;
 
 class RoleController extends Controller
 {
@@ -19,8 +20,26 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::all();
-        return view ('admin.roles.index', compact('roles'));
+        try 
+        {
+            $roles = Role::all();
+            return view('admin.roles.index', compact('roles'));
+        }
+        catch(QueryException $e)
+        {
+            flash('No pudo completarse la operación', 'danger');
+            return redirect('admin/roles');
+        }
+        catch(PDOException $e)
+        {
+            flash('No pudo completarse la operación', 'danger');
+            return redirect('admin/roles');
+        }
+        catch(Exception $e)
+        {
+            flash('No pudo completarse la operación', 'danger');
+            return redirect('admin/roles');
+        }
     }
 
     /**
@@ -41,9 +60,32 @@ class RoleController extends Controller
      */
     public function store(RoleRequest $request)
     {
-        Role::create($request->all());
-        flash('Rol agregado exitosamente', 'success');
-        return redirect ('admin/roles');
+        if (Auth::user()->hasRole('super_admin')) 
+        {
+            try 
+            {
+                Role::create($request->all());
+                flash('Rol agregado exitosamente', 'success');
+                return redirect('admin/roles');
+            }
+            catch(QueryException $e)
+            {
+                flash('Rol no pudo ser agregado', 'danger');
+                return redirect('admin/roles');
+            }
+            catch(PDOException $e)
+            {
+                flash('Rol no pudo ser agregado', 'danger');
+                return redirect('admin/roles');
+            }
+            catch(Exception $e)
+            {
+                flash('Rol no pudo ser agregado', 'danger');
+                return redirect('admin/roles');
+            }
+        }
+        flash('No tiene permiso para realizar la operación', 'danger');
+        return redirect('admin/roles');
     }
 
     /**
@@ -65,8 +107,31 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $role = Role::findOrFail($id);
-        return view('admin.roles.edit', compact('role'));
+        if (Auth::user()->hasRole('super_admin'))
+        {
+            try
+            {
+                $role = Role::findOrFail($id);
+                return view('admin.roles.edit', compact('role'));
+            }
+            catch (QueryException $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/roles');
+            }
+            catch (PDOException $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/roles');
+            }
+            catch (Exception $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/roles');
+            }
+        }
+        flash('No tiene permiso para realizar la operación', 'danger');
+        return redirect('admin/roles');
     }
 
     /**
@@ -78,10 +143,38 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $role = Role::findOrFail($id);
-        $role->update($request->all());
-        flash('Rol actualizado exitosamente', 'success');
-        return redirect ('admin/roles');
+        if (Auth::user()->hasRole('super_admin'))
+        {
+            try
+            {
+                $role = Role::findOrFail($id);
+                $role->update($request->all());
+                flash('Rol actualizado exitosamente', 'success');
+                return redirect ('admin/roles');
+            }
+            catch(QueryException $e)
+            {
+                flash('Rol no pudo ser actualizado', 'danger');
+                $errorCode = $e->errorInfo[1];
+                if($errorCode == 1062)
+                {
+                    flash('Rol ya registrado en la base de datos', 'danger');
+                }
+                return redirect('admin/roles');
+            }
+            catch(PDOException $e)
+            {
+                flash('Rol no pudo ser actualizado', 'danger');
+                return redirect('admin/roles');
+            }
+            catch(Exception $e)
+            {
+                flash('Rol no pudo ser actualizado', 'danger');
+                return redirect('admin/roles');
+            }
+        }
+        flash('No tiene permiso para realizar la operación', 'danger');
+        return redirect('admin/roles');
     }
 
     /**
@@ -92,52 +185,127 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        Role::destroy($id);
-        flash('Rol eliminado exitosamente', 'success');
+        if (Auth::user()->hasRole('super_admin'))
+        {
+            try
+            {
+                Role::destroy($id);
+                flash('Rol eliminado exitosamente', 'success');
+                return redirect('admin/roles');
+            }
+            catch (QueryException $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/roles');
+            }
+            catch (PDOException $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/roles');
+            }
+            catch (Exception $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/roles');
+            }
+        }
+        flash('No tiene permiso para realizar la operación', 'danger');
         return redirect('admin/roles');
     }
 
     public function roleAssignment()
     {
-        $select_users = User::pluck('doc_id', 'id');
-        $select_roles = Role::pluck('name', 'id');
+        if (Auth::user()->hasRole('super_admin'))
+        {
+            try
+            {
+                $select_users = User::pluck('doc_id', 'id');
+                $select_roles = Role::pluck('name', 'id');
 
-        $users = User::all();
+                $users = User::all();
 
-        return view ('admin.roles.assignment', compact('select_users', 'select_roles', 'users'));
+                return view ('admin.roles.assignment', compact('select_users', 'select_roles', 'users'));
+            }
+            catch (QueryException $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/roles');
+            }
+            catch (PDOException $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/roles');
+            }
+            catch (Exception $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/roles');
+            }
+        }
+        flash('No tiene permiso para realizar la operación', 'danger');
+        return redirect('admin/roles');
     }
 
     public function roleAttachment(Request $request)
     {
-        $user_id = $request->user;
-        $role_id = $request->role;
-
-        $user = User::findOrFail($user_id);
-        $role = Role::findOrFail($role_id);
-
-        try
+        if (Auth::user()->hasRole('super_admin'))
         {
-            $user->attachRole($role);
-            flash('Rol asignado exitosamente', 'success');
+            try
+            {
+                $user_id = $request->user;
+                $role_id = $request->role;
+
+                $user = User::findOrFail($user_id);
+                $role = Role::findOrFail($role_id);
+
+                $user->attachRole($role);
+                flash('Rol asignado exitosamente', 'success');
+            }
+            catch (QueryException $e)
+            {
+                flash('Rol ya asignado', 'danger');
+                return redirect('admin/roles');
+            }
+            catch (PDOException $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/roles');
+            }
+            catch (Exception $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/roles');
+            }
         }
-        catch(QueryException $e)
-        {
-            flash('Rol ya asignado', 'danger');
-        }
+        flash('No tiene permiso para realizar la operación', 'danger');
         return redirect ('admin/roles/role-assignment');
     }
 
     public function roleDetachment(User $user, Role $role)
     {
-        try
-        {
-            $user->detachRole($role);
-            flash('Rol eliminado exitosamente', 'success');
+        if (Auth::user()->hasRole('super_admin')) {
+            try
+            {
+                $user->detachRole($role);
+                flash('Rol eliminado exitosamente', 'success');
+            }
+            catch (QueryException $e)
+            {
+                flash('Rol ya asignado', 'danger');
+                return redirect('admin/roles');
+            }
+            catch (PDOException $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/roles');
+            }
+            catch (Exception $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/roles');
+            }
         }
-        catch(Exception $e)
-        {
-            flash('No se pudo realizar la acción', 'danger');
-        }
-        return redirect('admin/roles/role-assignment');
+        flash('No tiene permiso para realizar la operación', 'danger');
+        return redirect ('admin/roles/role-assignment');
     }
 }
