@@ -19,6 +19,11 @@ class Recipe extends Model
         return $this->belongsToMany(Ingredient::class);
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany(Ingredient::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

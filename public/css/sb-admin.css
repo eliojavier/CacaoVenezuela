@@ -32,6 +32,26 @@ body {
 .page-header {
   font-family: 'Lato', sans-serif !important; }
 
+td {
+  text-align: center; }
+
+th {
+  text-align: center !important; }
+
+.table-borderless tbody tr td,
+.table-borderless tbody tr th,
+.table-borderless thead tr th,
+.table-borderless thead tr td,
+.table-borderless tfoot tr th,
+.table-borderless tfoot tr td {
+  border: none !important; }
+
+.panel-primary > .panel-heading {
+  background-color: #34495e !important; }
+
+.btn-success {
+  background-color: #34495e !important; }
+
 /*!
  * Start Bootstrap - SB Admin (http://startbootstrap.com/)
  * Copyright 2013-2016 Start Bootstrap

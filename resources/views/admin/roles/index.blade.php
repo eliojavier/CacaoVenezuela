@@ -9,13 +9,13 @@
 
     <div class="col-md-4 col-sm-12">
         {!!Form::open(['url'=>'admin/roles'])!!}
-            @include('admin.roles.form',['submitButtonText' => 'Agregar'])
+            @include('admin.roles.form',['submitButtonText' => 'Agregar', 'action'=>'create'])
         {!!Form::close()!!}
     </div>
 
     <div class="col-md-8 col-sm-12">
         <div class="table-responsive">
-            <table id="table" class="table table-bordered table-striped table-hover top-margin-25">
+            <table id="table" class="table table-striped table-hover top-margin-25">
                 <thead>
                     <tr>
                         <th>Rol</th>

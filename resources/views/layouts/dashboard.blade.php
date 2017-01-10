@@ -83,7 +83,7 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#roles"> Roles <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="roles" class="collapse">
                             <li>
-                                <a href="{{url('admin/roles')}}"> Gestionar roles </a>
+                                <a href="{{url('admin/roles')}}">Gestionar roles</a>
                             </li>
                             <li>
                                 <a href="{{url('admin/roles/role-assignment')}}">Asignar/Quitar roles</a>

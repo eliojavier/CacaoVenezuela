@@ -18,7 +18,7 @@
         <div class="col-md-8 col-sm-12">
             <h3 class="page-header text-center">Listado de jueces</h3>
             <div class="table-responsive">
-                <table id="table" class="table table-bordered table-striped table-hover top-margin-25">
+                <table id="table" class="table table-striped table-hover top-margin-25">
                     <thead>
                     <tr>
                         <th>Nombre</th>

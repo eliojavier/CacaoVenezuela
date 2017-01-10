@@ -75,17 +75,17 @@ class JudgeController extends Controller
             }
             catch(QueryException $e)
             {
-                flash('Juez no pudo ser agregado', 'danger');
+                flash('No pudo ser procesada la solicitud', 'danger');
                 return redirect('admin/jueces');
             }
             catch(PDOException $e)
             {
-                flash('Juez no pudo ser agregado', 'danger');
+                flash('No pudo ser procesada la solicitud', 'danger');
                 return redirect('admin/jueces');
             }
             catch(Exception $e)
             {
-                flash('Juez no pudo ser agregado', 'danger');
+                flash('No pudo ser procesada la solicitud', 'danger');
                 return redirect('admin/jueces');
             }
         }

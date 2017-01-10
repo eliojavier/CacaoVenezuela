@@ -36,13 +36,30 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt(123456),
             'birthday' => DateTime::createFromFormat('d/m/Y', '29/01/1986')->format('Y-m-d'),
             'phone' => '0412-159-78-45',
-            'twitter' => 'eliojavier',
-            'instagram' => 'eliojavier',
+            'twitter' => 'pedroperez',
+            'instagram' => 'pedroperez',
             'size' => 'M',
             'category' => 'Estudiante/Profesional',
             'type' => 'N/A',
-            'city_id' => 1,
+            'city_id' => 3,
             'academy_id' => 2,
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Jose',
+            'last_name' => 'Pérez',
+            'email' => 'joseperez@gmail.com',
+            'doc_id' => '15457779',
+            'password' => bcrypt(123456),
+            'birthday' => DateTime::createFromFormat('d/m/Y', '29/01/1986')->format('Y-m-d'),
+            'phone' => '0412-359-54-45',
+            'twitter' => 'joseperez',
+            'instagram' => 'joseperez',
+            'size' => 'M',
+            'category' => 'Estudiante/Profesional',
+            'type' => 'N/A',
+            'city_id' => 4,
+            'academy_id' => 3,
         ]);
     }
 }

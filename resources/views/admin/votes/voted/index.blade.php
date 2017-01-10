@@ -8,7 +8,7 @@
     <div class="row margin-top-15">
         <div class="col-md-9 col-md-offset-1">
             <div class="table-responsive">
-                <table id="table" class="table table-bordered table-striped table-hover">
+                <table id="table" class="table table-striped table-hover">
                     <thead>
                     <tr>
                         <th>Receta</th>

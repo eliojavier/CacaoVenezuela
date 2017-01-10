@@ -27,13 +27,12 @@
 
     <div class="col-md-8 col-sm-12">
         <div class="table-responsive">
-            <table id="table" class="table table-bordered table-striped table-hover top-margin-25">
+            <table id="table" class="table table-striped table-hover top-margin-25">
                 <thead>
                 <tr>
                     <th>Nombre</th>
                     <th>Cédula</th>
                     <th>Rol asignado</th>
-                    <th>Editar</th>
                     <th>Eliminar</th>
                 </tr>
                 </thead>
@@ -46,13 +45,6 @@
                             <td>{{$user->doc_id}}</td>
                             <td>
                                 {{$role->display_name}}
-                            </td>
-                            <td>
-                                <a href="{{ url('admin/participantes/' . $user->id . '/edit') }}">
-                                    <button type="button" class="btn btn-success">
-                                        <span class="glyphicon glyphicon-edit"></span>
-                                    </button>
-                                </a>
                             </td>
                             <td>
                                 {!! Form::open(['method' => 'DELETE', 'url' => ['admin/roles/role-detachment', $user, $role]])!!}

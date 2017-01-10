@@ -88,7 +88,7 @@
                     $("#myTags").tagit({
                         availableTags: tags,
                         fieldName: 'tags[]',
-                        allowSpaces: true
+                        allowSpaces: false
                     });
                 },
                 error: function () {

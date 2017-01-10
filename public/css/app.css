@@ -34,6 +34,26 @@ body {
 .page-header {
   font-family: 'Lato', sans-serif !important; }
 
+td {
+  text-align: center; }
+
+th {
+  text-align: center !important; }
+
+.table-borderless tbody tr td,
+.table-borderless tbody tr th,
+.table-borderless thead tr th,
+.table-borderless thead tr td,
+.table-borderless tfoot tr th,
+.table-borderless tfoot tr td {
+  border: none !important; }
+
+.panel-primary > .panel-heading {
+  background-color: #34495e !important; }
+
+.btn-success {
+  background-color: #34495e !important; }
+
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
  * Copyright 2011-2016 Twitter, Inc.
@@ -2919,28 +2939,28 @@ fieldset[disabled] a.btn {
 
 .btn-success {
   color: #fff;
-  background-color: #5e7791;
-  border-color: #546a82; }
+  background-color: #3097D1;
+  border-color: #2a88bd; }
   .btn-success:focus, .btn-success.focus {
     color: #fff;
-    background-color: #4a5e72;
-    border-color: #222b34; }
+    background-color: #2579a9;
+    border-color: #133d55; }
   .btn-success:hover {
     color: #fff;
-    background-color: #4a5e72;
-    border-color: #3c4c5c; }
+    background-color: #2579a9;
+    border-color: #1f648b; }
   .btn-success:active, .btn-success.active,
   .open > .btn-success.dropdown-toggle {
     color: #fff;
-    background-color: #4a5e72;
-    border-color: #3c4c5c; }
+    background-color: #2579a9;
+    border-color: #1f648b; }
     .btn-success:active:hover, .btn-success:active:focus, .btn-success:active.focus, .btn-success.active:hover, .btn-success.active:focus, .btn-success.active.focus,
     .open > .btn-success.dropdown-toggle:hover,
     .open > .btn-success.dropdown-toggle:focus,
     .open > .btn-success.dropdown-toggle.focus {
       color: #fff;
-      background-color: #3c4c5c;
-      border-color: #222b34; }
+      background-color: #1f648b;
+      border-color: #133d55; }
   .btn-success:active, .btn-success.active,
   .open > .btn-success.dropdown-toggle {
     background-image: none; }
@@ -2948,10 +2968,10 @@ fieldset[disabled] a.btn {
   fieldset[disabled] .btn-success:hover,
   fieldset[disabled] .btn-success:focus,
   fieldset[disabled] .btn-success.focus {
-    background-color: #5e7791;
-    border-color: #546a82; }
+    background-color: #3097D1;
+    border-color: #2a88bd; }
   .btn-success .badge {
-    color: #5e7791;
+    color: #3097D1;
     background-color: #fff; }
 
 .btn-info {
@@ -4233,9 +4253,9 @@ a.label:hover, a.label:focus {
     background-color: #2579a9; }
 
 .label-success {
-  background-color: #5e7791; }
+  background-color: #3097D1; }
   .label-success[href]:hover, .label-success[href]:focus {
-    background-color: #4a5e72; }
+    background-color: #2579a9; }
 
 .label-info {
   background-color: #8eb4cb; }
@@ -4457,7 +4477,7 @@ a.thumbnail.active {
   animation: progress-bar-stripes 2s linear infinite; }
 
 .progress-bar-success {
-  background-color: #5e7791; }
+  background-color: #3097D1; }
   .progress-striped .progress-bar-success {
     background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
     background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent); }

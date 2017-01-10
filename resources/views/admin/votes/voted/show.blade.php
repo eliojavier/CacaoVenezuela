@@ -18,7 +18,7 @@
     <div class="row">
         <div class="col-md-8">
             <div class="table-responsive  margin-top-15">
-                <table id="table" class="table table-bordered table-striped table-hover">
+                <table id="table" class="table table-striped table-hover">
                     <thead>
                     <tr>
                         <th>Receta</th>
@@ -51,7 +51,4 @@
             @endforeach
         </div>
     </div>
-
-
-
 @endsection

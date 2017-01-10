@@ -31,8 +31,8 @@ Route::group(['middleware' => ['auth', 'role:admin|super_admin|judge'], 'prefix'
     Route::resource('criterios', 'CriterionController');
     Route::resource('recetas', 'AdminRecipeController');
 
-    Route::get('roles/role-assignment/', 'RoleController@roleAssignment');
-    Route::post('roles/role-attachment/', 'RoleController@roleAttachment');
+    Route::get('roles/role-assignment', 'RoleController@roleAssignment');
+    Route::post('roles/role-attachment', 'RoleController@roleAttachment');
     Route::delete('roles/role-detachment/{user}/{role}', 'RoleController@roleDetachment');
 
     Route::resource('roles', 'RoleController');

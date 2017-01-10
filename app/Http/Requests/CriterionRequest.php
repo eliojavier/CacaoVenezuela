@@ -24,7 +24,8 @@ class CriterionRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'phase'=>'required',
+            'criterion'=>'required'
         ];
     }
 

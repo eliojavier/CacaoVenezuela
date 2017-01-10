@@ -7,11 +7,11 @@
         <h2 class="page-header">Participantes</h2>
     </div>
 
-    <div class="row margin-top-15">
+    <div class="row">
         <div class="col-md-9 col-md-offset-1 col-sm-12">
             <h3 class="page-header text-center">Listado de participantes</h3>
             <div class="table-responsive">
-                <table id="table" class="table table-bordered table-striped table-hover">
+                <table id="table" class="table table-striped table-hover">
                     <thead>
                     <tr>
                         <th>Nombre</th>

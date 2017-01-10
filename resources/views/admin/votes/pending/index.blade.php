@@ -11,14 +11,12 @@
 
             <div class="col-md-8 col-md-offset-2">
                 <div class="table-responsive">
-                    <table id="table" class="table table-bordered table-striped table-hover">
+                    <table id="table" class="table table-striped table-hover">
                         <thead>
                         <tr>
                             <th>Receta</th>
                             <th>Modalidad</th>
-                            <th>Ingredientes</th>
-                            <th>Preparación</th>
-                            <th>Votar</th>
+                            <th>Ver</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -27,13 +25,9 @@
                             <td>{{$recipe->name}}</td>
                             <td>{{$recipe->modality}}</td>
                             <td>
-                                {{$recipe->ingredients}}
-                            </td>
-                            <td>{{$recipe->directions}}</td>
-                            <td>
-                                <a href="{{ url('admin/votaciones/create/' . $recipe->id ) }}">
+                                <a href="{{ url('admin/recetas/' . $recipe->id ) }}">
                                     <button type="button" class="btn btn-success">
-                                        <span class="glyphicon glyphicon-check"></span>
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
                                     </button>
                                 </a>
                             </td>

@@ -65,9 +65,9 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
-                                        <a href="{{url('misrecetas/create')}}">
-                                            <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                                            Inscribir receta
+                                        <a href="{{url('misrecetas')}}">
+                                            <i class="fa fa-table" aria-hidden="true"></i>
+                                            Mis recetas
                                         </a>
                                     </li>
                                     <li>

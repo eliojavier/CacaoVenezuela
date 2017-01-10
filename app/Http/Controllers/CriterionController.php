@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 use PDOException;
 
 class CriterionController extends Controller
@@ -21,7 +22,7 @@ class CriterionController extends Controller
     public function index()
     {
         try{
-            $criteria = Criterion::orderBy('phase')->get();
+            $criteria = Criterion::orderBy('phase')->orderBy('created_at')->get();
             return view ('admin.criteria.index', compact('criteria'));
         }
         catch (QueryException $e) {
@@ -45,7 +46,7 @@ class CriterionController extends Controller
      */
     public function create()
     {
-        return view ('admin.criteria.create');
+        //
     }
 
     /**
@@ -56,23 +57,28 @@ class CriterionController extends Controller
      */
     public function store(CriterionRequest $request)
     {
-        try{
-            Criterion::create($request->all());
-            flash('Criterio agregado exitosamente', 'success');
-            return redirect ('admin/criterios');
+        if (Auth::user()->hasRole('super_admin')) 
+        {
+            try{
+                Criterion::create($request->all());
+                flash('Criterio agregado exitosamente', 'success');
+                return redirect ('admin/criterios');
+            }
+            catch (QueryException $e) {
+                flash('No pudo ser procesada la solicitud', 'danger');
+                return redirect('admin/criterios');
+            }
+            catch (PDOException $e) {
+                flash('No pudo ser procesada la solicitud', 'danger');
+                return redirect('admin/criterios');
+            }
+            catch (Exception $e) {
+                flash('No pudo ser procesada la solicitud', 'danger');
+                return redirect('admin/criterios');
+            }
         }
-        catch (QueryException $e) {
-            flash('Criterio no puede ser agregado', 'danger');
-            return redirect('admin/criterios');
-        }
-        catch (PDOException $e) {
-            flash('Error de conexión a la base de datos', 'danger');
-            return redirect('admin/criterios');
-        }
-        catch (Exception $e) {
-            flash('No pudo ser procesada la solicitud', 'danger');
-            return redirect('admin/criterios');
-        }
+        flash('No tiene permiso para realizar la operación', 'danger');
+        return redirect('admin/criterios');
     }
 
     /**
@@ -94,8 +100,31 @@ class CriterionController extends Controller
      */
     public function edit($id)
     {
-        $criterion = Criterion::findOrFail($id);
-        return view('admin.criteria.edit', compact('criterion'));
+        if (Auth::user()->hasRole('super_admin'))
+        {
+            try
+            {
+                $criterion = Criterion::findOrFail($id);
+                return view('admin.criteria.edit', compact('criterion'));
+            }
+            catch (QueryException $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/criterios');
+            }
+            catch (PDOException $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/criterios');
+            }
+            catch (Exception $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/criterios');
+            }
+        }
+        flash('No tiene permiso para realizar la operación', 'danger');
+        return redirect('admin/criterios');
     }
 
     /**
@@ -107,24 +136,29 @@ class CriterionController extends Controller
      */
     public function update(CriterionRequest $request, $id)
     {
-        try{
-            $criterion = Criterion::findOrFail($id);
-            $criterion->update($request->all());
-            flash('Criterio actualizado exitosamente', 'success');
-            return redirect('admin/criterios');
+        if (Auth::user()->hasRole('super_admin'))
+        {
+            try{
+                $criterion = Criterion::findOrFail($id);
+                $criterion->update($request->all());
+                flash('Criterio actualizado exitosamente', 'success');
+                return redirect('admin/criterios');
+            }
+            catch (QueryException $e) {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/criterios');
+            }
+            catch (PDOException $e) {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/criterios');
+            }
+            catch (Exception $e) {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/criterios');
+            }
         }
-        catch (QueryException $e) {
-            flash('Criterio no puede ser actualizado', 'danger');
-            return redirect('admin/criterios');
-        }
-        catch (PDOException $e) {
-            flash('Error de conexión a la base de datos', 'danger');
-            return redirect('admin/criterios');
-        }
-        catch (Exception $e) {
-            flash('No pudo ser procesada la solicitud', 'danger');
-            return redirect('admin/criterios');
-        }
+        flash('No tiene permiso para realizar la operación', 'danger');
+        return redirect('admin/criterios');
     }
 
     /**
@@ -137,17 +171,40 @@ class CriterionController extends Controller
      */
     public function destroy($id)
     {
-        $votes = Vote::all();
-        foreach ($votes as $vote)
+        if (Auth::user()->hasRole('super_admin'))
         {
-            if ($vote->criterion->id == $id)
+            try
             {
-                flash('Criterio no puede eliminarse', 'danger');
+                $votes = Vote::all();
+                foreach ($votes as $vote)
+                {
+                    if ($vote->criterion->id == $id)
+                    {
+                        flash('Criterio no puede eliminarse debido a que está siendo utilizado', 'danger');
+                        return redirect('admin/criterios');
+                    }
+                }
+                Criterion::destroy($id);
+                flash('Criterio eliminado exitosamente', 'success');
                 return redirect('admin/criterios');
             }
+            catch (QueryException $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/jueces');
+            }
+            catch (PDOException $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/jueces');
+            }
+            catch (Exception $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/jueces');
+            }
         }
-        Criterion::destroy($id);
-        flash('Criterio eliminado exitosamente', 'success');
+        flash('No tiene permiso para realizar la operación', 'danger');
         return redirect('admin/criterios');
     }
 }

@@ -8,6 +8,7 @@
 
 table th{
   background-color: #34495e !important;
+  //background-color: #3097D1 !important;
   font-weight: 300 !important;
   font-size: 14px!important;
   font-family: 'Lato', sans-serif !important;
@@ -38,4 +39,29 @@ body {
 
 .page-header{
   font-family: 'Lato', sans-serif !important;
+}
+
+td{
+  text-align: center;
+}
+
+th{
+  text-align: center !important;
+}
+
+.table-borderless tbody tr td,
+.table-borderless tbody tr th,
+.table-borderless thead tr th,
+.table-borderless thead tr td,
+.table-borderless tfoot tr th,
+.table-borderless tfoot tr td {
+  border: none !important;
+}
+
+.panel-primary > .panel-heading {
+  background-color: #34495e !important;
+}
+
+.btn-success {
+  background-color: #34495e !important;
 }

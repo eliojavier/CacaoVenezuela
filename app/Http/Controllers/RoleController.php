@@ -137,11 +137,11 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param RoleRequest|Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(RoleRequest $request, $id)
     {
         if (Auth::user()->hasRole('super_admin'))
         {
@@ -189,6 +189,13 @@ class RoleController extends Controller
         {
             try
             {
+                $role = Role::findOrFail($id);
+                $user = Role::where('name', $role->name)->first()->users()->get();
+                if($user->count() > 0)
+                {
+                    flash('Rol no puede eliminarse debido a que está siendo utilizado', 'danger');
+                    return redirect('admin/roles');
+                }
                 Role::destroy($id);
                 flash('Rol eliminado exitosamente', 'success');
                 return redirect('admin/roles');
@@ -263,8 +270,13 @@ class RoleController extends Controller
             }
             catch (QueryException $e)
             {
-                flash('Rol ya asignado', 'danger');
-                return redirect('admin/roles');
+                flash('No pudo completarse la operación', 'danger');
+                $errorCode = $e->errorInfo[1];
+                if($errorCode == 1062)
+                {
+                    flash('Rol ya asignado', 'danger');
+                }
+                return redirect('admin/roles/role-assignment');
             }
             catch (PDOException $e)
             {
@@ -283,26 +295,33 @@ class RoleController extends Controller
 
     public function roleDetachment(User $user, Role $role)
     {
-        if (Auth::user()->hasRole('super_admin')) {
+        if (Auth::user()->hasRole('super_admin'))
+        {
             try
             {
+                if($user->id == Auth::id())
+                {
+                    flash('Usuario conectado actualmente', 'danger');
+                    return redirect('admin/roles/role-assignment');
+                }
                 $user->detachRole($role);
                 flash('Rol eliminado exitosamente', 'success');
+                return redirect('admin/roles/role-assignment');
             }
             catch (QueryException $e)
             {
-                flash('Rol ya asignado', 'danger');
-                return redirect('admin/roles');
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/roles/role-assignment');
             }
             catch (PDOException $e)
             {
                 flash('No pudo completarse la operación', 'danger');
-                return redirect('admin/roles');
+                return redirect('admin/roles/role-assignment');
             }
             catch (Exception $e)
             {
                 flash('No pudo completarse la operación', 'danger');
-                return redirect('admin/roles');
+                return redirect('admin/roles/role-assignment');
             }
         }
         flash('No tiene permiso para realizar la operación', 'danger');

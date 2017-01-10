@@ -4,8 +4,8 @@
     <h2 class="page-header tex-center">Editar perfil</h2>
     <div class="row">
         <div class="col-md-3">
-            <a href="{{ url('admin/participantes/') }}">
-                <button type="button" class="btn btn-default">
+            <a href="{{ URL::previous() }}">
+                <button type="button" class="btn btn-success">
                     <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Volver
                 </button>
             </a>

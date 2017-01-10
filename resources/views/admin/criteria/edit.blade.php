@@ -14,9 +14,9 @@
     </div>
 
     <div class="row">
-        <div class="col-md-4 text-center">
-            <a href="{{ url('admin/criterios') }}">
-                <button type="button" class="btn btn-default">
+        <div class="col-md-4">
+            <a href="{{ URL::previous() }}">
+                <button type="button" class="btn btn-success">
                     <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Volver
                 </button>
             </a>

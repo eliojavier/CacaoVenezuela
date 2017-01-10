@@ -6,8 +6,12 @@ use App\Http\Requests\ParticipantRecipeRequest;
 use App\Ingredient;
 use App\Recipe;
 use App\User;
+use App\Vote;
+use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PDOException;
 
 class ParticipantRecipeController extends Controller
 {
@@ -62,9 +66,12 @@ class ParticipantRecipeController extends Controller
                 $recipe->user_id = $user->id;
 
                 $recipe->save();
-              
+
+                flash('Se inscribió la receta exitosamente', 'success');
                 return redirect ('misrecetas');
             }
+            flash('Ya tiene inscrita una receta en la modalidad ' . $request->modality, 'danger');
+            return redirect('misrecetas');
         }
         return redirect('/');
     }
@@ -76,9 +83,32 @@ class ParticipantRecipeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        $recipe = Recipe::findOrFail($id);
-        return view ('app.recipes.show', compact('recipe'));
+    { 
+        if (Auth::user()->hasRole('participant'))
+        {
+            try
+            {
+                $recipe = Recipe::findOrFail($id);
+                return view ('app.recipes.show', compact('recipe'));
+            }
+            catch (QueryException $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('misrecetas');
+            }
+            catch (PDOException $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('misrecetas');
+            }
+            catch (Exception $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('misrecetas');
+            }
+        }
+        flash('No tiene permiso para realizar la operación', 'danger');
+        return redirect('misrecetas');
     }
 
     /**
@@ -89,7 +119,31 @@ class ParticipantRecipeController extends Controller
      */
     public function edit($id)
     {
-       
+        if (Auth::user()->hasRole('participant'))
+        {
+            try
+            {
+                $recipe = Recipe::findOrFail($id);
+                return view('app.recipes.edit', compact('recipe'));
+            }
+            catch (QueryException $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('misrecetas');
+            }
+            catch (PDOException $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('misrecetas');
+            }
+            catch (Exception $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('misrecetas');
+            }
+        }
+        flash('No tiene permiso para realizar la operación', 'danger');
+        return redirect('misrecetas');
     }
 
     /**
@@ -101,9 +155,33 @@ class ParticipantRecipeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $recipe = Recipe::findOrFail($id);
-        $recipe->update($request->all());
-        return redirect ('/');
+        if (Auth::user()->hasRole('participant'))
+        {
+            try
+            {
+                $recipe = Recipe::findOrFail($id);
+                $recipe->update($request->all());
+                flash('Receta actualizada exitosamente', 'success');
+                return redirect ('misrecetas');
+            }
+            catch(QueryException $e)
+            {
+                flash('Receta no pudo ser actualizada', 'danger');
+                return redirect('misrecetas');
+            }
+            catch(PDOException $e)
+            {
+                flash('Receta no pudo ser actualizada', 'danger');
+                return redirect('misrecetas');
+            }
+            catch(Exception $e)
+            {
+                flash('Receta no pudo ser actualizada', 'danger');
+                return redirect('misrecetas');
+            }
+        }
+        flash('No tiene permiso para realizar la operación', 'danger');
+        return redirect('misrecetas');
     }
 
     /**
@@ -114,7 +192,41 @@ class ParticipantRecipeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (Auth::user()->hasRole('participant'))
+        {
+            try
+            {
+                $votes = Vote::all();
+                foreach ($votes as $vote)
+                {
+                    if ($vote->recipe->id == $id)
+                    {
+                        flash('Receta no puede eliminarse debido a que ya ha recibido votaciones', 'danger');
+                        return redirect('misrecetas');
+                    }
+                }
+                Recipe::destroy($id);
+                flash('Receta eliminada exitosamente', 'success');
+                return redirect('misrecetas');
+            }
+            catch (QueryException $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('misrecetas');
+            }
+            catch (PDOException $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('misrecetas');
+            }
+            catch (Exception $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('misrecetas');
+            }
+        }
+        flash('No tiene permiso para realizar la operación', 'danger');
+        return redirect('misrecetas');
     }
 
     public function uploadImage(Request $request)
@@ -182,4 +294,5 @@ class ParticipantRecipeController extends Controller
         }
         return true;
     }
+    
 }
