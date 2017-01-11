@@ -33,7 +33,7 @@
                         <tr>
                             <td><strong>Imagen:</strong></td>
                             <td>
-                                <img src={{asset('/images/recipes/'.'2017-01-09-04-17-39.ac78ab3f35109d6bf0682fe6aa099c0c12d2fa43.jpg')}} class="img-responsive" alt="{{$recipe->name}}">
+
                             </td>
                         </tr>
                     </table>
