@@ -6,17 +6,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-3">
-            <a href="{{ url('admin/votaciones/realizadas') }}">
-                <button type="button" class="btn btn-default">
-                    <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Volver
-                </button>
-            </a>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-8 col-md-offset-1">
             <div class="table-responsive  margin-top-15">
                 <table id="table" class="table table-striped table-hover">
                     <thead>
@@ -42,13 +32,26 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8 col-md-offset-1 text-center">
             @foreach($recipe->votesBySpecificJudge as $vote)
-                <p> Criterio: {{$vote->criterion->criterion}}</p>
-                <p> Puntuación: {{$vote->score}}</p>
-                <p> Juez: {{$vote->user->name . ' ' . $vote->user->last_name}}</p>
-                <div class="page-header"></div>
+                <p> <strong>{{$vote->criterion->criterion}}: </strong>{{$vote->score}}</p>
+                <p> </p>
             @endforeach
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-1 text-center">
+            <a href="{{ URL::previous() }}">
+                <button type="button" class="btn btn-success">
+                    <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Volver
+                </button>
+            </a>
+            <a href="{{ url('admin/votaciones/' . $recipe->id .'/edit') }}">
+                <button type="button" class="btn btn-success">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar votación
+                </button>
+            </a>
         </div>
     </div>
 @endsection

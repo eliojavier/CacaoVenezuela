@@ -44,12 +44,21 @@
                             <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Volver
                         </button>
                     </a>
-                    <a href="{{ url('admin/votaciones/create/' . $recipe->id) }}">
-                        <button type="button" class="btn btn-success">
-                            <i class="fa fa-check" aria-hidden="true"></i>
-                            Votar
-                        </button>
-                    </a>
+                    @if ($voted==0)
+                        <a href="{{ url('admin/votaciones/create/' . $recipe->id) }}">
+                            <button type="button" class="btn btn-success">
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                                Votar
+                            </button>
+                        </a>
+                    @else
+                        <a href="{{ url('admin/votaciones/realizadas/' . $recipe->id) }}">
+                            <button type="button" class="btn btn-success">
+                                Ver votación
+                            </button>
+                        </a>
+                    @endif
+
                 </div>
             </div>
         </div>

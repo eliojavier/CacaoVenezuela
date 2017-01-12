@@ -26,6 +26,7 @@ class AdminRecipeController extends Controller
     public function show($id)
     {
         $recipe = Recipe::findOrFail($id);
-        return view ('admin.recipes.show', compact('recipe'));
+        $voted = $recipe->votesBySpecificJudge->count();
+        return view ('admin.recipes.show', compact('recipe', 'voted'));
     }
 }

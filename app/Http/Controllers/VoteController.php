@@ -67,7 +67,8 @@ class VoteController extends Controller
             $user = User::findOrFail(Auth::id());
             $recipes = $user->recipesVoted()->distinct()->get();
 
-            if($recipes->count()>0){
+            if($recipes->count()>0)
+            {
                 return view ('admin.votes.voted.index', compact('recipes'));
             }
             flash('No has realizado ninguna votación', 'danger');
@@ -88,8 +89,6 @@ class VoteController extends Controller
             flash('No pudo completarse la operación', 'danger');
             return redirect('admin/recetas');
         }
-
-
     }
 
     public function showRecipeScore(Recipe $recipe)
@@ -172,21 +171,28 @@ class VoteController extends Controller
                     }
                 }
 
-                $user_id = $user->id;
-                $recipe_id = $request->recipe;
-
+                $recipe = Recipe::findOrFail($request->recipe);
+                
+                if($recipe->votesBySpecificJudge->count()>0)
+                {
+                    foreach ($recipe->votesBySpecificJudge as $vote)
+                    {
+                        Vote::destroy($vote->id);
+                    }
+                }
                 foreach ($criteria as $criterion)
                 {
                     $criterion_id = $criterion->id;
 
                     $vote = new Vote();
 
-                    $vote->user()->associate($user_id);
+                    $vote->user()->associate(Auth::id());
                     $vote->criterion()->associate($criterion_id);
-                    $vote->recipe()->associate($recipe_id);
+                    $vote->recipe()->associate($recipe->id);
                     $vote->score = $request->$criterion_id;
                     $vote->save();
                 }
+                
                 flash('Votación realizada exitosamente', 'success');
                 return redirect ('admin/votaciones/pendientes');
             }
@@ -231,19 +237,46 @@ class VoteController extends Controller
      */
     public function edit($id)
     {
-        //
+        if (Auth::user()->hasRole('judge'))
+        {
+            try
+            {
+                $recipe = Recipe::findOrFail($id);
+                $criteria = Criterion::where('phase', 1)->get();
+                $scores = [''=>'Puntuación', 1=>1, 2=>2, 3=>3, 4=>4, 5=>5, 6=>6, 7=>7, 8=>8, 9=>9, 10=>10];
+
+                return view ('admin.votes.create', compact('recipe', 'criteria', 'scores'));
+            }
+            catch(QueryException $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/recetas');
+            }
+            catch(PDOException $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/recetas');
+            }
+            catch(Exception $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/recetas');
+            }
+        }
+        flash('No tiene permiso para realizar la operación', 'danger');
+        return redirect('admin/recetas');
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
      * @return Response
+     * @internal param int $id
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+       //
     }
 
     /**
