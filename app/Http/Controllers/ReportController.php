@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Ingredient;
 use App\Recipe;
 use App\User;
-use App\Vote;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller

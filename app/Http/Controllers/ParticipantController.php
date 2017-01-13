@@ -6,12 +6,9 @@ use App\Academy;
 use App\City;
 use App\Role;
 use App\User;
-use Exception;
-use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
-use PDOException;
+
 
 class ParticipantController extends Controller
 {
