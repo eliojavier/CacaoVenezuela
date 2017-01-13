@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Ingredient;
 use App\Recipe;
 use App\User;
+use App\Vote;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -59,15 +60,14 @@ class ReportController extends Controller
 
     public function rankingByPhase($phase)
     {
-        $recipes = Recipe::has('votes')->count();
-//        dd($recipes);
-        $ranking_by_phase = DB::select(DB::raw('SELECT r.name, sum(v.score) as score
-                                                FROM votes v, criteria c, recipes r 
-                                                WHERE v.criterion_id =c.id
-                                                AND v.recipe_id = r.id
-                                                AND c.phase=' . $phase . '
-                                                GROUP BY v.criterion_id, r.name, score
-                                                ORDER BY v.score DESC'));
-        dd($ranking_by_phase);
+        $ranking_by_phase = DB::select(DB::raw('SELECT recipes.id, recipes.name, sum(votes.score) as score
+                                                FROM votes, criteria, recipes
+                                                WHERE votes.criterion_id =criteria.id
+                                                AND votes.recipe_id = recipes.id
+                                                AND criteria.phase=' . $phase . '
+                                                GROUP BY recipes.id, recipes.name
+                                                ORDER BY score DESC'));
+
+        return view ('admin.reports.ranking_phase', compact('phase', 'ranking_by_phase'));
     }
 }

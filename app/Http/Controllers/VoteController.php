@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Criterion;
-use App\Http\Requests\VoteRequest;
 use App\Recipe;
 use App\User;
 use App\Vote;
@@ -180,7 +179,7 @@ class VoteController extends Controller
                         Vote::destroy($vote->id);
                     }
                 }
-                foreach ($criteria as $criterion)
+                foreach ($criteria as $criterion) 
                 {
                     $criterion_id = $criterion->id;
 
@@ -192,7 +191,6 @@ class VoteController extends Controller
                     $vote->score = $request->$criterion_id;
                     $vote->save();
                 }
-                
                 flash('Votación realizada exitosamente', 'success');
                 return redirect ('admin/votaciones/pendientes');
             }

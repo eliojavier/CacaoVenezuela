@@ -4,32 +4,26 @@
     <div class="col-md-11">
         <h2 class="page-header">Reportes - Totales</h2>
     </div>
-    <div class="margin-top-15">
-        <div class="col-md-8 col-md-offset-1">
-            <div class="table-responsive">
-                <table id="table" class="table table-striped table-hover">
-                    <colgroup>
-                        <col class="col-md-2">
-                        <col class="col-md-2">
-                    </colgroup>
-                    <tbody>
+    <div class="col-md-8 col-md-offset-1">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-area-chart" aria-hidden="true"></i>
+                Reportes
+            </div>
+            <div class="panel-body">
+                <table class="table table-borderless table-hover">
                     <tr>
-                        <th># Participantes</th>
-                        <td>{{$number_of_participants}}</td>
+                        <td><strong># Participantes: </strong>{{$number_of_participants}}</td>
                     </tr>
                     <tr>
-                        <th># Recetas</th>
-                        <td>{{$number_of_recipes}}</td>
+                        <td><strong># Recetas: </strong>{{$number_of_recipes}}</td>
                     </tr>
                     <tr>
-                        <th># Recetas - dulce</th>
-                        <td>{{$number_of_recipes_per_dulce_modality}}</td>
+                        <td><strong># Recetas - dulce: </strong>{{$number_of_recipes_per_dulce_modality}}</td>
                     </tr>
                     <tr>
-                        <th># Recetas - salado</th>
-                        <td>{{$number_of_recipes_per_salado_modality}}</td>
+                        <td><strong># Recetas - salado: </strong>{{$number_of_recipes_per_salado_modality}}</td>
                     </tr>
-                    </tbody>
                 </table>
             </div>
         </div>

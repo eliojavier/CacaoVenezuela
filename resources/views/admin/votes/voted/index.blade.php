@@ -40,5 +40,14 @@
                 </table>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-9 col-md-offset-1 text-center">
+                <a href="{{ URL::previous() }}">
+                    <button type="button" class="btn btn-success">
+                        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Volver
+                    </button>
+                </a>
+            </div>
+        </div>
     </div>
 @endsection

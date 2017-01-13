@@ -54,6 +54,9 @@ th {
 .btn-success {
   background-color: #34495e !important; }
 
+.page-header {
+  font-family: "Roboto Condensed", sans-serif !important; }
+
 /*!
  * Bootstrap v3.3.7 (http://getbootstrap.com)
  * Copyright 2011-2016 Twitter, Inc.

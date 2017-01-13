@@ -12,7 +12,9 @@
                     <table class="table table-borderless table-hover">
                         <tr>
                             <td><strong>Participante:</strong></td>
-                            <td class="text-justify">{{$recipe->user->name . " " . $recipe->user->last_name}}</td>
+                            <td class="text-justify">
+                                <a href="{{ url('admin/participantes/' . $recipe->user->id) }}"> {{$recipe->user->name . " " . $recipe->user->last_name}} </a>
+                            </td>
                         </tr>
                         <tr>
                             <td><strong>Modalidad:</strong></td>
