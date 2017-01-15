@@ -3,14 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\JudgeRequest;
-use App\Judge;
 use App\Role;
 use App\User;
-use App\Vote;
 use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use PDOException;
 
@@ -31,17 +28,17 @@ class JudgeController extends Controller
         catch(QueryException $e)
         {
             flash('No pudo completarse la operación', 'danger');
-            return redirect('admin/jueces');
+            return redirect('admin');
         }
         catch(PDOException $e)
         {
             flash('No pudo completarse la operación', 'danger');
-            return redirect('admin/jueces');
+            return redirect('admin');
         }
         catch(Exception $e)
         {
             flash('No pudo completarse la operación', 'danger');
-            return redirect('admin/jueces');
+            return redirect('admin');
         }
     }
 
@@ -197,16 +194,13 @@ class JudgeController extends Controller
         {
             try
             {
-                $votes = Vote::all();
-                foreach ($votes as $vote)
+                $judge_votes = User::findOrFail($id)->votes()->count();
+                if($judge_votes>0)
                 {
-                    if ($vote->judge->id == $id)
-                    {
-                        flash('Juez no puede eliminarse debido a que ya ha realizado votaciones', 'danger');
-                        return redirect('admin/jueces');
-                    }
+                    flash('Juez no puede eliminarse debido a que ya ha realizado votaciones', 'danger');
+                    return redirect('admin/jueces');
                 }
-                Judge::destroy($id);
+                User::destroy($id);
                 flash('Juez eliminado exitosamente', 'success');
                 return redirect('admin/jueces');
             }
@@ -223,6 +217,7 @@ class JudgeController extends Controller
             catch (Exception $e)
             {
                 flash('No pudo completarse la operación', 'danger');
+                flash($e->getMessage(), 'danger');
                 return redirect('admin/jueces');
             }
         }

@@ -30,14 +30,14 @@ class ReportController extends Controller
         return view('admin.reports.participants_by_city', compact('number_of_participants_by_city'));
     }
 
-    public function totals()
+    public function general()
     {
         $number_of_participants = User::has('recipes')->count();
         $number_of_recipes = Recipe::all()->count();
         $number_of_recipes_per_dulce_modality = Recipe::where('modality', 'Dulce')->count();
         $number_of_recipes_per_salado_modality = Recipe::where('modality', 'Salado')->count();
 
-        return view('admin.reports.totals', compact('number_of_participants',
+        return view('admin.reports.general', compact('number_of_participants',
                                                     'number_of_recipes', 
                                                     'number_of_recipes_per_dulce_modality',
                                                     'number_of_recipes_per_salado_modality'));

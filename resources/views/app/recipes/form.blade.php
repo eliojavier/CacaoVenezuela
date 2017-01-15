@@ -3,20 +3,14 @@
     {!!Form::text('name', old('name'), ['class'=>'form-control', 'placeholder'=>'Nombre'])!!}
 </div>
 
-<div class="form-group {{ $errors->has('modality') ? ' has-error' : '' }}">
+<div class="form-group">
     {!! Form::label('modality', 'Modalidad *')!!}
-    {!! Form::select('modality', [''=>'Seleccione una modalidad...', 'Dulce' => 'Dulce', 'Salado' => 'Salado'], null, ['class'=>'form-control'])!!}
+    @if($action == 'create')
+        {!! Form::select('modality', ['Dulce' => 'Dulce', 'Salado' => 'Salado'], null, ['class'=>'form-control'])!!}
+    @else
+        {!! Form::select('modality', ['Dulce' => 'Dulce', 'Salado' => 'Salado'], null, ['class'=>'form-control', 'disabled'])!!}
+    @endif
 </div>
-
-{{--<div class="form-group">--}}
-    {{--{!!Form::label('quantity','Cantidad')!!}--}}
-    {{--{!!Form::text('quantity', old('quantity'), ['class'=>'form-control', 'placeholder'=>'300 gramos, 1/2 kilo, 1 litro, etc.'])!!}--}}
-{{--</div>--}}
-
-{{--<div class="form-group">--}}
-    {{--{!! Form::label('ingredients', 'Ingredientes')!!}--}}
-    {{--{!! Form::text('ingredients', old('ingredients'), ['class'=>'form-control'])!!}--}}
-{{--</div>--}}
 
 <div class="form-group {{ $errors->has('ingredients') ? ' has-error' : '' }}">
     {!!Form::label('ingredients','Ingredientes *')!!}
@@ -31,7 +25,7 @@
 <div class="form-group">
     {!! Form::label('tags', 'Agregue tags de ingredientes principales')!!}
     <ul id="myTags">
-
+        <li>pollll</li>
     </ul>
 </div>
 
@@ -45,8 +39,6 @@
     {!!Form::file('image')!!}
 </div>
 
-
-
 <div class="form-group">
     <div class="col-md-12 text-center">
         {!! Form::submit($submitButtonText, ['class' => 'btn btn-default']) !!}
@@ -57,44 +49,68 @@
     <script>
         $(document).ready(function () {
             var availableTags = [];
-            $('#ingredients').keydown(function () {
-                $.ajax({
-                    url: '../misrecetas/ingredients-by-keyword',
-                    type: 'GET',
-                    data: {val: $('#ingredients').val()},
-                    success: function (result) {
-                        availableTags = [];
-                        $.each(result.ingredients, function (key, value) {
-                            availableTags.push(value.name);
-                        });
-                        $("#ingredients").autocomplete({
-                            source: availableTags
-                        });
-                    },
-                    error: function () {
-                        availableTags = [];
-                    }
-                })
-            });
 
-            $.ajax({
-                url: '../misrecetas/all-ingredients',
-                type: 'GET',
-                success: function (result) {
-                    tags = [];
-                    $.each(result.ingredients, function (key, value) {
-                        tags.push(value.name);
-                    });
-                    $("#myTags").tagit({
-                        availableTags: tags,
-                        fieldName: 'tags[]',
-                        allowSpaces: false
-                    });
-                },
-                error: function () {
-                    tags = [];
-                }
-            });
+            $.when(getTagsAjaxCall(), getAllIngredientsAjaxCall()).then(getIngredientsByKeywordAjaxCall);
+
+            function getTagsAjaxCall() {
+                return $.ajax({
+                            url: '/misrecetas/get-tags',
+                            type: 'GET',
+                            data:{id:107},
+                            success: function (result) {
+                                recipetags = [];
+                                $.each(result.tags, function (key, value) {
+                                    $("#myTags").append('<li>' + value + '</li>');
+                                });
+                            },
+                            error: function () {
+                                recipetags = [];
+                            }
+                        });
+            }
+
+            function getAllIngredientsAjaxCall(){
+                return $.ajax({
+                            url: '/misrecetas/all-ingredients',
+                            type: 'GET',
+                            success: function (result) {
+                                tags = [];
+                                $.each(result.ingredients, function (key, value) {
+                                    tags.push(value.name);
+                                });
+                                $("#myTags").tagit({
+                                    availableTags: tags,
+                                    fieldName: 'tags[]',
+                                    allowSpaces: false
+                                });
+                            },
+                            error: function () {
+                                tags = [];
+                            }
+                        });
+            }
+
+            function getIngredientsByKeywordAjaxCall() {
+                return $('#ingredients').keydown(function () {
+                            $.ajax({
+                                url: '/misrecetas/ingredients-by-keyword',
+                                type: 'GET',
+                                data: {val: $('#ingredients').val()},
+                                success: function (result) {
+                                    availableTags = [];
+                                    $.each(result.ingredients, function (key, value) {
+                                        availableTags.push(value.name);
+                                    });
+                                    $("#ingredients").autocomplete({
+                                        source: availableTags
+                                    });
+                                },
+                                error: function () {
+                                    availableTags = [];
+                                }
+                            })
+                        });
+            }
         });
     </script>
 @endsection

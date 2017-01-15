@@ -15,9 +15,11 @@ Auth::routes();
 Route::get('logout', 'Auth\LoginController@logout');
 
 Route::get('/', 'PagesController@index');
+Route::get('home', 'PagesController@index');
 
 Route::get('misrecetas/ingredients-by-keyword', 'ParticipantRecipeController@getIngredientsByKeyword');
 Route::get('misrecetas/all-ingredients', 'ParticipantRecipeController@getAllIngredients');
+Route::get('misrecetas/get-tags', 'ParticipantRecipeController@getTags');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('misrecetas', 'ParticipantRecipeController');
@@ -29,6 +31,8 @@ Route::group(['middleware' => ['auth', 'role:super_admin|judge'], 'prefix' => 'a
     Route::resource('jueces', 'JudgeController');
     Route::resource('participantes', 'ParticipantController');
     Route::resource('criterios', 'CriterionController');
+
+    Route::get('recetas/user/{user}', 'AdminRecipeController@userRecipes');
     Route::resource('recetas', 'AdminRecipeController');
 
     Route::get('roles/role-assignment', 'RoleController@roleAssignment');
@@ -43,7 +47,7 @@ Route::group(['middleware' => ['auth', 'role:super_admin|judge'], 'prefix' => 'a
     Route::resource('votaciones', 'VoteController');
 
     Route::get('reportes/numero-participantes-por-ciudad', 'ReportController@numberOfParticipantsByCity');
-    Route::get('reportes/totals', 'ReportController@totals');
+    Route::get('reportes/general', 'ReportController@general');
     Route::get('reportes/ranking-ingredientes', 'ReportController@mostUsedIngredients');
     Route::get('reportes/ranking/fase/{phase}', 'ReportController@rankingByPhase');
 });

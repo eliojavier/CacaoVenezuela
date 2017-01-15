@@ -20,26 +20,31 @@ class RoleController extends Controller
      */
     public function index()
     {
-        try 
+        if (Auth::user()->hasRole('super_admin'))
         {
-            $roles = Role::all();
-            return view('admin.roles.index', compact('roles'));
+            try
+            {
+                $roles = Role::all();
+                return view('admin.roles.index', compact('roles'));
+            }
+            catch(QueryException $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/roles');
+            }
+            catch(PDOException $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/roles');
+            }
+            catch(Exception $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('admin/roles');
+            }
         }
-        catch(QueryException $e)
-        {
-            flash('No pudo completarse la operación', 'danger');
-            return redirect('admin/roles');
-        }
-        catch(PDOException $e)
-        {
-            flash('No pudo completarse la operación', 'danger');
-            return redirect('admin/roles');
-        }
-        catch(Exception $e)
-        {
-            flash('No pudo completarse la operación', 'danger');
-            return redirect('admin/roles');
-        }
+        flash('No tiene permiso para realizar la operación', 'danger');
+        return redirect('admin');
     }
 
     /**
@@ -226,7 +231,7 @@ class RoleController extends Controller
         {
             try
             {
-                $select_users = User::pluck('doc_id', 'id');
+                $select_users = User::all()->pluck('full_name', 'id');
                 $select_roles = Role::pluck('name', 'id');
 
                 $users = User::all();
@@ -259,12 +264,10 @@ class RoleController extends Controller
         {
             try
             {
-                $user_id = $request->user;
-                $role_id = $request->role;
-
-                $user = User::findOrFail($user_id);
-                $role = Role::findOrFail($role_id);
-
+                $user = User::findOrFail($request->user);
+                $role = Role::findOrFail($request->role);
+                $roles = $user->RoleValidation($user->id);
+//                dd($roles);
                 $user->attachRole($role);
                 flash('Rol asignado exitosamente', 'success');
             }

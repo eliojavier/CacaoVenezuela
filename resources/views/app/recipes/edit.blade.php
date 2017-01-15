@@ -5,9 +5,9 @@
         <div class="col-lg-12">
             <h2 class="page-header">Editar receta</h2>
         </div>
-        <div class="col-md-4">
-            {!! Form::model($recipe,['method' => 'PATCH', 'url' => ['admin/jueces', $recipe]]) !!}
-                @include('app.recipes.form',['submitButtonText' => 'Editar'])
+        <div class="col-md-4 col-md-offset-4">
+            {!! Form::model($recipe,['method' => 'PATCH', 'url' => 'misrecetas/' . $recipe->id]) !!}
+                @include('app.recipes.form',['submitButtonText' => 'Editar', 'action'=>'edit'])
             {!!Form::close()!!}
         </div>
     </div>

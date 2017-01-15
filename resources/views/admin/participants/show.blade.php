@@ -62,6 +62,12 @@
                         <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Volver
                     </button>
                 </a>
+                <a href="{{ url('admin/recetas/user/' . $participant->id) }}">
+                    <button type="button" class="btn btn-success">
+                        <i class="fa fa-eye" aria-hidden="true"></i>
+                        Ver recetas
+                    </button>
+                </a>
             </div>
         </div>
     </div>

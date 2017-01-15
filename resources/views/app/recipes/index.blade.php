@@ -8,7 +8,7 @@
     </div>
 
     <div class="row margin-top-15">
-        <div class="col-md-7 col-md-offset-2 col-sm-12">
+        <div class="col-md-8 col-md-offset-2 col-sm-12">
             <h3 class="page-header text-center">Listado de recetas</h3>
             <div class="table-responsive">
                 <table id="table" class="table table-striped table-hover">
@@ -52,6 +52,21 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-7 col-md-offset-2 col-sm-12">
+            <a href="{{ URL::previous() }}">
+                <button type="button" class="btn btn-success">
+                    <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Volver
+                </button>
+            </a>
+            <a href="{{ url('misrecetas/create') }}">
+                <button type="button" class="btn btn-success">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i> Agregar receta
+                </button>
+            </a>
         </div>
     </div>
 @endsection

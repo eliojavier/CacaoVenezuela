@@ -1,6 +1,10 @@
-<div class="form-group  {{ $errors->has('phase') ? ' has-error' : '' }}">
+<div class="form-group">
     {!!Form::label('phase','Fase *')!!}
-    {!!Form::select('phase', ['1'=>'1', '2'=>'2'], null, ['class'=>'form-control'])!!}
+    @if($action == 'create')
+        {!!Form::select('phase', ['1'=>'1', '2'=>'2'], null, ['class'=>'form-control'])!!}
+    @else
+        {!!Form::select('phase', ['1'=>'1', '2'=>'2'], null, ['class'=>'form-control', 'disabled'])!!}
+    @endif
 </div>
 
 <div class="form-group  {{ $errors->has('criterion') ? ' has-error' : '' }}">

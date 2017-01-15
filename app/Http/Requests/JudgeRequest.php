@@ -26,6 +26,7 @@ class JudgeRequest extends FormRequest
         return [
             'name' => 'required',
             'last_name' => 'required',
+            'doc_id' => 'required',
             'email' => 'email|required',
             'phone' => 'required',
         ];

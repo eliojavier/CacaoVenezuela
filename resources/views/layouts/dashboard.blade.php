@@ -62,11 +62,9 @@
                     <li>
                         <a href="{{url('admin/recetas')}}"> Recetas</a>
                     </li>
-                    @if (Auth::user()->hasRole('super_admin'))
                     <li>
                         <a href="{{url('admin/jueces')}}"> Jueces</a>
                     </li>
-                    @endif
                     <li>
                         <a href="{{url('admin/criterios')}}"> Criterios</a>
                     </li>
@@ -95,7 +93,7 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#reportes"> Reportes <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="reportes" class="collapse">
                             <li>
-                                <a href="{{url('admin/reportes/totals')}}">Totales</a>
+                                <a href="{{url('admin/reportes/general')}}">Información general</a>
                             </li>
                             <li>
                                 <a href="{{url('admin/reportes/ranking-ingredientes')}}">Ranking ingredientes</a>

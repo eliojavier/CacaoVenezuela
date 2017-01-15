@@ -34,9 +34,7 @@
                         </tr>
                         <tr>
                             <td><strong>Imagen:</strong></td>
-                            <td>
-
-                            </td>
+                            <td><img class="img-responsive" src="{{URL::asset($recipe->image)}}" alt=""></td>
                         </tr>
                     </table>
                 </div>
@@ -60,7 +58,6 @@
                             </button>
                         </a>
                     @endif
-
                 </div>
             </div>
         </div>

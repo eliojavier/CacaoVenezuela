@@ -7,8 +7,8 @@
         </div>
         <div class="col-md-4 col-sm-12">
             <h3 class="page-header">Editar criterio</h3>
-            {!! Form::model($criterion,['method' => 'PATCH', 'url' => 'admin/criterios/' . $criterion->id, 'class'=>'form-horizontal', 'role'=>'form']) !!}
-                @include('admin.criteria.form',['submitButtonText' => 'Editar'])
+            {!! Form::model($criterion,['method' => 'PATCH', 'url' => 'admin/criterios/' . $criterion->id]) !!}
+                @include('admin.criteria.form',['submitButtonText' => 'Editar', 'action'=>'edit'])
             {!! Form::close()!!}
         </div>
     </div>

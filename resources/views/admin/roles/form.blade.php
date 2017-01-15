@@ -1,6 +1,5 @@
-
 <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
-    {!!Form::label('name','Rol *')!!}
+    {!!Form::label('name','Rol')!!}
     @if($action == 'create')
         {!!Form::text('name', old('name'), ['class'=>'form-control'])!!}
     @else

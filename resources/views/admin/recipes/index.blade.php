@@ -17,6 +17,9 @@
                         <th>Receta</th>
                         <th>Modalidad</th>
                         <th>Ver</th>
+                        @if(Auth::user()->hasRole('super_admin'))
+                            <th>Borrar</th>
+                        @endif
                     </tr>
                     </thead>
                     <tbody>
@@ -32,11 +35,30 @@
                                     </button>
                                 </a>
                             </td>
+                            @if(Auth::user()->hasRole('super_admin'))
+                            <td>
+                                {!! Form::open(['method' => 'DELETE', 'url' => ['admin/recetas', $recipe]]) !!}
+                                <button type="submit" class="btn btn-success">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                                {!!Form::close()!!}
+                            </td>
+                            @endif
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
             </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9 col-md-offset-1 col-sm-12">
+            <a href="{{ URL::previous() }}">
+                <button type="button" class="btn btn-success">
+                    <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Volver
+                </button>
+            </a>
         </div>
     </div>
 @endsection

@@ -19,8 +19,10 @@
                         <th>Email</th>
                         <th>Cédula</th>
                         <th>Ver</th>
+                        @if(Auth::user()->hasRole('super_admin'))
                         <th>Editar</th>
-                        {{--<th>Borrar</th>--}}
+                        <th>Borrar</th>
+                        @endif
                     </tr>
                     </thead>
                     <tbody>
@@ -37,6 +39,7 @@
                                     </button>
                                 </a>
                             </td>
+                            @if(Auth::user()->hasRole('super_admin'))
                             <td>
                                 <a href="{{ url('admin/participantes/' . $participant->id . '/edit') }}">
                                     <button type="button" class="btn btn-success">
@@ -44,13 +47,14 @@
                                     </button>
                                 </a>
                             </td>
-                            {{--<td>--}}
-                                {{--{!! Form::open(['method' => 'DELETE', 'url' => ['admin/participantes', $participant], 'class'=>'form-horizontal', 'role'=>'form']) !!}--}}
-                                {{--<button type="submit" class="btn btn-success">--}}
-                                    {{--<i class="fa fa-trash" aria-hidden="true"></i>--}}
-                                {{--</button>--}}
-                                {{--{!!Form::close()!!}--}}
-                            {{--</td>--}}
+                            <td>
+                                {!! Form::open(['method' => 'DELETE', 'url' => ['admin/participantes', $participant], 'class'=>'form-horizontal', 'role'=>'form']) !!}
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </button>
+                                {!!Form::close()!!}
+                            </td>
+                            @endif
                         </tr>
                     @endforeach
                     </tbody>

@@ -7,13 +7,13 @@
         <h2 class="page-header">Roles</h2>
     </div>
 
-    <div class="col-md-3 col-sm-12">
-        {!!Form::open(['url'=>'admin/roles'])!!}
-            @include('admin.roles.form',['submitButtonText' => 'Agregar', 'action'=>'create'])
-        {!!Form::close()!!}
-    </div>
+    {{--<div class="col-md-3 col-sm-12">--}}
+        {{--{!!Form::open(['url'=>'admin/roles'])!!}--}}
+            {{--@include('admin.roles.form',['submitButtonText' => 'Agregar', 'action'=>'create'])--}}
+        {{--{!!Form::close()!!}--}}
+    {{--</div>--}}
 
-    <div class="col-md-8 col-sm-12">
+    <div class="col-md-9 col-md-offset-1 col-sm-12">
         <div class="table-responsive">
             <table id="table" class="table table-striped table-hover top-margin-25">
                 <thead>

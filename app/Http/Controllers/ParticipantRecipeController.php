@@ -22,9 +22,27 @@ class ParticipantRecipeController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        $recipes = $user->recipes;
-        return view ('app.recipes.index', compact('recipes'));
+        try
+        {
+            $user = Auth::user();
+            $recipes = $user->recipes;
+            return view ('app.recipes.index', compact('recipes'));
+        }
+        catch(QueryException $e)
+        {
+            flash('No pudo completarse la operación', 'danger');
+            return redirect('/');
+        }
+        catch(PDOException $e)
+        {
+            flash('No pudo completarse la operación', 'danger');
+            return redirect('/');
+        }
+        catch(Exception $e)
+        {
+            flash('No pudo completarse la operación', 'danger');
+            return redirect('/');
+        }
     }
 
     /**
@@ -34,8 +52,32 @@ class ParticipantRecipeController extends Controller
      */
     public function create()
     {
-        $ingredients = Ingredient::pluck('name', 'id');
-        return view('app.recipes.create', compact('ingredients'));
+        try
+        {
+            $user_recipes = User::findOrFail(Auth::id())->recipes;
+            if(count($user_recipes)==2)
+            {
+                flash('Solo puede inscribir una receta por modalidad', 'danger');
+                return redirect('misrecetas');
+            }
+            $ingredients = Ingredient::pluck('name', 'id');
+            return view('app.recipes.create', compact('ingredients'));
+        }
+        catch(QueryException $e)
+        {
+            flash('No pudo completarse la operación', 'danger');
+            return redirect('misrecetas');
+        }
+        catch(PDOException $e)
+        {
+            flash('No pudo completarse la operación', 'danger');
+            return redirect('misrecetas');
+        }
+        catch(Exception $e)
+        {
+            flash('No pudo completarse la operación', 'danger');
+            return redirect('misrecetas');
+        }
     }
 
     /**
@@ -66,6 +108,7 @@ class ParticipantRecipeController extends Controller
                 $recipe->user_id = $user->id;
 
                 $recipe->save();
+                $this->syncIngredients($recipe, $request->tags);
 
                 flash('Se inscribió la receta exitosamente', 'success');
                 return redirect ('misrecetas');
@@ -241,9 +284,8 @@ class ParticipantRecipeController extends Controller
         return ($path . "/" . $filename);
     }
 
-    public function syncIngredients(Request $request, Recipe $recipe)
+    public function syncIngredients(Recipe $recipe, array $tags)
     {
-        $tags = $request->tags;
         foreach ($tags as $k => $v)
         {
             $ingredient = Ingredient::where('name', 'Like', $v)->first(['id']);
@@ -282,6 +324,20 @@ class ParticipantRecipeController extends Controller
         }
     }
 
+    public function getTags(Request $request)
+    {
+        if($request->ajax())
+        {
+            $tags_array = array();
+            $tags = Recipe::findOrFail($request->id)->tags;
+            foreach ($tags as $tag)
+            {
+                array_push($tags_array, $tag->name);
+            }
+            return response()->json(["tags"=>$tags_array]);
+        }
+    }
+
     public function canSubmitRecipe(User $user, $modality)
     {
         $recipes = $user->recipes;
@@ -294,5 +350,4 @@ class ParticipantRecipeController extends Controller
         }
         return true;
     }
-    
 }

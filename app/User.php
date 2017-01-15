@@ -64,4 +64,15 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Recipe::class, 'votes');
     }
+
+    public function getFullNameAttribute()
+    {
+        return $this->name . " " . $this->last_name . " - " . $this->doc_id;
+    }
+
+//    public function RoleValidation($user_id)
+//    {
+//        $user = User::findOrFail($user_id);
+//        return $user->roles;
+//    }
 }

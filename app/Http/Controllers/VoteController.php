@@ -34,7 +34,7 @@ class VoteController extends Controller
                 if(sizeof($recipes)>0)
                 {
                     $criteria = Criterion::where('phase', 1)->get();
-                    $scores = [''=>'Puntuación', 1=>1, 2=>2, 3=>3, 4=>4, 5=>5, 6=>6, 7=>7, 8=>8, 9=>9, 10=>10];
+                    $scores = [''=>'Puntuación', 0=>0, 1=>1, 2=>2, 3=>3, 4=>4, 5=>5, 6=>6, 7=>7, 8=>8, 9=>9, 10=>10];
 
                     return view ('admin.votes.pending.index', compact('recipes', 'criteria', 'scores'));
                 }
@@ -118,7 +118,7 @@ class VoteController extends Controller
             {
                 $recipe = Recipe::findOrFail($id);
                 $criteria = Criterion::where('phase', 1)->get();
-                $scores = [''=>'Puntuación', 1=>1, 2=>2, 3=>3, 4=>4, 5=>5, 6=>6, 7=>7, 8=>8, 9=>9, 10=>10];
+                $scores = [''=>'Puntuación', 0=>0, 1=>1, 2=>2, 3=>3, 4=>4, 5=>5, 6=>6, 7=>7, 8=>8, 9=>9, 10=>10];
 
                 return view ('admin.votes.create', compact('recipe', 'criteria', 'scores'));
             }
@@ -241,7 +241,7 @@ class VoteController extends Controller
             {
                 $recipe = Recipe::findOrFail($id);
                 $criteria = Criterion::where('phase', 1)->get();
-                $scores = [''=>'Puntuación', 1=>1, 2=>2, 3=>3, 4=>4, 5=>5, 6=>6, 7=>7, 8=>8, 9=>9, 10=>10];
+                $scores = [''=>'Puntuación', 0=>0, 1=>1, 2=>2, 3=>3, 4=>4, 5=>5, 6=>6, 7=>7, 8=>8, 9=>9, 10=>10];
 
                 return view ('admin.votes.create', compact('recipe', 'criteria', 'scores'));
             }
