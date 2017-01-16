@@ -14,6 +14,7 @@
                         <th class="text-center">#Receta</th>
                         <th class="text-center">Receta</th>
                         <th class="text-center">Puntuación</th>
+                        <th class="text-center">Factor</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -24,6 +25,7 @@
                             <td class="text-center">{{$v->id}}</td>
                             <td><a href="{{ url('admin/recetas/' . $v->id) }}"> {{$v->name}} </a></td>
                             <td class="text-center">{{$v->score}}</td>
+                            <td class="text-center">{{$v->factor}}</td>
                         </tr>
                         <?php $num++; ?>
                     @endforeach

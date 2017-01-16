@@ -106,13 +106,13 @@ class ReportController extends Controller
     {
         try
         {
-            $ranking_by_phase = DB::select(DB::raw('SELECT recipes.id, recipes.name, sum(votes.score) as score
+            $ranking_by_phase = DB::select(DB::raw('SELECT recipes.id, recipes.name, SUM(votes.score) AS score, SUM(votes.factor) AS factor
                                                 FROM votes, criteria, recipes
                                                 WHERE votes.criterion_id =criteria.id
                                                 AND votes.recipe_id = recipes.id
-                                                AND criteria.phase=' . $phase . '
+                                                AND criteria.phase=' . $phase .'
                                                 GROUP BY recipes.id, recipes.name
-                                                ORDER BY score DESC'));
+                                                ORDER BY score DESC, factor DESC'));
 
             return view ('admin.reports.ranking_phase', compact('phase', 'ranking_by_phase'));
         }

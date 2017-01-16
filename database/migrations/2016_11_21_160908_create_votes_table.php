@@ -19,6 +19,7 @@ class CreateVotesTable extends Migration
             $table->unsignedInteger('criterion_id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('recipe_id');
+            $table->integer('factor');
             $table->timestamps();
 
             $table->foreign('criterion_id')->references('id')->on('criteria')->onDelete('cascade');

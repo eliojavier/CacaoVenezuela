@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Academy;
 use App\City;
-use App\Http\Requests\AdminRequest;
 use App\Role;
 use App\User;
 use Exception;
@@ -17,9 +16,8 @@ class ParticipantController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @param AdminRequest $request
      * @return \Illuminate\Http\Response
+     * @internal param AdminRequest $request
      */
     public function index()
     {

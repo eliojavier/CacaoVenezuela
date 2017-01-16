@@ -96,9 +96,28 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::findOrFail($id);
-        $user->update($request->all());
-        return redirect ('misrecetas');
+        try
+        {
+            $user = User::findOrFail($id);
+            $user->update($request->all());
+            return redirect ('misrecetas');
+        }
+        catch(QueryException $e)
+        {
+            flash('No pudo ser procesada la solicitud', 'danger');
+            return redirect('/');
+        }
+        catch(PDOException $e)
+        {
+            flash('No pudo ser procesada la solicitud', 'danger');
+            return redirect('/');
+        }
+        catch(Exception $e)
+        {
+            flash('No pudo ser procesada la solicitud', 'danger');
+            return redirect('/');
+        }
+        
     }
 
     /**

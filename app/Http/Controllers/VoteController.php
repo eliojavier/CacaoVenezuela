@@ -189,6 +189,10 @@ class VoteController extends Controller
                     $vote->criterion()->associate($criterion_id);
                     $vote->recipe()->associate($recipe->id);
                     $vote->score = $request->$criterion_id;
+
+                    $criterion = Criterion::findOrFail($criterion_id);
+                    $vote->factor = $request->$criterion_id * $criterion->priority;
+                    
                     $vote->save();
                 }
                 flash('Votación realizada exitosamente', 'success');

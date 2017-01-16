@@ -65,7 +65,6 @@ class JudgeController extends Controller
         {
             try
             {
-//                $judge = User::create($request->all());
                 $judge = new User();
                 $judge->name = $request->name;
                 $judge->last_name = $request->last_name;

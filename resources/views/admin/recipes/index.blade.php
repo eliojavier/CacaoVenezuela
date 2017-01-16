@@ -1,6 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
+    <div class="se-pre-con"></div>
     @include('layouts.flash_message')
     <div class="col-md-11">
         <h2 class="page-header">Recetas</h2>
@@ -10,7 +11,7 @@
         <div class="col-md-9 col-md-offset-1 col-sm-12">
             <h3 class="page-header text-center">Listado de recetas</h3>
             <div class="table-responsive">
-                <table id="table" class="table table-striped table-hover">
+                <table id="recipes" class="table table-striped table-hover">
                     <thead>
                     <tr>
                         <th>Participante</th>
@@ -61,5 +62,26 @@
             </a>
         </div>
     </div>
+@endsection
+
+@section('after-scripts-end')
+    <script>
+        $('#recipes').DataTable({
+            "language": {
+                "search": "Buscar",
+                "lengthMenu": "Mostrar _MENU_ registros por página",
+                "zeroRecords": "Ningún registro encontrado",
+                "info": "Mostrando página _PAGE_ de _PAGES_",
+                "infoEmpty": "Ningún registro disponible",
+                "infoFiltered": "(filtered from _MAX_ total records)",
+                paginate: {
+                    first:      "Primer",
+                    previous:   "Anterior",
+                    next:       "Siguiente",
+                    last:       "Último"
+                }
+            }
+        });
+    </script>
 @endsection
 
