@@ -9,7 +9,7 @@
                     <div class="panel-body">
                         {!!Form::open(['url'=>'register', 'role'=>'form', 'class'=>'form-horizontal'])!!}
 
-                            @include('auth._form')
+                            @include('auth.form')
 
                         <div class="form-group">
                             <div class="col-md-12 text-center">

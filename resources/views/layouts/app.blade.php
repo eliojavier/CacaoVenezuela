@@ -14,7 +14,8 @@
     {{--<link href="/css/app.css" rel="stylesheet">--}}
     {{--<link href="/css/app.css" rel="stylesheet">--}}
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/jquery-ui.min.css') }}" rel="stylesheet">.
+    <link href="{{ asset('css/jquery-ui.min.css') }}" rel="stylesheet">
+    .
     <link href="{{ asset('css/tagit.css') }}" rel="stylesheet">
     <link href="{{ asset('css/jquery-ui-zendesk.css') }}" rel="stylesheet">
 
@@ -26,81 +27,99 @@
     </script>
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
-                <div class="navbar-header">
+<div id="app">
+    <nav class="navbar navbar-default navbar-static-top">
+        <div class="container">
+            <div class="navbar-header">
 
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+                <!-- Collapsed Hamburger -->
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#app-navbar-collapse">
+                    <span class="sr-only">Toggle Navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
 
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'CacaoVenezuela') }}
-                    </a>
-                </div>
+                <!-- Branding Image -->
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    {{ config('app.name', 'CacaoVenezuela') }}
+                </a>
+            </div>
 
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        &nbsp;
-                    </ul>
+            <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                <!-- Left Side Of Navbar -->
+                <ul class="nav navbar-nav">
+                    &nbsp;
+                </ul>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
-                        <!-- Authentication Links -->
-                        @if (Auth::guest())
-                            <li><a href="{{ url('/login') }}">Iniciar sesión</a></li>
-                            <li><a href="{{ url('/register') }}">Registrarse</a></li>
-                        @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
+                <!-- Right Side Of Navbar -->
+                <ul class="nav navbar-nav navbar-right">
+                    <!-- Authentication Links -->
+                    @if (Auth::guest())
+                        <li><a href="{{ url('/login') }}">Iniciar sesión</a></li>
+                        <li><a href="{{ url('/register') }}">Registrarse</a></li>
+                    @else
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-expanded="false">
+                                {{ Auth::user()->name }} <span class="caret"></span>
+                            </a>
 
-                                <ul class="dropdown-menu" role="menu">
+                            <ul class="dropdown-menu" role="menu">
+                                @if(Auth::user()->hasRole('participant'))
                                     <li>
                                         <a href="{{url('misrecetas')}}">
                                             <i class="fa fa-table" aria-hidden="true"></i>
                                             Mis recetas
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="{{url('perfiles/' . Auth::id())}}">
-                                            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                                            Mi perfil
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('/logout')}}">
-                                            <i class="fa fa-power-off"></i>
-                                            Cerrar sesión
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endif
-                    </ul>
-                </div>
+                                @endif
+                                    @if(Auth::user()->hasRole('judge') or Auth::user()->hasRole('super_admin'))
+                                        <li>
+                                            <a href="{{url('admin')}}">
+                                                <i class="fa fa-tachometer" aria-hidden="true"></i>
+                                                Admin
+                                            </a>
+                                        </li>
+                                    @endif
+                                <li>
+                                    <a href="{{url('perfiles/' . Auth::id())}}">
+                                        <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                                        Mi perfil
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{url('perfiles/changePassword')}}">
+                                        <i class="fa fa-key" aria-hidden="true"></i>
+                                        Cambiar contraseña
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('/logout')}}">
+                                        <i class="fa fa-power-off"></i>
+                                        Cerrar sesión
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    @endif
+                </ul>
             </div>
-        </nav>
-        <div class="container">
-            @yield('content')
         </div>
-
+    </nav>
+    <div class="container">
+        @yield('content')
     </div>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/jquery-ui.min.js') }}"></script>
-    <script src="{{ asset('js/datepicker.js') }}"></script>
-    <script src="{{asset('js/jquery.cropit.js')}}"></script>
-    <script src="{{ asset('js/tagit.js') }}"></script>
-    @yield('after-scripts-end')
+</div>
+
+<!-- Scripts -->
+<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/jquery-ui.min.js') }}"></script>
+<script src="{{ asset('js/datepicker.js') }}"></script>
+<script src="{{asset('js/jquery.cropit.js')}}"></script>
+<script src="{{ asset('js/tagit.js') }}"></script>
+@yield('after-scripts-end')
 </body>
 </html>

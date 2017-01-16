@@ -1,81 +1,74 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2 class="page-header tex-center">Ficha participante</h2>
-    <div class="col-md-6 col-md-offset-3">
-        <div class="table-responsive">
-
-            <table class="table table-bordered table-striped table-hover">
-                <colgroup>
-                    <col class="col-md-2">
-                    <col class="col-md-2">
-                </colgroup>
-                <tbody>
-                <tr>
-                    <th>Nombre</th>
-                    <td>{{$participant->name}}</td>
-                </tr>
-                <tr>
-                    <th>Apellido</th>
-                    <td>{{$participant->last_name}}</td>
-                </tr>
-                <tr>
-                    <th>Email</th>
-                    <td>{{$participant->email}}</td>
-                </tr>
-                <tr>
-                    <th>Cédula</th>
-                    <td>{{$participant->doc_id}}</td>
-                </tr>
-                <tr>
-                    <th>Teléfono</th>
-                    <td>{{$participant->phone}}</td>
-                </tr>
-                <tr>
-                    <th>Fecha Nacimiento</th>
-                    <td>{{$participant->birthday}}</td>
-                </tr>
-                <tr>
-                    <th>Academia</th>
-                    <td>{{@$participant->academy->name ?: '-'}}</td>
-                </tr>
-                <tr>
-                    <th>Estado</th>
-                    <td>{{$participant->city->name}}</td>
-                </tr>
-                <tr>
-                    <th>Dirección</th>
-                    <td>{{$participant->address}}</td>
-                </tr>
-                <tr>
-                    <th>Twitter</th>
-                    <td>{{$participant->twitter}}</td>
-                </tr>
-                <tr>
-                    <th>Instagram</th>
-                    <td>{{$participant->instagram}}</td>
-                </tr>
-                <tr>
-                    <th>Talla</th>
-                    <td>{{$participant->size}}</td>
-                </tr>
-                <tr>
-                    <th>Categoría</th>
-                    <td>{{$participant->category}}</td>
-                </tr>
-                <tr>
-                    <th>Tipo</th>
-                    <td>{{$participant->type}}</td>
-                </tr>
-                </tbody>
-            </table>
+    <h2 class="page-header tex-center">Mi perfil</h2>
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-address-card" aria-hidden="true"></i>
+                {{$user->name}} {{$user->last_name}}
+            </div>
+            <div class="panel-body">
+                <table class="table table-borderless table-hover">
+                    <tr>
+                        <td><strong>Email:</strong></td>
+                        <td>{{$user->email}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Doc. identidad:</strong></td>
+                        <td>{{$user->doc_id}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Teléfono: </strong></td>
+                        <td>{{$user->phone}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fecha Nacimiento:</strong></td>
+                        <td>{{$user->birthday->format('d/m/Y')}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Estado:</strong></td>
+                        <td>{{$user->city->name}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Twitter:</strong></td>
+                        <td>{{$user->twitter}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Instagram:</strong></td>
+                        <td>{{$user->instagram}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Talla:</strong></td>
+                        <td>{{$user->size}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Categoría:</strong></td>
+                        <td>{{$user->category}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tipo:</strong></td>
+                        <td>{{@$user->type ?: '-'}}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Academia:</strong></td>
+                        <td>{{@$user->academy->name ?: '-'}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-footer">
+                <a href="{{ URL::previous() }}">
+                    <button type="button" class="btn btn-success">
+                        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Volver
+                    </button>
+                </a>
+                <a href="{{ url('perfiles/' . $user->id . '/edit') }}">
+                    <button type="button" class="btn btn-success">
+                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        Editar perfil
+                    </button>
+                </a>
+            </div>
         </div>
-    </div>
-    <div class="col-md-3 col-md-offset-5">
-        <a href="{{ url('admin/participantes') }}">
-            <button type="button" class="btn btn-default">
-                <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Volver
-            </button>
-        </a>
     </div>
 @endsection

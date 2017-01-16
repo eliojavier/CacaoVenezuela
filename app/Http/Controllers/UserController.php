@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdatePasswordRequest;
 use App\User;
+use Exception;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use PDOException;
 
 class UserController extends Controller
 {
@@ -47,8 +53,26 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $participant = User::findOrFail($id);
-        return view ('auth/show', compact('participant'));
+        try
+        {
+            $user = User::findOrFail($id);
+            return view ('auth/show', compact('user'));
+        }
+        catch(QueryException $e)
+        {
+            flash('No pudo ser procesada la solicitud', 'danger');
+            return redirect('/');
+        }
+        catch(PDOException $e)
+        {
+            flash('No pudo ser procesada la solicitud', 'danger');
+            return redirect('/');
+        }
+        catch(Exception $e)
+        {
+            flash('No pudo ser procesada la solicitud', 'danger');
+            return redirect('/');
+        }
     }
 
     /**
@@ -86,5 +110,42 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function changePassword()
+    {
+        return view ('auth.change_password');
+    }
+
+    public function updatePassword(UpdatePasswordRequest $request)
+    {
+        try
+        {
+            $user = User::findOrFail(Auth::id());
+            if (Hash::check($request->current_password, $user->password))
+            {
+                $user->password = Hash::make($request->new_password);
+                $user->update();
+                flash('Contraseña cambiada exitosamente', 'success');
+                return redirect ('perfiles/changePassword');
+            }
+            flash('Contraseña incorrecta', 'danger');
+            return back();
+        }
+        catch(QueryException $e)
+        {
+            flash('No pudo ser procesada la solicitud', 'danger');
+            return redirect('perfiles/changePassword');
+        }
+        catch(PDOException $e)
+        {
+            flash('No pudo ser procesada la solicitud', 'danger');
+            return redirect('perfiles/changePassword');
+        }
+        catch(Exception $e)
+        {
+            flash('No pudo ser procesada la solicitud', 'danger');
+            return redirect('perfiles/changePassword');
+        }
     }
 }

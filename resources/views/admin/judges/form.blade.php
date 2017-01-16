@@ -3,14 +3,14 @@
     {!!Form::text('name', old('name'), ['class'=>'form-control'])!!}
 </div>
 
-<div class="form-group {{ $errors->has('doc_id') ? ' has-error' : '' }}">
-    {!!Form::label('doc_id','Cédula *')!!}
-    {!!Form::text('doc_id', old('doc_id'), ['class'=>'form-control'])!!}
-</div>
-
 <div class="form-group {{ $errors->has('last_name') ? ' has-error' : '' }}">
     {!!Form::label('last_name','Apellido *')!!}
     {!!Form::text('last_name', old('last_name'), ['class'=>'form-control'])!!}
+</div>
+
+<div class="form-group {{ $errors->has('doc_id') ? ' has-error' : '' }}">
+    {!!Form::label('doc_id','Cédula *')!!}
+    {!!Form::text('doc_id', old('doc_id'), ['class'=>'form-control'])!!}
 </div>
 
 <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">

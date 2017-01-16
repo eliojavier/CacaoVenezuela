@@ -1,47 +1,30 @@
 @extends('layouts.dashboard')
 
 @section('content')
-    @include('layouts.flash_message')
     <div class="se-pre-con"></div>
     <div class="col-md-11">
-        <h2 class="page-header">Votaciones pendientes</h2>
+        <h2 class="page-header">Reportes - Recetas pendientes por votación</h2>
     </div>
-
-    <div class="row margin-top-15">
-        <div class="col-md-8 col-md-offset-2">
+    <div class="margin-top-15">
+        <div class="col-md-8 col-md-offset-1">
             <div class="table-responsive">
                 <table id="recipes_not_voted" class="table table-striped table-hover">
                     <thead>
                     <tr>
-                        <th>Receta</th>
-                        <th>Modalidad</th>
-                        <th>Ver</th>
+                        <th class="text-center">Juez</th>
+                        <th class="text-center">Receta</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($recipes as $recipe)
+                    @foreach($recipes_not_voted as $v)
                         <tr>
-                            <td>{{$recipe->name}}</td>
-                            <td>{{$recipe->modality}}</td>
-                            <td>
-                                <a href="{{ url('admin/recetas/' . $recipe->id ) }}">
-                                    <button type="button" class="btn btn-success">
-                                        <i class="fa fa-eye" aria-hidden="true"></i>
-                                    </button>
-                                </a>
-                            </td>
+                            <td class="text-center">{{$v->judge}}</td>
+                            <td class="text-center">{{$v->recipe}}</td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
             </div>
-        </div>
-        <div class="col-md-8 col-md-offset-2 text-center">
-            <a href="{{ URL::previous() }}">
-                <button type="button" class="btn btn-success">
-                    <i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Volver
-                </button>
-            </a>
         </div>
     </div>
 @endsection

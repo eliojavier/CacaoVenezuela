@@ -12,6 +12,7 @@ require('./bootstrap');
  */
 
 require('./jquery-mask');
+require('./datatables.min');
 
 /**
  Custom plugins

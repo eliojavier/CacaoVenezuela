@@ -23,6 +23,8 @@ Route::get('misrecetas/get-tags', 'ParticipantRecipeController@getTags');
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('misrecetas', 'ParticipantRecipeController');
+    Route::get('perfiles/changePassword', 'UserController@changePassword');
+    Route::post('perfiles/updatePassword', 'UserController@updatePassword');
     Route::resource('perfiles', 'UserController');
 });
 

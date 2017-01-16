@@ -65,7 +65,15 @@ class JudgeController extends Controller
         {
             try
             {
-                $judge = User::create($request->all());
+//                $judge = User::create($request->all());
+                $judge = new User();
+                $judge->name = $request->name;
+                $judge->last_name = $request->last_name;
+                $judge->doc_id = $request->doc_id;
+                $judge->email = $request->email;
+                $judge->phone = $request->phone;
+                $judge->password = bcrypt('123456');
+                $judge->save();
                 $judge->RoleAssignment('judge');
                 flash('Juez agregado exitosamente', 'success');
                 return redirect ('admin/jueces');
