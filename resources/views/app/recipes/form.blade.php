@@ -41,10 +41,64 @@
 
 <div class="form-group">
     <div class="col-md-12 text-center">
-        {!! Form::submit($submitButtonText, ['class' => 'btn btn-default']) !!}
+        {!! Form::submit($submitButtonText, ['class' => 'btn btn-success']) !!}
     </div>
 </div>
 
+@if ($action=='create')
+@section('after-scripts-end')
+    <script>
+        $(document).ready(function () {
+            var availableTags = [];
+            $.when(getAllIngredientsAjaxCall()).then(getIngredientsByKeywordAjaxCall);
+
+            function getAllIngredientsAjaxCall() {
+                return $.ajax({
+                    url: '/misrecetas/all-ingredients',
+                    type: 'GET',
+                    success: function (result) {
+                        tags = [];
+                        $.each(result.ingredients, function (key, value) {
+                            tags.push(value.name);
+                        });
+                        $("#myTags").tagit({
+                            availableTags: tags,
+                            fieldName: 'tags[]',
+                            allowSpaces: false
+                        });
+                    },
+                    error: function () {
+                        tags = [];
+                    }
+                });
+            }
+
+            function getIngredientsByKeywordAjaxCall() {
+                return $('#ingredients').keydown(function () {
+                    $.ajax({
+                        url: '/misrecetas/ingredients-by-keyword',
+                        type: 'GET',
+                        data: {val: $('#ingredients').val()},
+                        success: function (result) {
+                            availableTags = [];
+                            $.each(result.ingredients, function (key, value) {
+                                availableTags.push(value.name);
+                            });
+                            $("#ingredients").autocomplete({
+                                source: availableTags
+                            });
+                        },
+                        error: function () {
+                            availableTags = [];
+                        }
+                    })
+                });
+            }
+        });
+    </script>
+@endsection
+
+@else
 @section('after-scripts-end')
     <script>
         $(document).ready(function () {
@@ -54,63 +108,71 @@
 
             function getTagsAjaxCall() {
                 return $.ajax({
-                            url: '/misrecetas/get-tags',
-                            type: 'GET',
-                            data:{id:107},
-                            success: function (result) {
-                                recipetags = [];
-                                $.each(result.tags, function (key, value) {
-                                    $("#myTags").append('<li>' + value + '</li>');
-                                });
-                            },
-                            error: function () {
-                                recipetags = [];
-                            }
-                        });
+                    url: '/misrecetas/get-tags',
+                    type: 'GET',
+                    data: {
+                        id: <?php
+                            if (isset($recipe->id)) {
+                                echo $recipe->id;
+                            } else {
+                                echo null;
+                            }?>},
+                        success: function (result) {
+                            recipetags = [];
+                            $.each(result.tags, function (key, value) {
+                                $("#myTags").append('<li>' + value + '</li>');
+                            });
+                        },
+                        error: function () {
+                            recipetags = [];
+                        }
+                    });
             }
 
-            function getAllIngredientsAjaxCall(){
+            function getAllIngredientsAjaxCall() {
                 return $.ajax({
-                            url: '/misrecetas/all-ingredients',
-                            type: 'GET',
-                            success: function (result) {
-                                tags = [];
-                                $.each(result.ingredients, function (key, value) {
-                                    tags.push(value.name);
-                                });
-                                $("#myTags").tagit({
-                                    availableTags: tags,
-                                    fieldName: 'tags[]',
-                                    allowSpaces: false
-                                });
-                            },
-                            error: function () {
-                                tags = [];
-                            }
+                    url: '/misrecetas/all-ingredients',
+                    type: 'GET',
+                    success: function (result) {
+                        tags = [];
+                        $.each(result.ingredients, function (key, value) {
+                            tags.push(value.name);
                         });
+                        $("#myTags").tagit({
+                            availableTags: tags,
+                            fieldName: 'tags[]',
+                            allowSpaces: false
+                        });
+                    },
+                    error: function () {
+                        tags = [];
+                    }
+                });
             }
 
             function getIngredientsByKeywordAjaxCall() {
                 return $('#ingredients').keydown(function () {
-                            $.ajax({
-                                url: '/misrecetas/ingredients-by-keyword',
-                                type: 'GET',
-                                data: {val: $('#ingredients').val()},
-                                success: function (result) {
-                                    availableTags = [];
-                                    $.each(result.ingredients, function (key, value) {
-                                        availableTags.push(value.name);
-                                    });
-                                    $("#ingredients").autocomplete({
-                                        source: availableTags
-                                    });
-                                },
-                                error: function () {
-                                    availableTags = [];
-                                }
-                            })
-                        });
+                    $.ajax({
+                        url: '/misrecetas/ingredients-by-keyword',
+                        type: 'GET',
+                        data: {val: $('#ingredients').val()},
+                        success: function (result) {
+                            availableTags = [];
+                            $.each(result.ingredients, function (key, value) {
+                                availableTags.push(value.name);
+                            });
+                            $("#ingredients").autocomplete({
+                                source: availableTags
+                            });
+                        },
+                        error: function () {
+                            availableTags = [];
+                        }
+                    })
+                });
             }
         });
     </script>
 @endsection
+
+@endif

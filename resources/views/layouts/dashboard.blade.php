@@ -68,12 +68,26 @@
                     <li>
                         <a href="{{url('admin/criterios')}}"> Criterios</a>
                     </li>
-                    <li>
-                        <a href="{{url('admin/votaciones/realizadas')}}"> Votaciones realizadas</a>
-                    </li>
-                    @if (Auth::user()->hasRole('judge') or Auth::user()->hasRole('super_admin'))
+                    @if (Auth::user()->hasRole('judge'))
+                        <li>
+                            <a href="{{url('admin/votaciones/realizadas')}}"> Votaciones realizadas</a>
+                        </li>
                         <li>
                             <a href="{{url('admin/votaciones/pendientes')}}"> Votaciones pendientes</a>
+                        </li>
+                    @endif
+                    @if (Auth::user()->hasRole('super_admin'))
+                        <li>
+                            <a href="javascript:;" data-toggle="collapse" data-target="#votesinfo"> Información votaciones
+                                <i class="fa fa-fw fa-caret-down"></i></a>
+                            <ul id="votesinfo" class="collapse">
+                                <li>
+                                    <a href="{{url('admin/reportes/votaciones/pendientes')}}">Votaciones pendientes</a>
+                                </li>
+                                <li>
+                                    <a href="{{url('admin/reportes/votaciones/realizadas')}}">Votaciones realizadas</a>
+                                </li>
+                            </ul>
                         </li>
                     @endif
                     @if (Auth::user()->hasRole('super_admin'))

@@ -43,12 +43,6 @@ class ReportController extends Controller
                                                     'number_of_recipes_per_salado_modality'));
     }
 
-    public function numberOfRecipes()
-    {
-        $number_of_recipes = Recipe::all()->count();
-        dd($number_of_recipes);
-    }
-
     public function numberOfRecipesPerModality($modality)
     {
         $number_of_recipes_per_modality = Recipe::where('modality', $modality)->count();
@@ -66,5 +60,28 @@ class ReportController extends Controller
                                                 ORDER BY score DESC'));
 
         return view ('admin.reports.ranking_phase', compact('phase', 'ranking_by_phase'));
+    }
+
+    public function recipesPendingToVote()
+    {
+        $recipes_pending_to_vote = DB::select(DB::raw('SELECT CONCAT(users.name, " ", users.last_name) as judge, 
+                                              recipes.name as recipe
+                                              FROM users, recipes
+                                              WHERE recipes.id NOT IN (SELECT DISTINCT votes.recipe_id
+						                                              FROM votes)
+                                              ORDER BY judge, recipe'));
+
+    }
+
+    public function recipesVoted()
+    {
+        $recipes_voted = DB::select(DB::raw('SELECT DISTINCT concat(users.name, " ", users.last_name) as judge, 
+                                                              recipes.name as recipe
+                                              FROM users, recipes, votes
+                                              WHERE votes.recipe_id = recipes.id
+	                                              AND votes.user_id = users.id
+	                                          ORDER BY judge'));
+
+        dd($recipes_voted);
     }
 }

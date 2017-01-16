@@ -6,7 +6,7 @@
             <h2 class="page-header">Editar receta</h2>
         </div>
         <div class="col-md-4 col-md-offset-4">
-            {!! Form::model($recipe,['method' => 'PATCH', 'url' => 'misrecetas/' . $recipe->id]) !!}
+            {!! Form::model($recipe,['method' => 'PATCH', 'url' => 'misrecetas/' . $recipe->id, 'files'=>true]) !!}
                 @include('app.recipes.form',['submitButtonText' => 'Editar', 'action'=>'edit'])
             {!!Form::close()!!}
         </div>

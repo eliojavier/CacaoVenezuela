@@ -203,23 +203,51 @@ class ParticipantRecipeController extends Controller
             try
             {
                 $recipe = Recipe::findOrFail($id);
-                $recipe->update($request->all());
+
+                if($request->hasFile('image'))
+                {
+                    $recipe->image = $this->uploadImage($request);
+                }
+                else
+                {
+                    dd("no hay imagen");
+                }
+
+                $recipe->name = $request->name;
+                $recipe->ingredients = $request->ingredients;
+                $recipe->directions = $request->directions;
+                $recipe->serves = $request->serves;
+
+                $recipe->update();
+
+                $this->syncIngredients($recipe, $request->tags);
+
                 flash('Receta actualizada exitosamente', 'success');
                 return redirect ('misrecetas');
             }
             catch(QueryException $e)
             {
                 flash('Receta no pudo ser actualizada', 'danger');
+                dd($e->getMessage());
+                flash($e->getMessage(), 'danger');
                 return redirect('misrecetas');
             }
             catch(PDOException $e)
             {
                 flash('Receta no pudo ser actualizada', 'danger');
+                dd($e->getMessage());
+
+                flash($e->getMessage(), 'danger');
+
                 return redirect('misrecetas');
             }
             catch(Exception $e)
             {
                 flash('Receta no pudo ser actualizada', 'danger');
+                dd($e->getMessage());
+
+                flash($e->getMessage(), 'danger');
+
                 return redirect('misrecetas');
             }
         }

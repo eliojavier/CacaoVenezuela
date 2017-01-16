@@ -81,18 +81,15 @@ class DatabaseSeeder extends Seeder
         $user = User::findOrFail(2);
         $user->attachRole(2);
 
-        //attach participant role
         $user = User::findOrFail(3);
-        $user->attachRole(3);
-        
-        for ($i=4; $i<=8; $i++)
-        {
-            $user = User::findOrFail($i);
-            $user->attachRole(3);
-        }
+        $user->attachRole(2);
 
         //attach participant role
-        for ($i=9; $i<=51; $i++)
+        $user = User::findOrFail(4);
+        $user->attachRole(3);
+
+        //attach participant role
+        for ($i=5; $i<=51; $i++)
         {
             $user = User::findOrFail($i);
             $user->attachRole(3);

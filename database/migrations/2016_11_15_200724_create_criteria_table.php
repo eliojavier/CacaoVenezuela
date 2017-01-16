@@ -17,6 +17,7 @@ class CreateCriteriaTable extends Migration
             $table->increments('id');
             $table->integer('phase');
             $table->string('criterion');
+            $table->integer('priority');
             $table->timestamps();
             $table->softDeletes();
         });

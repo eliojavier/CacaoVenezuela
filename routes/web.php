@@ -46,6 +46,8 @@ Route::group(['middleware' => ['auth', 'role:super_admin|judge'], 'prefix' => 'a
     Route::get('votaciones/create/{id}', 'VoteController@create');
     Route::resource('votaciones', 'VoteController');
 
+    Route::get('reportes/votaciones/realizadas', 'ReportController@recipesVoted');
+    Route::get('reportes/votaciones/pendientes', 'ReportController@recipesPendingToVote');
     Route::get('reportes/numero-participantes-por-ciudad', 'ReportController@numberOfParticipantsByCity');
     Route::get('reportes/general', 'ReportController@general');
     Route::get('reportes/ranking-ingredientes', 'ReportController@mostUsedIngredients');
