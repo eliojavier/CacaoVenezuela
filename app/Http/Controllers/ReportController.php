@@ -133,6 +133,43 @@ class ReportController extends Controller
         }
     }
 
+    public function classifieds($phase)
+    {
+        $limit = 20;
+        if ($phase == 2)
+        {
+            $limit = 3;
+        }
+        try
+        {
+            $classifieds = DB::select(DB::raw('SELECT recipes.id, recipes.name, SUM(votes.score) AS score, SUM(votes.factor) AS factor
+                                                FROM votes, criteria, recipes
+                                                WHERE votes.criterion_id =criteria.id
+                                                AND votes.recipe_id = recipes.id
+                                                AND criteria.phase=' . $phase .'
+                                                GROUP BY recipes.id, recipes.name                                     
+                                                ORDER BY score DESC, factor DESC
+                                                LIMIT ' . $limit));
+
+            return view ('admin.reports.classifieds', compact('phase', 'classifieds'));
+        }
+        catch(QueryException $e)
+        {
+            flash('No pudo ser procesada la solicitud', 'danger');
+            return redirect('admin');
+        }
+        catch(PDOException $e)
+        {
+            flash('No pudo ser procesada la solicitud', 'danger');
+            return redirect('admin');
+        }
+        catch(Exception $e)
+        {
+            flash('No pudo ser procesada la solicitud', 'danger');
+            return redirect('admin');
+        }
+    }
+
     public function recipesPendingToVote()
     {
         if (Auth::user()->hasRole('super_admin'))

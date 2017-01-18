@@ -52,32 +52,36 @@ class ParticipantRecipeController extends Controller
      */
     public function create()
     {
-        try
+        if(Auth::user()->hasRole('participant'))
         {
-            $user_recipes = User::findOrFail(Auth::id())->recipes;
-            if(count($user_recipes)==2)
+            try
             {
-                flash('Solo puede inscribir una receta por modalidad', 'danger');
+                $user_recipes = User::findOrFail(Auth::id())->recipes;
+                if(count($user_recipes)==2)
+                {
+                    flash('Solo puede inscribir una receta por modalidad', 'danger');
+                    return redirect('misrecetas');
+                }
+                $ingredients = Ingredient::pluck('name', 'id');
+                return view('app.recipes.create', compact('ingredients'));
+            }
+            catch(QueryException $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
                 return redirect('misrecetas');
             }
-            $ingredients = Ingredient::pluck('name', 'id');
-            return view('app.recipes.create', compact('ingredients'));
+            catch(PDOException $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('misrecetas');
+            }
+            catch(Exception $e)
+            {
+                flash('No pudo completarse la operación', 'danger');
+                return redirect('misrecetas');
+            }
         }
-        catch(QueryException $e)
-        {
-            flash('No pudo completarse la operación', 'danger');
-            return redirect('misrecetas');
-        }
-        catch(PDOException $e)
-        {
-            flash('No pudo completarse la operación', 'danger');
-            return redirect('misrecetas');
-        }
-        catch(Exception $e)
-        {
-            flash('No pudo completarse la operación', 'danger');
-            return redirect('misrecetas');
-        }
+        return redirect('/');
     }
 
     /**
@@ -204,13 +208,13 @@ class ParticipantRecipeController extends Controller
             {
                 $recipe = Recipe::findOrFail($id);
 
+                if($recipe->image==null)
+                {
+                    $recipe->image = null;
+                }
                 if($request->hasFile('image'))
                 {
                     $recipe->image = $this->uploadImage($request);
-                }
-                else
-                {
-                    dd("no hay imagen");
                 }
 
                 $recipe->name = $request->name;
@@ -228,26 +232,16 @@ class ParticipantRecipeController extends Controller
             catch(QueryException $e)
             {
                 flash('Receta no pudo ser actualizada', 'danger');
-                dd($e->getMessage());
-                flash($e->getMessage(), 'danger');
                 return redirect('misrecetas');
             }
             catch(PDOException $e)
             {
                 flash('Receta no pudo ser actualizada', 'danger');
-                dd($e->getMessage());
-
-                flash($e->getMessage(), 'danger');
-
                 return redirect('misrecetas');
             }
             catch(Exception $e)
             {
                 flash('Receta no pudo ser actualizada', 'danger');
-                dd($e->getMessage());
-
-                flash($e->getMessage(), 'danger');
-
                 return redirect('misrecetas');
             }
         }

@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <h2 class="page-header tex-center">Mi perfil</h2>
-    <div class="col-md-8 col-md-offset-2">
+    <div class="col-md-8 col-md-offset-2 margin-top-40">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <i class="fa fa-address-card" aria-hidden="true"></i>

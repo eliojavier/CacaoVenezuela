@@ -126,6 +126,12 @@
                             <li>
                                 <a href="{{url('admin/reportes/votaciones/realizadas')}}">Votaciones realizadas</a>
                             </li>
+                            <li>
+                                <a href="{{url('admin/reportes/clasificados/fase/1')}}">Clasificados fase 1</a>
+                            </li>
+                            <li>
+                                <a href="{{url('admin/reportes/clasificados/fase/2')}}">Clasificados fase 2</a>
+                            </li>
                         @endif
                     </ul>
                 </li>

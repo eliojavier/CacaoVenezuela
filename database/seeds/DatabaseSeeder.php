@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
         factory('App\Recipe', 102)->create();
    
 //        $this->IngredientRecipeTableSeeder();
-//        $this->VotesTableSeeder();
+        $this->VotesTableSeeder();
         $this->RoleUserTableSeeder();
     }
 
@@ -66,6 +66,7 @@ class DatabaseSeeder extends Seeder
                 'criterion_id' => $faker->numberBetween($min = 1, $max = 10),
                 'user_id' => $faker->numberBetween($min = 4, $max = 8),
                 'recipe_id' => $faker->numberBetween($min = 1, $max = 102),
+                'factor' => $faker->randomNumber()
             ]);
             $vote->save();
         }

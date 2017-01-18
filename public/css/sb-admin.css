@@ -22,7 +22,11 @@ body {
   overflow-x: hidden !important;
 }
 
-.top-margin-25 {
+.margin-top-40 {
+  margin-top: 40px;
+}
+
+.margin-top-25 {
   margin-top: 25px;
 }
 

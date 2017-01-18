@@ -2,14 +2,9 @@
 
 @section('content')
     @include('layouts.flash_message')
-
-    <div class="col-md-11">
-        <h2 class="page-header">Recetas</h2>
-    </div>
-
     <div class="row margin-top-15">
         <div class="col-md-8 col-md-offset-2 col-sm-12">
-            <h3 class="page-header text-center">Listado de recetas</h3>
+            <h2 class="page-header custom-page-header">Mis recetas</h2>
             <div class="table-responsive">
                 <table id="table" class="table table-striped table-hover">
                     <thead>

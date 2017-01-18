@@ -100,7 +100,7 @@ class UserController extends Controller
         {
             $user = User::findOrFail($id);
             $user->update($request->all());
-            return redirect ('misrecetas');
+            return redirect ('perfiles/'.$user->id);
         }
         catch(QueryException $e)
         {

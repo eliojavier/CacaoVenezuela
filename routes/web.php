@@ -54,4 +54,5 @@ Route::group(['middleware' => ['auth', 'role:super_admin|judge'], 'prefix' => 'a
     Route::get('reportes/general', 'ReportController@general');
     Route::get('reportes/ranking-ingredientes', 'ReportController@mostUsedIngredients');
     Route::get('reportes/ranking/fase/{phase}', 'ReportController@rankingByPhase');
+    Route::get('reportes/clasificados/fase/{phase}', 'ReportController@classifieds');
 });

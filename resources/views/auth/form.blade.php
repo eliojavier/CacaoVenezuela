@@ -25,6 +25,11 @@
         <div class="col-md-6 {{ $errors->has('doc_id') ? ' has-error' : '' }}">
             {!! Form::label('doc_id', 'Cédula *') !!}
             {!! Form::text('doc_id', old('doc_id'), ['class' => 'form-control', 'placeholder'=>'Cédula']) !!}
+            @if ($errors->has('doc_id'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('doc_id') }}</strong>
+                </span>
+            @endif
         </div>
     </div>
 </div>

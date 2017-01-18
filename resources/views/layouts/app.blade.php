@@ -11,13 +11,14 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    {{--<link href="/css/app.css" rel="stylesheet">--}}
-    {{--<link href="/css/app.css" rel="stylesheet">--}}
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/jquery-ui.min.css') }}" rel="stylesheet">
     .
     <link href="{{ asset('css/tagit.css') }}" rel="stylesheet">
     <link href="{{ asset('css/jquery-ui-zendesk.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/summernote.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/glyphicons-halflings.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/body.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -28,7 +29,7 @@
 </head>
 <body>
 <div id="app">
-    <nav class="navbar navbar-default navbar-static-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
 
@@ -42,8 +43,10 @@
                 </button>
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'CacaoVenezuela') }}
+                <a class="custom-page-header navbar-brand" href="{{ url('/') }}">
+                    {{ config('app.name', 'Cacao Venezuela') }}
+                    {{--<img src="{{URL::asset("images/LogoCacao.png")}}" style="display: inline-block;">--}}
+                    {{--<span style="display: inline-block;">Cacao Venezuela</span>--}}
                 </a>
             </div>
 
@@ -108,11 +111,37 @@
             </div>
         </div>
     </nav>
+    <div class="margin-top-25">
+
+    </div>
     <div class="container">
         @yield('content')
     </div>
+    <footer class="footer text-center">
+        <i class="fa fa-copyright" aria-hidden="true"></i>
+        2013 GRUPO MG MEDIA & BTL, C.A. aliados de Concept McCann
 
+        {{--<h3 class="pull-right padding-10">--}}
+        {{--<a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>--}}
+        {{--<a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>--}}
+        {{--<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>--}}
+        {{--</h3>--}}
+    </footer>
+    {{--<div class="footer white-background">--}}
+        {{--<div class="container">--}}
+            {{--<h1 class="pull-right">--}}
+                {{--<a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>--}}
+                {{--<a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>--}}
+                {{--<a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>--}}
+            {{--</h1>--}}
+            {{--<h4 class="text-center">--}}
+                {{--<i class="fa fa-copyright" aria-hidden="true"></i>--}}
+                {{--2013 GRUPO MG MEDIA & BTL, C.A. aliados de Concept McCann--}}
+            {{--</h4>--}}
+        {{--</div>--}}
+    {{--</div>--}}
 </div>
+
 
 <!-- Scripts -->
 <script src="{{ asset('js/app.js') }}"></script>
@@ -120,6 +149,19 @@
 <script src="{{ asset('js/datepicker.js') }}"></script>
 <script src="{{asset('js/jquery.cropit.js')}}"></script>
 <script src="{{ asset('js/tagit.js') }}"></script>
+<script src="{{ asset('js/summernote.min.js') }}"></script>
+<script>
+    $(document).ready(function() {
+
+        var docHeight = $(window).height();
+        var footerHeight = $('.footer').height();
+        var footerTop = $('.footer').position().top + footerHeight;
+
+        if (footerTop < docHeight) {
+            $('.footer').css('margin-top', 10+ (docHeight - footerTop) + 'px');
+        }
+    });
+</script>
 @yield('after-scripts-end')
 </body>
 </html>

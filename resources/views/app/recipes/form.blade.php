@@ -1,9 +1,11 @@
 <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
+    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
     {!!Form::label('name','Nombre *')!!}
     {!!Form::text('name', old('name'), ['class'=>'form-control', 'placeholder'=>'Nombre'])!!}
 </div>
 
 <div class="form-group">
+    <span class="glyphicon glyphicon-sort" aria-hidden="true"></span>
     {!! Form::label('modality', 'Modalidad *')!!}
     @if($action == 'create')
         {!! Form::select('modality', ['Dulce' => 'Dulce', 'Salado' => 'Salado'], null, ['class'=>'form-control'])!!}
@@ -13,30 +15,35 @@
 </div>
 
 <div class="form-group {{ $errors->has('ingredients') ? ' has-error' : '' }}">
+    <span class="glyphicon glyphicon-apple" aria-hidden="true"></span>
     {!!Form::label('ingredients','Ingredientes *')!!}
-    {!!Form::textarea('ingredients', old('ingredients'), ['class'=>'form-control', 'placeholder'=>'Ingredientes'])!!}
+    {!!Form::textarea('ingredients', old('ingredients'), ['class'=>'form-control', 'placeholder'=>'Ingredientes', 'id'=>'sn_ingredients'])!!}
 </div>
 
 <div class="form-group {{ $errors->has('directions') ? ' has-error' : '' }}">
+    <span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span>
     {!!Form::label('directions','Preparación *')!!}
-    {!!Form::textarea('directions', old('preparation'), ['class'=>'form-control', 'placeholder'=>'Preparación'])!!}
+    {!!Form::textarea('directions', old('preparation'), ['class'=>'form-control', 'placeholder'=>'Preparación', 'id'=>'sn_directions'])!!}
 </div>
 
 <div class="form-group">
+    <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
     {!! Form::label('tags', 'Agregue tags de ingredientes principales')!!}
     <ul id="myTags">
-        <li>pollll</li>
+
     </ul>
 </div>
 
 <div class="form-group {{ $errors->has('serves') ? ' has-error' : '' }}">
+    <span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span>
     {!!Form::label('serves','Raciones *')!!}
     {!!Form::number('serves', old('serves'), ['class'=>'form-control', 'placeholder'=>'Raciones '])!!}
 </div>
 
 <div class="form-group">
+    <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
     {!!Form::label('image','Imagen')!!}
-    {!!Form::file('image')!!}
+    {!!Form::file('image', ['class'=>'form-control'])!!}
 </div>
 
 <div class="form-group">
@@ -94,6 +101,14 @@
                     })
                 });
             }
+        });
+
+        $('#sn_ingredients').summernote({
+            height:300,
+        });
+
+        $('#sn_directions').summernote({
+            height:300,
         });
     </script>
 @endsection
@@ -171,6 +186,14 @@
                     })
                 });
             }
+        });
+
+        $('#sn_ingredients').summernote({
+            height:300,
+        });
+
+        $('#sn_directions').summernote({
+            height:300,
         });
     </script>
 @endsection

@@ -22,20 +22,22 @@
                         </tr>
                         <tr>
                             <td><strong>Ingredientes:</strong></td>
-                            <td class="text-justify">{{$recipe->ingredients}}</td>
+                            <td class="text-justify">{!!html_entity_decode($recipe->ingredients)!!}</td>
                         </tr>
                         <tr>
                             <td><strong>Preparación: </strong></td>
-                            <td class="text-justify">{{$recipe->directions}}</td>
+                            <td class="text-justify">{!!html_entity_decode($recipe->directions)!!}</td>
                         </tr>
                         <tr>
                             <td><strong>Raciones:</strong></td>
                             <td class="text-justify">{{$recipe->serves}}</td>
                         </tr>
+                        @if ($recipe->image!=null)
                         <tr>
                             <td><strong>Imagen:</strong></td>
                             <td><img class="img-responsive" src="{{URL::asset($recipe->image)}}" alt=""></td>
                         </tr>
+                        @endif
                     </table>
                 </div>
                 <div class="panel-footer">

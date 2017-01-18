@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+    @include('app.carousel')
     <div class="col-lg-12">
         <h1 class="page-header">Recetas</h1>
     </div>
