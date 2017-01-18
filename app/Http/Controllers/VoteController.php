@@ -116,8 +116,10 @@ class VoteController extends Controller
         {
             try
             {
+                $phase = $this->currentPhase();
+
                 $recipe = Recipe::findOrFail($id);
-                $criteria = Criterion::where('phase', 1)->get();
+                $criteria = Criterion::where('phase', $phase)->get();
                 $scores = [''=>'Puntuación', 0=>0, 1=>1, 2=>2, 3=>3, 4=>4, 5=>5, 6=>6, 7=>7, 8=>8, 9=>9, 10=>10];
 
                 return view ('admin.votes.create', compact('recipe', 'criteria', 'scores'));
@@ -290,5 +292,10 @@ class VoteController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function currentPhase()
+    {
+        return($phase=1);
     }
 }

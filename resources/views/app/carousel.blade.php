@@ -10,19 +10,19 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
         <div class="item active">
-            <img src="../images/slide0.jpg" alt="Chania">
+            <img src="../images/kkoslider2.jpg" alt="Chania">
         </div>
 
         <div class="item">
-            <img src="../images/slide1.jpg" alt="Chania">
+            <img src="../images/kkoslider3.jpg" alt="Chania">
         </div>
 
         <div class="item">
-            <img src="../images/slide0.jpg" alt="Chania">
+            <img src="../images/kkoslider2.jpg" alt="Chania">
         </div>
 
         <div class="item">
-            <img src="../images/slide1.jpg" alt="Chania">
+            <img src="../images/kkoslider3.jpg" alt="Chania">
         </div>
     </div>
 
